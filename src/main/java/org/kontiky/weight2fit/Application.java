@@ -1,6 +1,6 @@
 package org.kontiky.weight2fit;
 
-import com.garmin.fit.*;
+import com.garmin.fit.Manufacturer;
 
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -19,40 +19,11 @@ public class Application {
     public static void main( String[] args ) throws IOException {
         LOG.info("Starting coding...");
 
-        BufferEncoder encoder = new BufferEncoder();
-
-        {
-            FileIdMesg msg = new FileIdMesg();
-            // mandatory fields
-            msg.setType(File.WEIGHT);
-            msg.setManufacturer(Manufacturer.TANITA);
-            msg.setProduct(123);
-            msg.setSerialNumber(4567L);
-
-            encoder.write(msg);
-        }
-
-        {
-            WeightScaleMesg msg = new WeightScaleMesg();
-            // mandatory fields
-            msg.setTimestamp(new DateTime(new Date()));
-            msg.setWeight(82.7f);                   // Weight
-            // other fields
-            msg.setPercentFat(40f);                 // Body Fat
-            msg.setPercentHydration(57f);           // Body Water
-            msg.setVisceralFatMass(50f);
-            msg.setVisceralFatRating((short) 1);    // Visceral Fat
-            msg.setBoneMass(40f);                   // Bone Mass
-            msg.setMuscleMass(30f);                 // Muscle Mass
-            msg.setBasalMet(3000f);
-            msg.setActiveMet(4000f);                // Daily Caloric Intake
-            msg.setPhysiqueRating((short) 2);       // Physique Rating
-            msg.setMetabolicAge((short) 35);        // Metabolic Age
-
-            encoder.write(msg);
-        }
-
-        byte[] buffer = encoder.close();
+        byte[] buffer = new WeightScaleBuilder()
+            .manufacturer(Manufacturer.TANITA)
+            .timestamp(new Date())
+            .weight(83f)
+        .build();
 
         try (FileOutputStream fos = new FileOutputStream(new java.io.File("test.fit"))) {
             fos.write(buffer);
