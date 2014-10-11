@@ -12,21 +12,10 @@ public class WeightScaleBuilder {
         fileIdMesg = new FileIdMesg();
         // mandatory fields
         fileIdMesg.setType(File.WEIGHT);
-        fileIdMesg.setProduct(123);
-        fileIdMesg.setSerialNumber(4567L);
+        fileIdMesg.setProduct(0);
+        fileIdMesg.setSerialNumber(0L);
 
         weightScaleMesg = new WeightScaleMesg();
-        // not mandatory fields
-        weightScaleMesg.setPercentFat(40f);                 // Body Fat
-        weightScaleMesg.setPercentHydration(57f);           // Body Water
-        weightScaleMesg.setVisceralFatMass(50f);
-        weightScaleMesg.setVisceralFatRating((short) 1);    // Visceral Fat
-        weightScaleMesg.setBoneMass(40f);                   // Bone Mass
-        weightScaleMesg.setMuscleMass(30f);                 // Muscle Mass
-        weightScaleMesg.setBasalMet(3000f);
-        weightScaleMesg.setActiveMet(4000f);                // Daily Caloric Intake
-        weightScaleMesg.setPhysiqueRating((short) 2);       // Physique Rating
-        weightScaleMesg.setMetabolicAge((short) 35);        // Metabolic Age
     }
 
     public WeightScaleBuilder manufacturer(int value) {
@@ -41,6 +30,64 @@ public class WeightScaleBuilder {
 
     public WeightScaleBuilder weight(float value) {
         weightScaleMesg.setWeight(value);
+        return this;
+    }
+
+    // Body Fat
+    public WeightScaleBuilder percentFat(float value) {
+        weightScaleMesg.setPercentFat(value);
+        return this;
+    }
+
+    // Body Water
+    public WeightScaleBuilder percentHydration(float value) {
+        weightScaleMesg.setPercentHydration(value);
+        return this;
+    }
+
+    public WeightScaleBuilder visceralFatMass(float value) {
+        weightScaleMesg.setVisceralFatMass(value);
+        return this;
+    }
+
+    // Visceral Fat
+    public WeightScaleBuilder visceralFatRating(int value) {
+        weightScaleMesg.setVisceralFatRating((short) value);
+        return this;
+    }
+
+    // Bone Mass
+    public WeightScaleBuilder boneMass(float value) {
+        weightScaleMesg.setBoneMass(value);
+        return this;
+    }
+
+    // Muscle Mass
+    public WeightScaleBuilder muscleMass(float value) {
+        weightScaleMesg.setMuscleMass(value);
+        return this;
+    }
+
+    public WeightScaleBuilder basalMet(float value) {
+        weightScaleMesg.setBasalMet(value);
+        return this;
+    }
+
+    // Daily Caloric Intake
+    public WeightScaleBuilder activeMet(float value) {
+        weightScaleMesg.setActiveMet(value);
+        return this;
+    }
+
+    // Physique Rating
+    public WeightScaleBuilder physiqueRating(int value) {
+        weightScaleMesg.setPhysiqueRating((short) value);
+        return this;
+    }
+
+    // Metabolic Age
+    public WeightScaleBuilder metabolicAge(int value) {
+        weightScaleMesg.setMetabolicAge((short) value);
         return this;
     }
 

@@ -9,6 +9,10 @@ import java.util.Date;
 
 import static org.junit.Assert.assertTrue;
 
+/**
+ * TODO check reusability
+ * TODO check mandatory fields absents more
+ */
 public class WeightScaleBuilderTest {
 
     @Test(expected = IllegalStateException.class)
