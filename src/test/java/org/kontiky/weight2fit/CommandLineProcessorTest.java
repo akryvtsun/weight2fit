@@ -9,6 +9,12 @@ import static org.junit.Assert.assertEquals;
 
 public class CommandLineProcessorTest {
 
+    @Test(expected = IllegalArgumentException.class)
+    public void illegalParam() throws ParseException {
+        CommandLineProcessor processor = new CommandLineProcessor();
+        processor.parse("-weight 82.5  -timestamp 2014-10-03  -errorParam  -out res.fit");
+    }
+
     @Test
     public void baseParametersParsing() throws ParseException {
         CommandLineProcessor processor = new CommandLineProcessor();

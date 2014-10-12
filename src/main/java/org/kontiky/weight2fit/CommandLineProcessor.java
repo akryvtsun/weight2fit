@@ -6,6 +6,7 @@ import java.util.Date;
 
 /**
  * TODO add time support (params with spaces screening)
+ * TODO create command-line usage string
  * TODO create parser exception instead of ParseException
  */
 public class CommandLineProcessor {
@@ -21,7 +22,8 @@ public class CommandLineProcessor {
 
     public void parse(String... args) throws ParseException {
         for (int i = 0; i < args.length;) {
-            switch (args[i++]) {
+            String param = args[i++];
+            switch (param) {
                 case "-timestamp":
                     timestamp = DATE_FORMAT.parse(args[i++]);
                     break;
@@ -31,6 +33,8 @@ public class CommandLineProcessor {
                 case "-out":
                     outFileName = args[i++];
                     break;
+                default:
+                    throw new IllegalArgumentException("Unknown argument: " + param);
             }
         }
     }
