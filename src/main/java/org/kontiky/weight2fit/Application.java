@@ -2,9 +2,8 @@ package org.kontiky.weight2fit;
 
 import com.garmin.fit.Manufacturer;
 
+import java.io.File;
 import java.io.FileOutputStream;
-import java.io.IOException;
-import java.util.Date;
 import java.util.logging.Logger;
 
 /**
@@ -16,16 +15,20 @@ import java.util.logging.Logger;
 public class Application {
     private static final Logger LOG = Logger.getLogger(Application.class.getName());
 
-    public static void main( String[] args ) throws IOException {
+    public static void main(String... args) throws Exception {
         LOG.info("Starting coding...");
+
+        CommandLineProcessor processor = new CommandLineProcessor();
+        processor.parse(args);
 
         byte[] buffer = new WeightScaleBuilder()
             .manufacturer(Manufacturer.TANITA)
-            .timestamp(new Date())
-            .weight(83f)
+            .timestamp(processor.getTimestamp())
+            .weight(processor.getWeight())
         .build();
 
-        try (FileOutputStream fos = new FileOutputStream(new java.io.File("test.fit"))) {
+        File file = new File(processor.getOutFileName());
+        try (FileOutputStream fos = new FileOutputStream(file)) {
             fos.write(buffer);
         }
 
