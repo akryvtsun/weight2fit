@@ -11,6 +11,7 @@ import java.util.logging.Logger;
  * http://jmfloreszazo.com/scale2fi
  * https://github.com/marchibbins/fit-weight-scale
  * http://connect.garmin.com/health
+ * http://www.thisisant.com/resources/fit/
  */
 public class Application {
     private static final Logger LOG = Logger.getLogger(Application.class.getName());
