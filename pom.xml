@@ -19,7 +19,7 @@
         <repository>
             <id>in-project</id>
             <name>In Project Repo</name>
-            <url>file://${project.basedir}/lib</url>
+            <url>file:${project.basedir}/repo</url>
         </repository>
     </repositories>
 
@@ -43,7 +43,7 @@
         <dependency>
             <groupId>com.garmin</groupId>
             <artifactId>fit-sdk</artifactId>
-            <version>12.20</version>
+            <version>14.20</version>
         </dependency>
 
         <dependency>
