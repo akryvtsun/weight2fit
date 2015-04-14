@@ -1,4 +1,4 @@
-package org.kontiky.weight2fit;
+package org.weight2fit.infra;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;

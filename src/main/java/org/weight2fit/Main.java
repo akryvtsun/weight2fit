@@ -1,6 +1,8 @@
-package org.kontiky.weight2fit;
+package org.weight2fit;
 
 import com.garmin.fit.Manufacturer;
+import org.weight2fit.infra.CommandLineProcessor;
+import org.weight2fit.infra.WeightScaleBuilder;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -8,13 +10,13 @@ import java.util.logging.Logger;
 
 /**
  * https://forums.garmin.com/showthread.php?24518-Import-of-Withings-wifi-scale-data-now-possible
- * http://jmfloreszazo.com/scale2fi
+ * http://jmfloreszazo.com/scale2fit
  * https://github.com/marchibbins/fit-weight-scale
  * http://connect.garmin.com/health
- * http://www.thisisant.com/resources/fit/
+ * http://www.thisisant.com/resources/fit
  */
-public class Application {
-    private static final Logger LOG = Logger.getLogger(Application.class.getName());
+public class Main {
+    private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
     public static void main(String... args) throws Exception {
         LOG.info("Starting coding...");

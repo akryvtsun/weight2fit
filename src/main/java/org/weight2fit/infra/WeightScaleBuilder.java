@@ -1,4 +1,4 @@
-package org.kontiky.weight2fit;
+package org.weight2fit.infra;
 
 import com.garmin.fit.*;
 

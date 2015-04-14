@@ -1,4 +1,4 @@
-package org.kontiky.weight2fit;
+package org.weight2fit;
 
 import org.junit.Test;
 
@@ -7,7 +7,7 @@ import static org.junit.Assert.assertTrue;
 /**
  * Unit test for simple Application.
  */
-public class ApplicationTest {
+public class MainTest {
 
     @Test
     public void testApp() {
