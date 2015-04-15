@@ -1,24 +1,24 @@
 package org.weight2fit.infra;
 
-import com.garmin.fit.Manufacturer;
 import org.apache.commons.cli.*;
-import org.weight2fit.domain.Parameters;
-import org.weight2fit.domain.ParametersHolder;
-import org.weight2fit.domain.ParametersService;
+import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.FitParamsSupplier;
 
 import java.text.SimpleDateFormat;
 
 /**
- * @author Andriy Kryvtsun
+ * Created by englishman on 4/15/15.
  */
-public class CmdLineParametersService implements ParametersService {
+public class CmdLineParamsSupplier implements FitParamsSupplier {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private final String[] args;
     private final Options options;
 
-    public CmdLineParametersService(String... args) {
+    private CommandLine line;
+
+    public CmdLineParamsSupplier(String... args) {
         this.args = args;
 
         Option timestamp = OptionBuilder.withArgName("date")
@@ -42,27 +42,41 @@ public class CmdLineParametersService implements ParametersService {
     }
 
     @Override
-    public ParametersHolder getParameters() throws Exception {
-        CommandLineParser parser = new BasicParser();
-        CommandLine line = parser.parse(options, args);
+    public FitParams get() throws Exception {
+        checkCommandLine();
 
-        ParametersHolder holder = new ParametersHolder();
+        FitParams.Builder builder = FitParams.Builder.create();
 
         if (line.hasOption("timestamp")) {
             String value = line.getOptionValue("timestamp");
-            holder.put(Parameters.TIMESTEMP, DATE_FORMAT.parse(value));
+            builder.withTimestamp(DATE_FORMAT.parse(value));
         }
 
         if (line.hasOption("weight")) {
             String value = line.getOptionValue("weight");
-            holder.put(Parameters.WEIGHT, Double.valueOf(value));
+            builder.withWeight(Double.valueOf(value));
         }
+
+        return builder.build();
+    }
+
+    public String getFileName() throws Exception {
+        checkCommandLine();
+
+        String fineName = null;
 
         if (line.hasOption("out")) {
             String value = line.getOptionValue("out");
-            holder.put(Parameters.OUT, value);
+            fineName = value;
         }
 
-        return holder;
+        return fineName;
+    }
+
+    private void checkCommandLine() throws ParseException {
+        if (line == null) {
+            CommandLineParser parser = new BasicParser();
+            line = parser.parse(options, args);
+        }
     }
 }
