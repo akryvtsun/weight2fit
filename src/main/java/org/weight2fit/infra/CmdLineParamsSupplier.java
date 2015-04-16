@@ -5,13 +5,17 @@ import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
 import java.text.SimpleDateFormat;
+import java.util.logging.Logger;
 
 /**
  * FIT parameters reader from command line.
  *
  * @author Andiry Kryvtsun
  */
+// TODO use more useful CLI library
 public class CmdLineParamsSupplier implements FitParamsSupplier {
+
+    private static final Logger LOG = Logger.getLogger(CmdLineParamsSupplier.class.getName());
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -94,9 +98,6 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         options.addOption(metabolicAge);
 
         options.addOption(out);
-
-        HelpFormatter formatter = new HelpFormatter();
-        formatter.printHelp("ant", options);
     }
 
     @Override
@@ -171,10 +172,17 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return fineName;
     }
 
-    private void checkCommandLine() throws ParseException {
+    private void checkCommandLine() {
         if (line == null) {
             CommandLineParser parser = new BasicParser();
-            line = parser.parse(options, args);
+            try {
+                line = parser.parse(options, args);
+            } catch (ParseException e) {
+                LOG.warning(e.getLocalizedMessage());
+
+                HelpFormatter formatter = new HelpFormatter();
+                formatter.printHelp("weight2fit", options);
+            }
         }
     }
 }

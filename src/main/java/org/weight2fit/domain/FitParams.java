@@ -9,6 +9,7 @@ import java.util.Date;
  *
  * @author Andriy Kryvtsun
  */
+// TODO make support for different FIT parameters' sets
 public class FitParams {
 
     private Date timestamp;
