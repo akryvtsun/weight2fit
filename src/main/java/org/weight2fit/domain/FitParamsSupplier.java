@@ -1,7 +1,9 @@
 package org.weight2fit.domain;
 
 /**
- * Created by englishman on 4/15/15.
+ * Interface for FIT parameters producers.
+ *
+ * @author Andriy Kryvtsun
  */
 public interface FitParamsSupplier {
 

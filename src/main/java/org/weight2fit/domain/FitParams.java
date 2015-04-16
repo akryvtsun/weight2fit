@@ -3,7 +3,11 @@ package org.weight2fit.domain;
 import java.util.Date;
 
 /**
- * Created by englishman on 4/15/15.
+ * Tanita Inner Scan FIT parameters holder.
+ *
+ * @see <a href="http://www.tanita.com/en/bc533">BC-533 InnerScan Body Composition Monitor<a/>
+ *
+ * @author Andriy Kryvtsun
  */
 public class FitParams {
 
@@ -22,22 +26,47 @@ public class FitParams {
         return timestamp;
     }
 
+    /**
+     * Weight in lb, kg or st/lb
+     *
+     * @return
+     */
     public double getWeight() {
         return weight;
     }
 
+    /**
+     * Body Fat in %
+     *
+     * @return
+     */
     public double getBodyFat() {
         return bodyFat;
     }
 
+    /**
+     * Total Body Water in %
+     *
+     * @return
+     */
     public double getBodyWater() {
         return bodyWater;
     }
 
+    /**
+     * Visceral Fat in %
+     *
+     * @return
+     */
     public int getVisceralFat() {
         return visceralFat;
     }
 
+    /**
+     * Muscle Mass in lb, kg or st/lb
+     *
+     * @return
+     */
     public double getMuscleMass() {
         return muscleMass;
     }
@@ -46,10 +75,20 @@ public class FitParams {
         return physiqueRating;
     }
 
+    /**
+     * Bone Mass in lb, kg or st/lb
+     *
+     * @return
+     */
     public double getBoneMass() {
         return boneMass;
     }
 
+    /**
+     * Daily Calorie Intake
+     *
+     * @return
+     */
     public int getDCI() {
         return dailyCalorieIntake;
     }
