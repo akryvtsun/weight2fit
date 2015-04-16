@@ -14,6 +14,7 @@ import java.util.logging.Logger;
  * @author Andriy Kryvtsun
  */
 // TODO add informative logging everywhere
+// TODO add internalization (in GUI)
 public class Main {
 
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
