@@ -4,6 +4,11 @@ import com.garmin.fit.*;
 
 import java.util.Date;
 
+/**
+ * Weight FIT parameters assembler.
+ *
+ * @author Andriy Kryvtsun
+ */
 public class WeightScaleBuilder {
     private final FileIdMesg fileIdMesg;
     private final WeightScaleMesg weightScaleMesg;

@@ -13,6 +13,8 @@ import java.util.logging.Logger;
  * https://github.com/marchibbins/fit-weight-scale
  * http://connect.garmin.com/health
  * http://www.thisisant.com/resources/fit
+ *
+ * @author Andriy Kryvtsun
  */
 public class Main {
     private static final Logger LOG = Logger.getLogger(Main.class.getName());

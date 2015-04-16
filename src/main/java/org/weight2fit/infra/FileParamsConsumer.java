@@ -8,7 +8,9 @@ import java.io.File;
 import java.io.FileOutputStream;
 
 /**
- * Created by englishman on 4/15/15.
+ * FIT parameters writer to file.
+ *
+ * @author Andiry Kryvtsun
  */
 public class FileParamsConsumer implements FitParamsConsumer {
 
@@ -26,6 +28,14 @@ public class FileParamsConsumer implements FitParamsConsumer {
 
         builder.timestamp(params.getTimestamp());
         builder.weight(params.getWeight());
+        builder.percentFat(params.getBodyFat());
+        builder.percentHydration(params.getBodyWater());
+        builder.visceralFatRating(params.getVisceralFat());
+        builder.muscleMass(params.getMuscleMass());
+        builder.physiqueRating(params.getPhysiqueRating());
+        builder.boneMass(params.getBoneMass());
+        builder.activeMet(params.getDCI());
+        builder.metabolicAge(params.getMetabolicAge());
 
         byte[] buffer = builder.build();
 
