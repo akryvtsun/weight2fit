@@ -45,7 +45,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     public FitParams get() throws Exception {
         checkCommandLine();
 
-        FitParams.Builder builder = FitParams.Builder.create();
+        FitParams.Builder builder = new FitParams.Builder();
 
         if (line.hasOption("timestamp")) {
             String value = line.getOptionValue("timestamp");
