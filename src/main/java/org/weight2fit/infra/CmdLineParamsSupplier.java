@@ -27,77 +27,18 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     public CmdLineParamsSupplier(String... args) {
         this.args = args;
 
-        Option timestamp = OptionBuilder
-                .isRequired()
-                .hasArg()
-                .withArgName("date")
-                .create("timestamp");
-
-        Option weight = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("weight");
-
-        Option bodyFat = OptionBuilder
-                .hasArg()
-                .withArgName("percentage")
-                .create("bodyFat");
-
-        Option bodyWater = OptionBuilder
-                .hasArg()
-                .withArgName("percentage")
-                .create("bodyWater");
-
-        Option visceralFat = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("visceralFat");
-
-        Option muscleMass = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("muscleMass");
-
-        Option physiqueRating = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("physiqueRating");
-
-        Option boneMass = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("boneMass");
-
-        Option dailyCalorieIntake = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("dailyCalorieIntake");
-
-        Option metabolicAge = OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("metabolicAge");
-
-        Option out = OptionBuilder
-                .isRequired()
-                .hasArg()
-                .withArgName("file")
-                .create("out");
-
         options = new Options();
-        options.addOption(timestamp);
-
-        options.addOption(weight);
-        options.addOption(bodyFat);
-        options.addOption(bodyWater);
-        options.addOption(visceralFat);
-        options.addOption(muscleMass);
-        options.addOption(physiqueRating);
-        options.addOption(boneMass);
-        options.addOption(dailyCalorieIntake);
-        options.addOption(metabolicAge);
-
-        options.addOption(out);
+        options.addOption(createTimeStampOption());
+        options.addOption(createWeightOption());
+        options.addOption(createBodyFatOption());
+        options.addOption(createBodyWaterOption());
+        options.addOption(createVisceralFatOption());
+        options.addOption(createMuscleMassOption());
+        options.addOption(createPhysiqueRatingOption());
+        options.addOption(createBoneMassOption());
+        options.addOption(createDailyCalorieIntakeOption());
+        options.addOption(createMetabolicAgeOption());
+        options.addOption(createOutOption());
     }
 
     @Override
@@ -170,6 +111,85 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         }
 
         return fineName;
+    }
+
+    private Option createOutOption() {
+        return OptionBuilder
+                .isRequired()
+                .hasArg()
+                .withArgName("file")
+                .create("out");
+    }
+
+    private Option createMetabolicAgeOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("metabolicAge");
+    }
+
+    private Option createDailyCalorieIntakeOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("dailyCalorieIntake");
+    }
+
+    private Option createBoneMassOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("boneMass");
+    }
+
+    private Option createPhysiqueRatingOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("physiqueRating");
+    }
+
+    private Option createMuscleMassOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("muscleMass");
+    }
+
+    private Option createVisceralFatOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("visceralFat");
+    }
+
+    private Option createBodyWaterOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("percentage")
+                .create("bodyWater");
+    }
+
+    private Option createBodyFatOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("percentage")
+                .create("bodyFat");
+    }
+
+    private Option createWeightOption() {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create("weight");
+    }
+
+    private Option createTimeStampOption() {
+        return OptionBuilder
+                .isRequired()
+                .hasArg()
+                .withArgName("date")
+                .create("timestamp");
     }
 
     private void checkCommandLine() {
