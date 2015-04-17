@@ -5,7 +5,6 @@ import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
 import java.text.SimpleDateFormat;
-import java.util.logging.Logger;
 
 /**
  * FIT parameters reader from command line.
@@ -13,15 +12,14 @@ import java.util.logging.Logger;
  * @author Andiry Kryvtsun
  */
 // TODO use more useful CLI library
+// TODO use short command line acronyms
 public class CmdLineParamsSupplier implements FitParamsSupplier {
-
-    private static final Logger LOG = Logger.getLogger(CmdLineParamsSupplier.class.getName());
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
     private CommandLine line;
 
-    public CmdLineParamsSupplier(String... args) {
+    public CmdLineParamsSupplier(String... args) throws ParseException {
         Options options = new Options();
         options.addOption(createTimeStampOption());
         options.addOption(createValueOption("weight"));
@@ -39,17 +37,15 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         try {
             line = parser.parse(options, args);
         } catch (ParseException e) {
-            LOG.warning(e.getMessage());
-
             HelpFormatter formatter = new HelpFormatter();
             formatter.printHelp("weight2fit", options);
+
+            throw e;
         }
     }
 
     @Override
     public FitParams get() throws Exception {
-        if (line == null)
-            return null;
 
         final FitParams.Builder builder = new FitParams.Builder();
 
@@ -107,9 +103,6 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     }
 
     public String getFileName() {
-        if (line == null)
-            return null;
-
         String fineName = null;
 
         if (line.hasOption("out")) {
@@ -124,7 +117,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return OptionBuilder
                 .isRequired()
                 .hasArg()
-                .withArgName("date")
+                .withArgName(DATE_FORMAT.toPattern())
                 .create("timestamp");
     }
 

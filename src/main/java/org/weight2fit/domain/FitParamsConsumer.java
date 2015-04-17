@@ -7,5 +7,11 @@ package org.weight2fit.domain;
  */
 public interface FitParamsConsumer {
 
+    /**
+     * Consumes FIT options set.
+     *
+     * @param params  FIT options set
+     * @throws Exception  if something was wrong during options set consuming
+     */
     public void accept(FitParams params) throws Exception;
 }

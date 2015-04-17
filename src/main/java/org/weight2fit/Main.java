@@ -19,12 +19,12 @@ public class Main {
 
     private static final Logger LOG = Logger.getLogger(Main.class.getName());
 
-    public static void main(String... args) throws Exception {
+    public static void main(String... args) {
 
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+        try {
+            CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
 
-        FitParams params = supplier.get();
-        if (params != null) {
+            FitParams params = supplier.get();
             String fileName = supplier.getFileName();
 
             FitParamsConsumer consumer = new FileParamsConsumer(fileName);
@@ -32,8 +32,8 @@ public class Main {
 
             LOG.info("FIT file " + fileName + " was created");
         }
-        else {
-            LOG.info("FIT file wasn't created");
+        catch(Exception e) {
+            LOG.severe(e.getMessage());
         }
     }
 }

@@ -10,7 +10,7 @@ public interface FitParamsSupplier {
     /**
      * Returns FIT options set.
      *
-     * @return  FIT options set of <code>null<code/> if set couldn't be created.
+     * @return  FIT options set
      * @throws Exception  if something was wrong during options set creation
      */
     public FitParams get() throws Exception;
