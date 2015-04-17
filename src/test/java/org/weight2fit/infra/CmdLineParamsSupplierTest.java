@@ -13,6 +13,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class CmdLineParamsSupplierTest {
 
+    public static final double DELTA = 0.01;
+
     @Test(expected = ParseException.class)
     public void CmdLineParamsSupplier_emptyArgsSet_ParseException() throws Exception {
         new CmdLineParamsSupplier(null);
@@ -47,7 +49,7 @@ public class CmdLineParamsSupplierTest {
         FitParams params = supplier.get();
 
         assertEquals(new Date(2015-1900, 04-1, 17), params.getTimestamp());
-        assertEquals(85.5, params.getWeight(), 0.01);
+        assertEquals(85.5, params.getWeight(), DELTA);
         assertEquals("res.fit", supplier.getFileName());
     }
 
@@ -69,13 +71,13 @@ public class CmdLineParamsSupplierTest {
         FitParams params = supplier.get();
 
         assertEquals(new Date(2015-1900, 04-1, 17), params.getTimestamp());
-        assertEquals(85.5, params.getWeight(), 0.01);
-        assertEquals(40, params.getBodyFat(), 0.01);
-        assertEquals(55, params.getBodyWater(), 0.01);
+        assertEquals(85.5, params.getWeight(), DELTA);
+        assertEquals(40, params.getBodyFat(), DELTA);
+        assertEquals(55, params.getBodyWater(), DELTA);
         assertEquals(7, params.getVisceralFat());
-        assertEquals(20, params.getMuscleMass(), 0.01);
+        assertEquals(20, params.getMuscleMass(), DELTA);
         assertEquals(7, params.getPhysiqueRating());
-        assertEquals(30, params.getBoneMass(), 0.01);
+        assertEquals(30, params.getBoneMass(), DELTA);
         assertEquals(3030, params.getDCI());
         assertEquals(40, params.getMetabolicAge());
         assertEquals("res.fit", supplier.getFileName());
