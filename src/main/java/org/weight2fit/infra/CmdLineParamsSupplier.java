@@ -24,15 +24,15 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     public CmdLineParamsSupplier(String... args) {
         Options options = new Options();
         options.addOption(createTimeStampOption());
-        options.addOption(createWeightOption());
-        options.addOption(createBodyFatOption());
-        options.addOption(createBodyWaterOption());
-        options.addOption(createVisceralFatOption());
-        options.addOption(createMuscleMassOption());
-        options.addOption(createPhysiqueRatingOption());
-        options.addOption(createBoneMassOption());
-        options.addOption(createDailyCalorieIntakeOption());
-        options.addOption(createMetabolicAgeOption());
+        options.addOption(createValueOption("weight"));
+        options.addOption(createPercentageOption("bodyFat"));
+        options.addOption(createPercentageOption("bodyWater"));
+        options.addOption(createValueOption("visceralFat"));
+        options.addOption(createValueOption("muscleMass"));
+        options.addOption(createValueOption("physiqueRating"));
+        options.addOption(createValueOption("boneMass"));
+        options.addOption(createValueOption("dailyCalorieIntake"));
+        options.addOption(createValueOption("metabolicAge"));
         options.addOption(createOutOption());
 
         CommandLineParser parser = new BasicParser();
@@ -51,7 +51,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         if (line == null)
             return null;
 
-        FitParams.Builder builder = new FitParams.Builder();
+        final FitParams.Builder builder = new FitParams.Builder();
 
         if (line.hasOption("timestamp")) {
             String value = line.getOptionValue("timestamp");
@@ -120,82 +120,33 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return fineName;
     }
 
-    private Option createOutOption() {
-        return OptionBuilder
-                .isRequired()
-                .hasArg()
-                .withArgName("file")
-                .create("out");
-    }
-
-    private Option createMetabolicAgeOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("metabolicAge");
-    }
-
-    private Option createDailyCalorieIntakeOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("dailyCalorieIntake");
-    }
-
-    private Option createBoneMassOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("boneMass");
-    }
-
-    private Option createPhysiqueRatingOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("physiqueRating");
-    }
-
-    private Option createMuscleMassOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("muscleMass");
-    }
-
-    private Option createVisceralFatOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("visceralFat");
-    }
-
-    private Option createBodyWaterOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("percentage")
-                .create("bodyWater");
-    }
-
-    private Option createBodyFatOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("percentage")
-                .create("bodyFat");
-    }
-
-    private Option createWeightOption() {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create("weight");
-    }
-
     private Option createTimeStampOption() {
         return OptionBuilder
                 .isRequired()
                 .hasArg()
                 .withArgName("date")
                 .create("timestamp");
+    }
+
+    private Option createValueOption(String name) {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("value")
+                .create(name);
+    }
+
+    private Option createPercentageOption(String name) {
+        return OptionBuilder
+                .hasArg()
+                .withArgName("percentage")
+                .create(name);
+    }
+
+    private Option createOutOption() {
+        return OptionBuilder
+                .isRequired()
+                .hasArg()
+                .withArgName("file")
+                .create("out");
     }
 }
