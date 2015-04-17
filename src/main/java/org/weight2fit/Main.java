@@ -24,11 +24,16 @@ public class Main {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
 
         FitParams params = supplier.get();
-        String fileName = supplier.getFileName();
+        if (params != null) {
+            String fileName = supplier.getFileName();
 
-        FitParamsConsumer consumer = new FileParamsConsumer(fileName);
-        consumer.accept(params);
+            FitParamsConsumer consumer = new FileParamsConsumer(fileName);
+            consumer.accept(params);
 
-        LOG.info("FIT file " + fileName + " was written");
+            LOG.info("FIT file " + fileName + " was created");
+        }
+        else {
+            LOG.info("FIT file wasn't created");
+        }
     }
 }

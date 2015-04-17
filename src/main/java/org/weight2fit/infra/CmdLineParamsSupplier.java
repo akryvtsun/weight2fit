@@ -19,15 +19,10 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
 
-    private final String[] args;
-    private final Options options;
-
     private CommandLine line;
 
     public CmdLineParamsSupplier(String... args) {
-        this.args = args;
-
-        options = new Options();
+        Options options = new Options();
         options.addOption(createTimeStampOption());
         options.addOption(createWeightOption());
         options.addOption(createBodyFatOption());
@@ -39,11 +34,22 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         options.addOption(createDailyCalorieIntakeOption());
         options.addOption(createMetabolicAgeOption());
         options.addOption(createOutOption());
+
+        CommandLineParser parser = new BasicParser();
+        try {
+            line = parser.parse(options, args);
+        } catch (ParseException e) {
+            LOG.warning(e.getMessage());
+
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("weight2fit", options);
+        }
     }
 
     @Override
     public FitParams get() throws Exception {
-        checkCommandLine();
+        if (line == null)
+            return null;
 
         FitParams.Builder builder = new FitParams.Builder();
 
@@ -100,8 +106,9 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return builder.build();
     }
 
-    public String getFileName() throws Exception {
-        checkCommandLine();
+    public String getFileName() {
+        if (line == null)
+            return null;
 
         String fineName = null;
 
@@ -190,19 +197,5 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
                 .hasArg()
                 .withArgName("date")
                 .create("timestamp");
-    }
-
-    private void checkCommandLine() {
-        if (line == null) {
-            CommandLineParser parser = new BasicParser();
-            try {
-                line = parser.parse(options, args);
-            } catch (ParseException e) {
-                LOG.warning(e.getLocalizedMessage());
-
-                HelpFormatter formatter = new HelpFormatter();
-                formatter.printHelp("weight2fit", options);
-            }
-        }
     }
 }
