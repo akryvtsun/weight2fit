@@ -23,6 +23,8 @@ public class FitParams {
     private int dailyCalorieIntake;
     private int metabolicAge;
 
+    private FitParams() {}
+
     public Date getTimestamp() {
         return timestamp;
     }
