@@ -13,7 +13,8 @@ import static org.junit.Assert.assertEquals;
  */
 public class CmdLineParamsSupplierTest {
 
-    public static final double DELTA = 0.01;
+    public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
+    public static final double DELTA = 0.001;
 
     @Test(expected = ParseException.class)
     public void CmdLineParamsSupplier_emptyArgsSet_ParseException() throws Exception {
@@ -31,7 +32,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(new Date(2015-1900, 04-1, 17), params.getTimestamp());
+        assertEquals(DATE, params.getTimestamp());
         assertEquals("res.fit", supplier.getFileName());
     }
 
@@ -48,7 +49,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(new Date(2015-1900, 04-1, 17), params.getTimestamp());
+        assertEquals(DATE, params.getTimestamp());
         assertEquals(85.5, params.getWeight(), DELTA);
         assertEquals("res.fit", supplier.getFileName());
     }
@@ -70,7 +71,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(new Date(2015-1900, 04-1, 17), params.getTimestamp());
+        assertEquals(DATE, params.getTimestamp());
         assertEquals(85.5, params.getWeight(), DELTA);
         assertEquals(40, params.getBodyFat(), DELTA);
         assertEquals(55, params.getBodyWater(), DELTA);
