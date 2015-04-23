@@ -20,6 +20,20 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private CommandLine line;
 
     public CmdLineParamsSupplier(String... args) throws ParseException {
+        CommandLineParser parser = new BasicParser();
+        Options options = createOptions();
+
+        try {
+            line = parser.parse(options, args);
+        } catch (ParseException e) {
+            HelpFormatter formatter = new HelpFormatter();
+            formatter.printHelp("weight2fit", options);
+
+            throw e;
+        }
+    }
+
+    private Options createOptions() {
         Options options = new Options();
         options.addOption(createTimeStampOption());
         options.addOption(createValueOption("weight"));
@@ -32,16 +46,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         options.addOption(createValueOption("dailyCalorieIntake"));
         options.addOption(createValueOption("metabolicAge"));
         options.addOption(createOutOption());
-
-        CommandLineParser parser = new BasicParser();
-        try {
-            line = parser.parse(options, args);
-        } catch (ParseException e) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.printHelp("weight2fit", options);
-
-            throw e;
-        }
+        return options;
     }
 
     @Override
