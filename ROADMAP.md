@@ -1,10 +1,9 @@
 Roadmap
 =======
 
-* review FitSDK weight message structure
+* add and use Google Guava
+* review Fit SDK weight message structure
 * improve OutputStreamParamsConsumerTest
-    * add Google Guava
-    * create WeightScaleInputStreamMatcher 
 * rework FitParams to support different params set
     * add unit test
 * change current Apache CI to something more flexible
