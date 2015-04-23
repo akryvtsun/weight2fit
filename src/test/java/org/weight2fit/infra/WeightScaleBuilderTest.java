@@ -15,7 +15,7 @@ import static org.junit.Assert.assertTrue;
  */
 public class WeightScaleBuilderTest {
 
-    @Test(expected = IllegalStateException.class)
+    @Test(expected = NullPointerException.class)
     public void absentsMandatoryFields() {
         new WeightScaleBuilder().build();
     }

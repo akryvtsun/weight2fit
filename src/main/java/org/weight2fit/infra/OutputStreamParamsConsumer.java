@@ -6,6 +6,8 @@ import org.weight2fit.domain.FitParamsConsumer;
 
 import java.io.OutputStream;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * @author Andriy Kryvtsun
  */
@@ -14,10 +16,7 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
     private final OutputStream os;
 
     public OutputStreamParamsConsumer(OutputStream os) {
-        if (os == null)
-            throw new IllegalArgumentException("OutputStream must be not null");
-
-        this.os = os;
+        this.os = checkNotNull(os, "OutputStream must be not null");
     }
 
     @Override

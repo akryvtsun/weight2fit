@@ -17,8 +17,8 @@ import static org.junit.Assert.assertTrue;
  */
 public class OutputStreamParamsConsumerTest {
 
-    @Test(expected = IllegalArgumentException.class)
-    public void OutputStreamParamsConsumer_nullArgument_IllegalArgumentException() {
+    @Test(expected = NullPointerException.class)
+    public void OutputStreamParamsConsumer_nullArgument_NullPointerException() {
         new OutputStreamParamsConsumer(null);
     }
 

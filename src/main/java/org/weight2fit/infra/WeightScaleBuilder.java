@@ -4,6 +4,8 @@ import com.garmin.fit.*;
 
 import java.util.Date;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * Weight FIT parameters assembler.
  *
@@ -132,18 +134,12 @@ public class WeightScaleBuilder {
     }
 
     private void checkMandatoryFields() {
-        if (fileIdMesg.getType() == null)
-            throw new IllegalStateException("Field Type is absent");
-        if (fileIdMesg.getManufacturer() == null)
-            throw new IllegalStateException("Field Manufacturer is absent");
-        if (fileIdMesg.getProduct() == null)
-            throw new IllegalStateException("Field Product is absent");
-        if (fileIdMesg.getSerialNumber() == null)
-            throw new IllegalStateException("Field SerialNumber is absent");
+        checkNotNull(fileIdMesg.getType(), "Field Type is absent");
+        checkNotNull(fileIdMesg.getManufacturer(), "Field Manufacturer is absent");
+        checkNotNull(fileIdMesg.getProduct(), "Field Product is absent");
+        checkNotNull(fileIdMesg.getSerialNumber(), "Field SerialNumber is absent");
 
-        if (weightScaleMesg.getTimestamp() == null)
-            throw new IllegalStateException("Field Timestamp is absent");
-        if (weightScaleMesg.getWeight() == null)
-            throw new IllegalStateException("Field Weight is absent");
+        checkNotNull(weightScaleMesg.getTimestamp(), "Field Timestamp is absent");
+        checkNotNull(weightScaleMesg.getWeight(), "Field Weight is absent");
     }
 }

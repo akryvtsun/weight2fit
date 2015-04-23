@@ -1,7 +1,6 @@
 Roadmap
 =======
 
-* add and use Google Guava
 * review Fit SDK weight message structure
 * improve OutputStreamParamsConsumerTest
 * rework FitParams to support different params set
