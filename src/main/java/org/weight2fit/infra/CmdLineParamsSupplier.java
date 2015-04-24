@@ -28,6 +28,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
             line = parser.parse(options, args);
         } catch (ParseException e) {
             HelpFormatter formatter = new HelpFormatter();
+            formatter.setWidth(Integer.MAX_VALUE);
             formatter.printHelp("weight2fit", options);
 
             throw e;
@@ -131,6 +132,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return OptionBuilder
                 .hasArg()
                 .withArgName("value")
+                .withDescription("long description on the value")
+                .withLongOpt("thisISLongOPiton")
                 .create(name);
     }
 
