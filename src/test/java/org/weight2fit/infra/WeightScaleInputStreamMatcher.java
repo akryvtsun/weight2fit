@@ -36,7 +36,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
      */
     private static class WeightScaleStreamValidator implements MesgListener {
         private int fieldIdCount = 0;
-        private int weightScaleCount = 0;
+        private boolean weightScaleMesgsPresent = false;
         private boolean areOnlyAllowedMesgNums = true;
 
         @Override
@@ -47,7 +47,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
                     break;
                 case MesgNum.USER_PROFILE: break;
                 case MesgNum.WEIGHT_SCALE:
-                    weightScaleCount++;
+                    weightScaleMesgsPresent = true;
                     break;
                 case MesgNum.DEVICE_INFO: break;
                 default:
@@ -56,8 +56,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
         }
 
         boolean isValid() {
-            return fieldIdCount == 1 &&
-                   weightScaleCount >= 1 &&
+            return fieldIdCount == 1 && weightScaleMesgsPresent &&
                    areOnlyAllowedMesgNums;
         }
     }
