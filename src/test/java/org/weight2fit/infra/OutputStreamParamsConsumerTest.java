@@ -2,6 +2,7 @@ package org.weight2fit.infra;
 
 import com.garmin.fit.Decode;
 import org.junit.Test;
+import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 
@@ -35,6 +36,6 @@ public class OutputStreamParamsConsumerTest {
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
-        assertThat(new ByteArrayInputStream(buffer), new WeightScaleInputStreamMatcher());
+        assertThat(new ByteArrayInputStream(buffer), new WeightScaleInputStreamMatcher(FitFields.TIMESTAMP));
     }
 }
