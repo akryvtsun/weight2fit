@@ -25,9 +25,9 @@ public class OutputStreamParamsConsumerTest {
 
     @Test
     public void accept_minimumFields_ok() throws Exception {
-        FitParams params = new FitParams.Builder()
-                .withTimestamp(new Date())
-                .build();
+        FitParams params = new FitParams();
+        params.setValue(FitFields.TIMESTAMP, new Date());
+        params.setValue(FitFields.WEIGHT, 80.5);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         FitParamsConsumer consumer = new OutputStreamParamsConsumer(os);
@@ -36,6 +36,6 @@ public class OutputStreamParamsConsumerTest {
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
-        assertThat(new ByteArrayInputStream(buffer), new WeightScaleInputStreamMatcher(FitFields.TIMESTAMP));
+        assertThat(new ByteArrayInputStream(buffer), new WeightScaleInputStreamMatcher(FitFields.TIMESTAMP, FitFields.WEIGHT));
     }
 }

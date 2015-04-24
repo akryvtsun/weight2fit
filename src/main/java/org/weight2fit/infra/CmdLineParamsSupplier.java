@@ -1,6 +1,7 @@
 package org.weight2fit.infra;
 
 import org.apache.commons.cli.*;
+import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
@@ -52,59 +53,59 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     @Override
     public FitParams get() throws Exception {
 
-        final FitParams.Builder builder = new FitParams.Builder();
+        final FitParams params = new FitParams();
 
         if (line.hasOption("timestamp")) {
             String value = line.getOptionValue("timestamp");
-            builder.withTimestamp(DATE_FORMAT.parse(value));
+            params.setValue(FitFields.TIMESTAMP, DATE_FORMAT.parse(value));
         }
 
         if (line.hasOption("weight")) {
             String value = line.getOptionValue("weight");
-            builder.withWeight(Double.valueOf(value));
+            params.setValue(FitFields.WEIGHT, Double.valueOf(value));
         }
 
         if (line.hasOption("bodyFat")) {
             String value = line.getOptionValue("bodyFat");
-            builder.withBodyFat(Double.valueOf(value));
+            params.setValue(FitFields.BODY_FAT, Double.valueOf(value));
         }
 
         if (line.hasOption("bodyWater")) {
             String value = line.getOptionValue("bodyWater");
-            builder.withBodyWater(Double.valueOf(value));
+            params.setValue(FitFields.BODY_WATER, Double.valueOf(value));
         }
 
         if (line.hasOption("visceralFat")) {
             String value = line.getOptionValue("visceralFat");
-            builder.withVisceralFat(Integer.valueOf(value));
+            params.setValue(FitFields.VISCERAL_FAT, Integer.valueOf(value));
         }
 
         if (line.hasOption("muscleMass")) {
             String value = line.getOptionValue("muscleMass");
-            builder.withMuscleMass(Double.valueOf(value));
+            params.setValue(FitFields.MUSCLE_MASS, Double.valueOf(value));
         }
 
         if (line.hasOption("physiqueRating")) {
             String value = line.getOptionValue("physiqueRating");
-            builder.withPhysiqueRating(Integer.valueOf(value));
+            params.setValue(FitFields.PHYSIQUE_RATING, Integer.valueOf(value));
         }
 
         if (line.hasOption("boneMass")) {
             String value = line.getOptionValue("boneMass");
-            builder.withBoneMass(Double.valueOf(value));
+            params.setValue(FitFields.BONE_MASS, Double.valueOf(value));
         }
 
         if (line.hasOption("dailyCalorieIntake")) {
             String value = line.getOptionValue("dailyCalorieIntake");
-            builder.withDCI(Integer.valueOf(value));
+            params.setValue(FitFields.DCI, Integer.valueOf(value));
         }
 
         if (line.hasOption("metabolicAge")) {
             String value = line.getOptionValue("metabolicAge");
-            builder.withMetabolicAge(Integer.valueOf(value));
+            params.setValue(FitFields.METABOLIC_AGE, Integer.valueOf(value));
         }
 
-        return builder.build();
+        return params;
     }
 
     public String getFileName() {

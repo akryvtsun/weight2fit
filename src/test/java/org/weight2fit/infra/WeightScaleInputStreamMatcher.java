@@ -41,8 +41,8 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
         return validator.isValid();
     }
 
-    private boolean isFieldTypeAcceptable(int type) {
-        FitFields field = mapping.get(type);
+    private boolean isFieldTypeAcceptable(int num) {
+        FitFields field = mapping.get(num);
         return field != null;
     }
 
@@ -84,7 +84,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
 
         private void checkWeightFields(Mesg mesg) {
             for (Field field: mesg.getFields()) {
-                if (!isFieldTypeAcceptable(field.getType()))
+                if (!isFieldTypeAcceptable(field.getNum()))
                     return;
             }
             weightFieldsPresent = true;

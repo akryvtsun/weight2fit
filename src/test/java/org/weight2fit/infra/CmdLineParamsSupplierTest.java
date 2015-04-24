@@ -2,6 +2,7 @@ package org.weight2fit.infra;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
+import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.util.Date;
@@ -32,7 +33,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getTimestamp());
+        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
         assertEquals("res.fit", supplier.getFileName());
     }
 
@@ -49,8 +50,8 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getTimestamp());
-        assertEquals(85.5, params.getWeight(), DELTA);
+        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
         assertEquals("res.fit", supplier.getFileName());
     }
 
@@ -71,16 +72,16 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getTimestamp());
-        assertEquals(85.5, params.getWeight(), DELTA);
-        assertEquals(40, params.getBodyFat(), DELTA);
-        assertEquals(55, params.getBodyWater(), DELTA);
-        assertEquals(7, params.getVisceralFat());
-        assertEquals(20, params.getMuscleMass(), DELTA);
-        assertEquals(7, params.getPhysiqueRating());
-        assertEquals(30, params.getBoneMass(), DELTA);
-        assertEquals(3030, params.getDCI());
-        assertEquals(40, params.getMetabolicAge());
+        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
+        assertEquals(40, params.getDoubleValue(FitFields.BODY_FAT), DELTA);
+        assertEquals(55, params.getDoubleValue(FitFields.BODY_WATER), DELTA);
+        assertEquals(7, params.getIntValue(FitFields.VISCERAL_FAT));
+        assertEquals(20, params.getDoubleValue(FitFields.MUSCLE_MASS), DELTA);
+        assertEquals(7, params.getIntValue(FitFields.PHYSIQUE_RATING));
+        assertEquals(30, params.getDoubleValue(FitFields.BONE_MASS), DELTA);
+        assertEquals(3030, params.getIntValue(FitFields.DCI));
+        assertEquals(40, params.getIntValue(FitFields.METABOLIC_AGE));
         assertEquals("res.fit", supplier.getFileName());
     }
 
