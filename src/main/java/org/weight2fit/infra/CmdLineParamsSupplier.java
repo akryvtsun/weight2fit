@@ -132,8 +132,6 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return OptionBuilder
                 .hasArg()
                 .withArgName("value")
-                .withDescription("long description on the value")
-                .withLongOpt("thisISLongOPiton")
                 .create(name);
     }
 

@@ -12,6 +12,8 @@ Roadmap
 * release v1
 
 * add SWT UI
+    * localization support
+* https://travis-ci.org usage ???     
 * review analogs
     * add not Tanita scale formats support ???
 * release v2

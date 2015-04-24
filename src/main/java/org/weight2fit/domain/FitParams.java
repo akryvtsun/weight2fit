@@ -8,7 +8,7 @@ import java.util.Map;
  *
  * @author Andriy Kryvtsun
  */
-public class FitParams {
+public final class FitParams {
 
     private Map<FitFields, Object> holder = new HashMap();
 
