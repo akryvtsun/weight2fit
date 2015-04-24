@@ -1,9 +1,6 @@
 Roadmap
 =======
 
-* rework FitParams to support different params set
-    * add unit test
-    
 * change current Apache CI to something more flexible
     * add String -> numbers formatters
     * add short CI commands and descriptions    

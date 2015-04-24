@@ -24,12 +24,14 @@ public class CmdLineParamsSupplierTest {
 
     @Test(expected = ParseException.class)
     public void CmdLineParamsSupplier_incompleteArgsSet_ParseException() throws Exception {
-        new CmdLineParamsSupplier(a("-timestamp 2015-04-17"));
+        new CmdLineParamsSupplier(a(p("timestamp", "2015-04-17")));
     }
 
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(a("-timestamp 2015-04-17 -out res.fit"));
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+                a(p("timestamp", "2015-04-17") +
+                  p("out", "res.fit")));
 
         FitParams params = supplier.get();
 
@@ -39,14 +41,19 @@ public class CmdLineParamsSupplierTest {
 
     @Test(expected = java.text.ParseException.class)
     public void get_incorrectTimestamp_ParseException() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(a("-timestamp 2015x04-17 -out res.fit"));
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+                a(p("timestamp", "2015x04-17") +
+                  p("out", "res.fit")));
 
         supplier.get();
     }
 
     @Test
     public void get_onlyWeight_ok() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(a("-timestamp 2015-04-17 -weight 85.5 -out res.fit"));
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+                a(p("timestamp", "2015-04-17") +
+                  p("weight", "85.5") +
+                  p("out", "res.fit")));
 
         FitParams params = supplier.get();
 
@@ -58,17 +65,17 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_allParamsSet_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
-                a("-timestamp 2015-04-17 " +
-                  "-weight 85.5 " +
-                  "-bodyFat 40 " +
-                  "-bodyWater 55 " +
-                  "-visceralFat 7 " +
-                  "-muscleMass 20 " +
-                  "-physiqueRating 7 " +
-                  "-boneMass 30 " +
-                  "-dailyCalorieIntake 3030 " +
-                  "-metabolicAge 40 " +
-                  "-out res.fit"));
+                a(p("timestamp", "2015-04-17") +
+                  p("weight", "85.5") +
+                  p("bodyFat", "40") +
+                  p("bodyWater", "55") +
+                  p("visceralFat", "7") +
+                  p("muscleMass", "20") +
+                  p("physiqueRating", "7") +
+                  p("boneMass", "30") +
+                  p("dailyCalorieIntake", "3030") +
+                  p("metabolicAge", "40") +
+                  p("out", "res.fit")));
 
         FitParams params = supplier.get();
 
@@ -85,7 +92,11 @@ public class CmdLineParamsSupplierTest {
         assertEquals("res.fit", supplier.getFileName());
     }
 
+    private static String p(String name, String value) {
+        return String.format("-%s %s ", name, value);
+    }
+
     private static String[] a(String args) {
-        return args.split("\\s+");
+        return args.trim().split("\\s+");
     }
 }
