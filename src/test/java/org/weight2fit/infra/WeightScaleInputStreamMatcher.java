@@ -16,6 +16,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
 
     private static final Map<Integer, FitFields> mapping = new HashMap();
 
+    // see static initializer in com.garmin.fit.WeightScaleMesg class
     static {
         mapping.put(Fit.FIELD_NUM_TIMESTAMP, FitFields.TIMESTAMP);
         mapping.put(0, FitFields.WEIGHT);
