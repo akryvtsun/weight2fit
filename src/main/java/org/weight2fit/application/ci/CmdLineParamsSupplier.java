@@ -1,4 +1,4 @@
-package org.weight2fit.infra;
+package org.weight2fit.application.ci;
 
 import org.apache.commons.cli.*;
 import org.weight2fit.domain.FitFields;

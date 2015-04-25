@@ -40,7 +40,7 @@
                 <configuration>
                     <archive>
                         <manifest>
-                            <mainClass>org.weight2fit.Main</mainClass>
+                            <mainClass>org.weight2fit.application.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

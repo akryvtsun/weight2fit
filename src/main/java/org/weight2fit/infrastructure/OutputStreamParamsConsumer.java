@@ -1,4 +1,4 @@
-package org.weight2fit.infra;
+package org.weight2fit.infrastructure;
 
 import com.garmin.fit.Manufacturer;
 import org.weight2fit.domain.FitFields;

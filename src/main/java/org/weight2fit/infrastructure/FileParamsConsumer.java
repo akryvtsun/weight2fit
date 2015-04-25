@@ -1,4 +1,4 @@
-package org.weight2fit.infra;
+package org.weight2fit.infrastructure;
 
 import java.io.File;
 import java.io.FileNotFoundException;

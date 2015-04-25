@@ -1,9 +1,9 @@
-package org.weight2fit;
+package org.weight2fit.application;
 
+import org.weight2fit.application.ci.CmdLineParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
-import org.weight2fit.infra.CmdLineParamsSupplier;
-import org.weight2fit.infra.FileParamsConsumer;
+import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.util.logging.Logger;
 
