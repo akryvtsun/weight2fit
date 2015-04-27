@@ -1,6 +1,6 @@
 package org.weight2fit.application;
 
-import org.weight2fit.application.ci.CmdLineParamsSupplier;
+import org.weight2fit.application.ci.CmdLineParamsSupplier2;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -22,7 +22,7 @@ public class Main {
     public static void main(String... args) {
 
         try {
-            CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+            CmdLineParamsSupplier2 supplier = new CmdLineParamsSupplier2(args);
 
             FitParams params = supplier.get();
             String fileName = supplier.getFileName();

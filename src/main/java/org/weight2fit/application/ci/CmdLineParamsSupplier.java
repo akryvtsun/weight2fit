@@ -14,6 +14,7 @@ import java.text.SimpleDateFormat;
  */
 // TODO use more useful CLI library
 // TODO use short command line acronyms
+@Deprecated
 public class CmdLineParamsSupplier implements FitParamsSupplier {
 
     private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
