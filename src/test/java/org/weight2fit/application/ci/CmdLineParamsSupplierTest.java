@@ -12,6 +12,7 @@ import static org.junit.Assert.assertEquals;
 /**
  * @author Andriy Kryvtsun
  */
+@Deprecated
 public class CmdLineParamsSupplierTest {
 
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
