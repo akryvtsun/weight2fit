@@ -1,8 +1,7 @@
-package org.weight2fit.infrastructure;
+package org.weight2fit.application.ci;
 
 import org.apache.commons.cli.ParseException;
 import org.junit.Test;
-import org.weight2fit.application.ci.CmdLineParamsSupplier;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
