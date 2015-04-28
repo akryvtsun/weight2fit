@@ -3,10 +3,8 @@ package org.weight2fit.application.ci;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
-import org.kohsuke.args4j.spi.DoubleOptionHandler;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
-import org.kohsuke.args4j.spi.OptionHandler;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
@@ -24,31 +22,62 @@ public class CmdLineParamsSupplier2 implements FitParamsSupplier {
     private final CmdLineParser parser;
 
     private final FitParams params = new FitParams();
-    @Option(name = "-o", usage = "Output file", required = true, handler = FileOptionHandler.class)
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output file", required = true, handler = FileOptionHandler.class)
     private File out;
 
     public CmdLineParamsSupplier2(String... args) {
         this.args = args;
-
         parser = new CmdLineParser(this);
-
-        addOption(FitFields.TIMESTAMP, "t", "timestamp", "Time Stamp", DateOptionHandler.class);
-        addOption(FitFields.WEIGHT, "w", "weight", "Weight of the body", DoubleOptionHandler.class);
-        addOption(FitFields.BODY_FAT, "bf", "bodyFat", "Fat of the body", DoubleOptionHandler.class);
-        addOption(FitFields.BODY_WATER, "bw", "bodyWater", "Water of the body", DoubleOptionHandler.class);
-        addOption(FitFields.VISCERAL_FAT, "vf", "visceralFat", "Visceral Fat of the body", DoubleOptionHandler.class);
-        addOption(FitFields.MUSCLE_MASS, "mm", "muscleMass", "Muscle mass of the body", DoubleOptionHandler.class);
-        addOption(FitFields.PHYSIQUE_RATING, "pr", "physiqueRating", "Physique Rating", IntOptionHandler.class);
-        addOption(FitFields.BONE_MASS, "bm", "boneMass", "Bone Mass of the body", DoubleOptionHandler.class);
-        addOption(FitFields.DCI, "dci", "dailyCalorieIntake", "Daily Calorie Intake", IntOptionHandler.class);
-        addOption(FitFields.DCI, "ma", "metabolicAge", "Metabolic Age", IntOptionHandler.class);
+        addOptions();
     }
 
-    private void addOption(FitFields field,
-                           String name, String longName, String description,
-                           Class<? extends OptionHandler> handler) {
+    private void addOptions() {
+        addOption(FitFields.TIMESTAMP, CmdLineOption.Builder.create()
+                .required()
+                .name("t").longName("timestamp")
+                .description("Time Stamp").handler(DateOptionHandler.class)
+                .build());
+        addOption(FitFields.WEIGHT, CmdLineOption.Builder.create()
+                .name("w").longName("weight")
+                .description("Weight of the body")
+                .build());
+        addOption(FitFields.BODY_FAT, CmdLineOption.Builder.create()
+                .name("bf").longName("bodyFat")
+                .description("Fat of the body")
+                .build());
+        addOption(FitFields.BODY_WATER, CmdLineOption.Builder.create()
+                .name("bw").longName("bodyWater")
+                .description("Water of the body")
+                .build());
+        addOption(FitFields.VISCERAL_FAT, CmdLineOption.Builder.create()
+                .name("vf").longName("visceralFat")
+                .description("Visceral Fat of the body").handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.MUSCLE_MASS, CmdLineOption.Builder.create()
+                .name("mm").longName("muscleMass")
+                .description("Muscle mass of the body")
+                .build());
+        addOption(FitFields.PHYSIQUE_RATING, CmdLineOption.Builder.create()
+                .name("pr").longName("physiqueRating")
+                .description("Physique Rating").handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.BONE_MASS, CmdLineOption.Builder.create()
+                .name("bm").longName("boneMass")
+                .description("Bone Mass of the body")
+                .build());
+        addOption(FitFields.DCI, CmdLineOption.Builder.create()
+                .name("dci").longName("dailyCalorieIntake")
+                .description("Daily Calorie Intake")
+                .handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.METABOLIC_AGE, CmdLineOption.Builder.create()
+                .name("ma").longName("metabolicAge")
+                .description("Metabolic Age").handler(IntOptionHandler.class)
+                .build());
+    }
+
+    private void addOption(FitFields field, Option option) {
         FitFieldSetter setter = new FitFieldSetter(params, field);
-        CmdLineOption option = new CmdLineOption("-" + name, "--" + longName, description, handler);
         parser.addOption(setter, option);
     }
 
@@ -60,7 +89,6 @@ public class CmdLineParamsSupplier2 implements FitParamsSupplier {
         }
         catch (CmdLineException e) {
             parser.printUsage(System.out);
-
             throw e;
         }
     }

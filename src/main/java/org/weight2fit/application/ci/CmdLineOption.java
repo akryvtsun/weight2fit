@@ -1,26 +1,26 @@
 package org.weight2fit.application.ci;
 
 import org.kohsuke.args4j.Option;
+import org.kohsuke.args4j.spi.DoubleOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
 
 import java.lang.annotation.Annotation;
 
+import static com.google.common.base.Preconditions.checkArgument;
+
 /**
- * Created by englishman on 4/24/15.
+ * @author Andiry Kryvtsun
  */
 public class CmdLineOption implements Option {
 
     private String name;
-    private String longName;
-    private String description;
+    private String[] aliases;
+    private String usage;
+    private String metaVar;
+    private boolean required;
     private Class<? extends OptionHandler> handler;
 
-    CmdLineOption(String name, String longName, String description, Class<? extends OptionHandler> handler) {
-        this.name = name;
-        this.longName = longName;
-        this.description = description;
-        this.handler = handler;
-    }
+    private CmdLineOption() {}
 
     @Override
     public String name() {
@@ -29,22 +29,22 @@ public class CmdLineOption implements Option {
 
     @Override
     public String[] aliases() {
-        return new String[] { longName };
+        return aliases;
     }
 
     @Override
     public String usage() {
-        return description;
+        return usage;
     }
 
     @Override
     public String metaVar() {
-        return "value";
+        return metaVar;
     }
 
     @Override
     public boolean required() {
-        return false;
+        return required;
     }
 
     @Override
@@ -64,16 +64,78 @@ public class CmdLineOption implements Option {
 
     @Override
     public String[] depends() {
-        return new String[0];
+        return null;
     }
 
     @Override
     public String[] forbids() {
-        return new String[0];
+        return null;
     }
 
     @Override
     public Class<? extends Annotation> annotationType() {
         return null;
+    }
+
+    public static class Builder {
+        private String name;
+        private String longName;
+        private String description;
+        private String metaVar = "value";
+        private boolean required;
+        private Class<? extends OptionHandler> handler = DoubleOptionHandler.class;
+
+        private Builder() {}
+
+        public static Builder create() {
+            return new Builder();
+        }
+
+        public Builder name(final String name) {
+            this.name = name;
+            return this;
+        }
+
+        public Builder longName(String longName) {
+            this.longName = longName;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder metaVar(String metaVar) {
+            this.metaVar = metaVar;
+            return this;
+        }
+
+        public Builder required() {
+            this.required = true;
+            return this;
+        }
+
+        public Builder handler(Class<? extends OptionHandler> handler) {
+            this.handler = handler;
+            return this;
+        }
+
+        public Option build() {
+
+            checkArgument(this.name != null, "name must be not null");
+            checkArgument(this.handler != null, "handler must be not null");
+
+            final CmdLineOption option = new CmdLineOption();
+
+            option.name = "-" + this.name;
+            option.aliases = new String[] { "--" + this.longName };
+            option.usage = this.description;
+            option.metaVar = this.metaVar;
+            option.required = this.required;
+            option.handler = this.handler;
+
+            return option;
+        }
     }
 }
