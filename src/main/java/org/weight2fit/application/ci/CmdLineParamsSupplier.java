@@ -64,7 +64,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
 
     private Option createBoneMassOption() {
         return CmdLineOption.Builder.create()
-                .name("bm").longName("boneMass")
+                .name("bm")
+                .longName("boneMass")
                 .description("Bone Mass of the body")
                 .build();
     }
@@ -113,7 +114,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
 
     private Option createWeightOption() {
         return CmdLineOption.Builder.create()
-                .name("w").longName("weight")
+                .name("w")
+                .longName("weight")
                 .description("Weight of the body")
                 .build();
     }
@@ -121,7 +123,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private Option createTimestampOption() {
         return CmdLineOption.Builder.create()
                 .required()
-                .name("t").longName("timestamp")
+                .name("t")
+                .longName("timestamp")
                 .description("Time Stamp")
                 .handler(DateOptionHandler.class)
                 .build();
