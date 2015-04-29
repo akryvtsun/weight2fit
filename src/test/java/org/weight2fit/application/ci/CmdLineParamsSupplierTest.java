@@ -1,7 +1,8 @@
 package org.weight2fit.application.ci;
 
-import org.apache.commons.cli.ParseException;
+import org.junit.Ignore;
 import org.junit.Test;
+import org.kohsuke.args4j.CmdLineException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
@@ -10,20 +11,21 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 /**
- * @author Andriy Kryvtsun
+ * Created by englishman on 4/24/15.
  */
-@Deprecated
 public class CmdLineParamsSupplierTest {
 
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
     public static final double DELTA = 0.001;
 
-    @Test(expected = ParseException.class)
+    @Test(expected = CmdLineException.class)
+    @Ignore
     public void CmdLineParamsSupplier_emptyArgsSet_ParseException() throws Exception {
         new CmdLineParamsSupplier(null);
     }
 
-    @Test(expected = ParseException.class)
+    @Test(expected = CmdLineException.class)
+    @Ignore
     public void CmdLineParamsSupplier_incompleteArgsSet_ParseException() throws Exception {
         new CmdLineParamsSupplier(a(p("timestamp", "2015-04-17")));
     }
@@ -40,7 +42,7 @@ public class CmdLineParamsSupplierTest {
         assertEquals("res.fit", supplier.getFileName());
     }
 
-    @Test(expected = java.text.ParseException.class)
+    @Test(expected = CmdLineException.class)
     public void get_incorrectTimestamp_ParseException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
                 a(p("timestamp", "2015x04-17") +
@@ -94,7 +96,7 @@ public class CmdLineParamsSupplierTest {
     }
 
     private static String p(String name, String value) {
-        return String.format("-%s %s ", name, value);
+        return String.format("--%s %s ", name, value);
     }
 
     private static String[] a(String args) {

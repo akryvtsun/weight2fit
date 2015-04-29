@@ -1,153 +1,99 @@
 package org.weight2fit.application.ci;
 
-import org.apache.commons.cli.*;
+import org.kohsuke.args4j.CmdLineException;
+import org.kohsuke.args4j.CmdLineParser;
+import org.kohsuke.args4j.Option;
+import org.kohsuke.args4j.spi.FileOptionHandler;
+import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
-import java.text.SimpleDateFormat;
+import java.io.File;
 
 /**
  * FIT parameters reader from command line.
  *
  * @author Andiry Kryvtsun
  */
-// TODO use more useful CLI library
-// TODO use short command line acronyms
-@Deprecated
 public class CmdLineParamsSupplier implements FitParamsSupplier {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    private final String[] args;
+    private final CmdLineParser parser;
 
-    private CommandLine line;
+    private final FitParams params = new FitParams();
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output file", required = true, handler = FileOptionHandler.class)
+    private File out;
 
-    public CmdLineParamsSupplier(String... args) throws ParseException {
-        CommandLineParser parser = new BasicParser();
-        Options options = createOptions();
-
-        try {
-            line = parser.parse(options, args);
-        } catch (ParseException e) {
-            HelpFormatter formatter = new HelpFormatter();
-            formatter.setWidth(Integer.MAX_VALUE);
-            formatter.printHelp("weight2fit", options);
-
-            throw e;
-        }
+    public CmdLineParamsSupplier(String... args) {
+        this.args = args;
+        parser = new CmdLineParser(this);
+        addOptions();
     }
 
-    private Options createOptions() {
-        Options options = new Options();
-        options.addOption(createTimeStampOption());
-        options.addOption(createValueOption("weight"));
-        options.addOption(createPercentageOption("bodyFat"));
-        options.addOption(createPercentageOption("bodyWater"));
-        options.addOption(createValueOption("visceralFat"));
-        options.addOption(createValueOption("muscleMass"));
-        options.addOption(createValueOption("physiqueRating"));
-        options.addOption(createValueOption("boneMass"));
-        options.addOption(createValueOption("dailyCalorieIntake"));
-        options.addOption(createValueOption("metabolicAge"));
-        options.addOption(createOutOption());
-        return options;
+    private void addOptions() {
+        addOption(FitFields.TIMESTAMP, CmdLineOption.Builder.create()
+                .required()
+                .name("t").longName("timestamp")
+                .description("Time Stamp").handler(DateOptionHandler.class)
+                .build());
+        addOption(FitFields.WEIGHT, CmdLineOption.Builder.create()
+                .name("w").longName("weight")
+                .description("Weight of the body")
+                .build());
+        addOption(FitFields.BODY_FAT, CmdLineOption.Builder.create()
+                .name("bf").longName("bodyFat")
+                .description("Fat of the body")
+                .build());
+        addOption(FitFields.BODY_WATER, CmdLineOption.Builder.create()
+                .name("bw").longName("bodyWater")
+                .description("Water of the body")
+                .build());
+        addOption(FitFields.VISCERAL_FAT, CmdLineOption.Builder.create()
+                .name("vf").longName("visceralFat")
+                .description("Visceral Fat of the body").handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.MUSCLE_MASS, CmdLineOption.Builder.create()
+                .name("mm").longName("muscleMass")
+                .description("Muscle mass of the body")
+                .build());
+        addOption(FitFields.PHYSIQUE_RATING, CmdLineOption.Builder.create()
+                .name("pr").longName("physiqueRating")
+                .description("Physique Rating").handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.BONE_MASS, CmdLineOption.Builder.create()
+                .name("bm").longName("boneMass")
+                .description("Bone Mass of the body")
+                .build());
+        addOption(FitFields.DCI, CmdLineOption.Builder.create()
+                .name("dci").longName("dailyCalorieIntake")
+                .description("Daily Calorie Intake")
+                .handler(IntOptionHandler.class)
+                .build());
+        addOption(FitFields.METABOLIC_AGE, CmdLineOption.Builder.create()
+                .name("ma").longName("metabolicAge")
+                .description("Metabolic Age").handler(IntOptionHandler.class)
+                .build());
+    }
+
+    private void addOption(FitFields field, Option option) {
+        FitFieldSetter setter = new FitFieldSetter(params, field);
+        parser.addOption(setter, option);
     }
 
     @Override
     public FitParams get() throws Exception {
-
-        final FitParams params = new FitParams();
-
-        if (line.hasOption("timestamp")) {
-            String value = line.getOptionValue("timestamp");
-            params.setValue(FitFields.TIMESTAMP, DATE_FORMAT.parse(value));
+        try {
+            parser.parseArgument(args);
+            return params;
         }
-
-        if (line.hasOption("weight")) {
-            String value = line.getOptionValue("weight");
-            params.setValue(FitFields.WEIGHT, Double.valueOf(value));
+        catch (CmdLineException e) {
+            parser.printUsage(System.out);
+            throw e;
         }
-
-        if (line.hasOption("bodyFat")) {
-            String value = line.getOptionValue("bodyFat");
-            params.setValue(FitFields.BODY_FAT, Double.valueOf(value));
-        }
-
-        if (line.hasOption("bodyWater")) {
-            String value = line.getOptionValue("bodyWater");
-            params.setValue(FitFields.BODY_WATER, Double.valueOf(value));
-        }
-
-        if (line.hasOption("visceralFat")) {
-            String value = line.getOptionValue("visceralFat");
-            params.setValue(FitFields.VISCERAL_FAT, Integer.valueOf(value));
-        }
-
-        if (line.hasOption("muscleMass")) {
-            String value = line.getOptionValue("muscleMass");
-            params.setValue(FitFields.MUSCLE_MASS, Double.valueOf(value));
-        }
-
-        if (line.hasOption("physiqueRating")) {
-            String value = line.getOptionValue("physiqueRating");
-            params.setValue(FitFields.PHYSIQUE_RATING, Integer.valueOf(value));
-        }
-
-        if (line.hasOption("boneMass")) {
-            String value = line.getOptionValue("boneMass");
-            params.setValue(FitFields.BONE_MASS, Double.valueOf(value));
-        }
-
-        if (line.hasOption("dailyCalorieIntake")) {
-            String value = line.getOptionValue("dailyCalorieIntake");
-            params.setValue(FitFields.DCI, Integer.valueOf(value));
-        }
-
-        if (line.hasOption("metabolicAge")) {
-            String value = line.getOptionValue("metabolicAge");
-            params.setValue(FitFields.METABOLIC_AGE, Integer.valueOf(value));
-        }
-
-        return params;
     }
 
     public String getFileName() {
-        String fineName = null;
-
-        if (line.hasOption("out")) {
-            String value = line.getOptionValue("out");
-            fineName = value;
-        }
-
-        return fineName;
-    }
-
-    private Option createTimeStampOption() {
-        return OptionBuilder
-                .isRequired()
-                .hasArg()
-                .withArgName(DATE_FORMAT.toPattern())
-                .create("timestamp");
-    }
-
-    private Option createValueOption(String name) {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("value")
-                .create(name);
-    }
-
-    private Option createPercentageOption(String name) {
-        return OptionBuilder
-                .hasArg()
-                .withArgName("percentage")
-                .create(name);
-    }
-
-    private Option createOutOption() {
-        return OptionBuilder
-                .isRequired()
-                .hasArg()
-                .withArgName("file")
-                .create("out");
+        return out.getName();
     }
 }
