@@ -11,6 +11,8 @@ import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * FIT parameters reader from command line.
  *
@@ -26,7 +28,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private File out;
 
     public CmdLineParamsSupplier(String... args) {
-        this.args = args;
+        this.args = checkNotNull(args);
+
         parser = new CmdLineParser(this);
         addOptions();
     }

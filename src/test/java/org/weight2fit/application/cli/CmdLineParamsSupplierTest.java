@@ -1,6 +1,5 @@
 package org.weight2fit.application.cli;
 
-import org.junit.Ignore;
 import org.junit.Test;
 import org.kohsuke.args4j.CmdLineException;
 import org.weight2fit.domain.FitFields;
@@ -18,16 +17,9 @@ public class CmdLineParamsSupplierTest {
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
     public static final double DELTA = 0.001;
 
-    @Test(expected = CmdLineException.class)
-    @Ignore
-    public void CmdLineParamsSupplier_emptyArgsSet_ParseException() throws Exception {
+    @Test(expected = NullPointerException.class)
+    public void CmdLineParamsSupplier_emptyArgsSet_NullPointerException() throws Exception {
         new CmdLineParamsSupplier(null);
-    }
-
-    @Test(expected = CmdLineException.class)
-    @Ignore
-    public void CmdLineParamsSupplier_incompleteArgsSet_ParseException() throws Exception {
-        new CmdLineParamsSupplier(a(p("timestamp", "2015-04-17")));
     }
 
     @Test
