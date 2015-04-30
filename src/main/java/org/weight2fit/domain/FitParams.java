@@ -1,6 +1,6 @@
 package org.weight2fit.domain;
 
-import java.util.HashMap;
+import java.util.EnumMap;
 import java.util.Map;
 
 /**
@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public final class FitParams {
 
-    private Map<FitFields, Object> holder = new HashMap();
+    private Map<FitFields, Object> holder = new EnumMap(FitFields.class);
 
     public void setValue(FitFields field, Object value) {
         holder.put(field, value);
