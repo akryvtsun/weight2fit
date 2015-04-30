@@ -15,7 +15,8 @@ import java.util.Date;
  */
 public class DateOptionHandler extends OneArgumentOptionHandler<Date> {
 
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat("yyyy-MM-dd");
+    static final String DATE_PATTERN = "yyyy-MM-dd";
+    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN);
 
     public DateOptionHandler(CmdLineParser parser, OptionDef option, Setter<? super Date> setter) {
         super(parser, option, setter);
