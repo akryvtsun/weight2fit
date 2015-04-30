@@ -12,6 +12,8 @@ import static org.junit.Assert.assertTrue;
 /**
  * TODO check reusability
  * TODO check mandatory fields absents more
+ *
+ * @author Andriy Kryvtsun
  */
 public class WeightScaleBuilderTest {
 

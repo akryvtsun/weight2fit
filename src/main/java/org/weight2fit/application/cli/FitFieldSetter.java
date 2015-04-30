@@ -9,7 +9,7 @@ import org.weight2fit.domain.FitParams;
 import java.lang.reflect.AnnotatedElement;
 
 /**
- * Created by englishman on 4/24/15.
+ * @author Andriy Kryvtsun
  */
 public class FitFieldSetter implements Setter {
 

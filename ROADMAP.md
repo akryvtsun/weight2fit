@@ -1,10 +1,7 @@
 Roadmap
 =======
 
-* change current Apache CI to something more flexible
-    * add String -> numbers formatters
-    * add short CI commands and descriptions    
-    
+* improve CmdLineParamsSupplierTest    
 * improve OutputStreamParamsConsumerTest
     * review Fit SDK weight message structure
 

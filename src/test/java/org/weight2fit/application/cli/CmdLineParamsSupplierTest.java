@@ -11,7 +11,7 @@ import java.util.Date;
 import static org.junit.Assert.assertEquals;
 
 /**
- * Created by englishman on 4/24/15.
+ * @author Andriy Kryvtsun
  */
 public class CmdLineParamsSupplierTest {
 
