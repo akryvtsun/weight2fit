@@ -1,4 +1,4 @@
-package org.weight2fit.application.ci;
+package org.weight2fit.application.cli;
 
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.spi.DoubleOptionHandler;

@@ -1,6 +1,6 @@
 package org.weight2fit.application;
 
-import org.weight2fit.application.ci.CmdLineParamsSupplier;
+import org.weight2fit.application.cli.CmdLineParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;

@@ -1,4 +1,4 @@
-package org.weight2fit.application.ci;
+package org.weight2fit.application.cli;
 
 import org.junit.Ignore;
 import org.junit.Test;
