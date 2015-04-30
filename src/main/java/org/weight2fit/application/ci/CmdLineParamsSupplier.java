@@ -22,7 +22,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private final CmdLineParser parser;
 
     private final FitParams params = new FitParams();
-    @Option(name = "-o", aliases = { "--out" }, usage = "Output file", required = true, handler = FileOptionHandler.class)
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file", required = true, handler = FileOptionHandler.class)
     private File out;
 
     public CmdLineParamsSupplier(String... args) {
@@ -44,89 +44,79 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         addOption(FitFields.METABOLIC_AGE, createMetabolicAgeOption());
     }
 
-    private Option createMetabolicAgeOption() {
+    private Option createTimestampOption() {
         return CmdLineOption.Builder.create()
-                .name("ma")
-                .longName("metabolicAge")
-                .description("Metabolic Age")
-                .handler(IntOptionHandler.class)
+                .name("t").longName("timestamp")
+                .required()
+                .description("Time Stamp")
+                .handler(DateOptionHandler.class)
                 .build();
     }
 
-    private Option createDailyCalorieIntakeOption() {
+    private Option createWeightOption() {
         return CmdLineOption.Builder.create()
-                .name("dci")
-                .longName("dailyCalorieIntake")
-                .description("Daily Calorie Intake")
-                .handler(IntOptionHandler.class)
+                .name("w").longName("weight")
+                .description("Weight of the body")
                 .build();
     }
 
-    private Option createBoneMassOption() {
+    private Option createBodyFatOption() {
         return CmdLineOption.Builder.create()
-                .name("bm")
-                .longName("boneMass")
-                .description("Bone Mass of the body")
+                .name("bf").longName("bodyFat")
+                .description("Fat of the body")
                 .build();
     }
 
-    private Option createPhysiqueRatingOption() {
+    private Option createBodyWaterOption() {
         return CmdLineOption.Builder.create()
-                .name("pr")
-                .longName("physiqueRating")
-                .description("Physique Rating")
+                .name("bw").longName("bodyWater")
+                .description("Water of the body")
+                .build();
+    }
+
+    private Option createVisceralFatOption() {
+        return CmdLineOption.Builder.create()
+                .name("vf").longName("visceralFat")
+                .description("Visceral Fat of the body")
                 .handler(IntOptionHandler.class)
                 .build();
     }
 
     private Option createMuscleMassOption() {
         return CmdLineOption.Builder.create()
-                .name("mm")
-                .longName("muscleMass")
+                .name("mm").longName("muscleMass")
                 .description("Muscle mass of the body")
                 .build();
     }
 
-    private Option createVisceralFatOption() {
+    private Option createPhysiqueRatingOption() {
         return CmdLineOption.Builder.create()
-                .name("vf")
-                .longName("visceralFat")
-                .description("Visceral Fat of the body")
+                .name("pr").longName("physiqueRating")
+                .description("Physique Rating")
                 .handler(IntOptionHandler.class)
                 .build();
     }
 
-    private Option createBodyWaterOption() {
+    private Option createBoneMassOption() {
         return CmdLineOption.Builder.create()
-                .name("bw")
-                .longName("bodyWater")
-                .description("Water of the body")
+                .name("bm").longName("boneMass")
+                .description("Bone Mass of the body")
                 .build();
     }
 
-    private Option createBodyFatOption() {
+    private Option createDailyCalorieIntakeOption() {
         return CmdLineOption.Builder.create()
-                .name("bf")
-                .longName("bodyFat")
-                .description("Fat of the body")
+                .name("dci").longName("dailyCalorieIntake")
+                .description("Daily Calorie Intake")
+                .handler(IntOptionHandler.class)
                 .build();
     }
 
-    private Option createWeightOption() {
+    private Option createMetabolicAgeOption() {
         return CmdLineOption.Builder.create()
-                .name("w")
-                .longName("weight")
-                .description("Weight of the body")
-                .build();
-    }
-
-    private Option createTimestampOption() {
-        return CmdLineOption.Builder.create()
-                .required()
-                .name("t")
-                .longName("timestamp")
-                .description("Time Stamp")
-                .handler(DateOptionHandler.class)
+                .name("ma").longName("metabolicAge")
+                .description("Metabolic Age")
+                .handler(IntOptionHandler.class)
                 .build();
     }
 
