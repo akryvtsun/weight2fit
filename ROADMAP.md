@@ -1,7 +1,6 @@
 Roadmap
 =======
 
-* improve CmdLineParamsSupplierTest    
 * rethink FitParams entity impl
 * improve OutputStreamParamsConsumerTest
     * review Fit SDK weight message structure

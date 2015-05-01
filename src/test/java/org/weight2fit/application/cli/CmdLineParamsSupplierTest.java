@@ -27,8 +27,8 @@ public class CmdLineParamsSupplierTest {
         new CmdLineParamsSupplier(null);
     }
 
-    @Test
-    public void get_minimumArgsSet_ok() throws Exception {
+    @Test(expected = CmdLineException.class)
+    public void get_absentsReqArgument_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .sp("t", "2015-04-17")
@@ -36,10 +36,7 @@ public class CmdLineParamsSupplierTest {
                 .build()
         );
 
-        FitParams params = supplier.get();
-
-        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
-        assertEquals(FILE, supplier.getFile());
+        supplier.get();
     }
 
     @Test(expected = CmdLineException.class)
@@ -47,6 +44,7 @@ public class CmdLineParamsSupplierTest {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .lp("timestamp", "2015x04-17")
+                .lp("weight", "85.5")
                 .lp("out", FILE_NAME)
                 .build()
         );
@@ -54,8 +52,21 @@ public class CmdLineParamsSupplierTest {
         supplier.get();
     }
 
+    @Test(expected = CmdLineException.class)
+    public void get_incorrectWeight_CmdLineException() throws Exception {
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+                new CmdLine()
+                        .lp("timestamp", "2015-04-17")
+                        .lp("weight", "85x5")
+                        .lp("out", FILE_NAME)
+                        .build()
+        );
+
+        supplier.get();
+    }
+
     @Test
-    public void get_onlyWeight_ok() throws Exception {
+    public void get_minimumArgsSet_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .lp("timestamp", "2015-04-17")

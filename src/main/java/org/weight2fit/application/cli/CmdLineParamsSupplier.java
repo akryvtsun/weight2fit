@@ -61,6 +61,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private Option createWeightOption() {
         return CmdLineOption.Builder.create()
                 .name("w").longName("weight")
+                .required()
                 .description("Weight of the body in kg")
                 .build();
     }
