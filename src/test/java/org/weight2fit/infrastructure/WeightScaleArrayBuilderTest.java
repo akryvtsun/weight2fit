@@ -3,11 +3,14 @@ package org.weight2fit.infrastructure;
 import com.garmin.fit.Decode;
 import com.garmin.fit.Manufacturer;
 import org.junit.Test;
+import org.weight2fit.domain.FitFields;
 
 import java.io.ByteArrayInputStream;
 import java.util.Date;
 
+import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.weight2fit.infrastructure.WeightScaleInputStreamMatcher.hasFields;
 
 /**
  * TODO check reusability
@@ -35,5 +38,6 @@ public class WeightScaleArrayBuilderTest {
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
+        assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT, FitFields.BODY_FAT));
     }
 }

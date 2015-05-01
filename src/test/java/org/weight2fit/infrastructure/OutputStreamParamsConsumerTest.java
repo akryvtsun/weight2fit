@@ -12,6 +12,7 @@ import java.util.Date;
 
 import static org.junit.Assert.assertThat;
 import static org.junit.Assert.assertTrue;
+import static org.weight2fit.infrastructure.WeightScaleInputStreamMatcher.hasFields;
 
 /**
  * @author Andriy Kryvtsun
@@ -36,6 +37,6 @@ public class OutputStreamParamsConsumerTest {
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
-        assertThat(new ByteArrayInputStream(buffer), new WeightScaleInputStreamMatcher(FitFields.TIMESTAMP, FitFields.WEIGHT));
+        assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT));
     }
 }

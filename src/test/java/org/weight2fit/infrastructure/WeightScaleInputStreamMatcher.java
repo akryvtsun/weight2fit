@@ -2,12 +2,12 @@ package org.weight2fit.infrastructure;
 
 import com.garmin.fit.*;
 import org.hamcrest.Description;
+import org.hamcrest.Matcher;
 import org.hamcrest.TypeSafeMatcher;
 import org.weight2fit.domain.FitFields;
 
 import java.io.InputStream;
-import java.util.HashMap;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Andriy Kryvtsun
@@ -20,12 +20,17 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
     static {
         mapping.put(Fit.FIELD_NUM_TIMESTAMP, FitFields.TIMESTAMP);
         mapping.put(0, FitFields.WEIGHT);
+        mapping.put(1, FitFields.BODY_FAT);
     }
 
-    private final FitFields[] fields;
+    private final Set<FitFields> fields;
 
-    public WeightScaleInputStreamMatcher(FitFields... fields) {
-        this.fields = fields;
+    public static Matcher hasFields(FitFields... fields) {
+        return new WeightScaleInputStreamMatcher(fields);
+    }
+
+    private WeightScaleInputStreamMatcher(FitFields... fields) {
+        this.fields = new HashSet(Arrays.asList(fields));
     }
 
     @Override
@@ -38,19 +43,21 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
 
         while (!decode.read(item));
 
-        return validator.isValid();
+        return validator.isValid() && fields.isEmpty();
     }
 
-    private boolean isFieldTypeAcceptable(int num) {
+    // all specific fields must be present and
+    // there must not be another fields
+    private boolean isFieldAcceptable(int num) {
         FitFields field = mapping.get(num);
-        return field != null;
+        return field != null && fields.remove(field);
     }
 
     @Override
     public void describeTo(Description description) {
         description
-                .appendText("valid Weight File format with")
-                .appendValueList(" ", ",", " ", fields)
+                .appendText("valid Weight Message format with ")
+                .appendValueList(" ", ", ", " ", fields)
                 .appendText("FIT message fields");
     }
 
@@ -84,7 +91,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
 
         private void checkWeightFields(Mesg mesg) {
             for (Field field: mesg.getFields()) {
-                if (!isFieldTypeAcceptable(field.getNum()))
+                if (!isFieldAcceptable(field.getNum()))
                     return;
             }
             weightFieldsPresent = true;
