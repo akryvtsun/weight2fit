@@ -6,6 +6,7 @@ Roadmap
 
 ### v1.5 ###
 * change domain model to support multiple weight records
+    * add domain validation
 * create **CSVParamsSupplier** (or extend **CmdLineParamsSupplier**) for batch uploading old Fit data
 
 ### v2 ###
