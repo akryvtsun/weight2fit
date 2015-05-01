@@ -1,11 +1,13 @@
 package org.weight2fit.application.cli;
 
+import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.kohsuke.args4j.CmdLineException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.util.Date;
+import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 
@@ -25,8 +27,11 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
-                a(p("timestamp", "2015-04-17") +
-                  p("out", "res.fit")));
+            new CmdLine()
+                .lp("timestamp", "2015-04-17")
+                .lp("out", "res.fit")
+                .build()
+        );
 
         FitParams params = supplier.get();
 
@@ -37,8 +42,11 @@ public class CmdLineParamsSupplierTest {
     @Test(expected = CmdLineException.class)
     public void get_incorrectTimestamp_ParseException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
-                a(p("timestamp", "2015x04-17") +
-                  p("out", "res.fit")));
+            new CmdLine()
+                .lp("timestamp", "2015x04-17")
+                .lp("out", "res.fit")
+                .build()
+        );
 
         supplier.get();
     }
@@ -46,9 +54,12 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_onlyWeight_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
-                a(p("timestamp", "2015-04-17") +
-                  p("weight", "85.5") +
-                  p("out", "res.fit")));
+            new CmdLine()
+                .lp("timestamp", "2015-04-17")
+                .lp("weight", "85.5")
+                .lp("out", "res.fit")
+                .build()
+        );
 
         FitParams params = supplier.get();
 
@@ -60,17 +71,20 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_allParamsSet_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
-                a(p("timestamp", "2015-04-17") +
-                  p("weight", "85.5") +
-                  p("bodyFat", "40") +
-                  p("bodyWater", "55") +
-                  p("visceralFat", "7") +
-                  p("muscleMass", "20") +
-                  p("physiqueRating", "7") +
-                  p("boneMass", "30") +
-                  p("dailyCalorieIntake", "3030") +
-                  p("metabolicAge", "40") +
-                  p("out", "res.fit")));
+            new CmdLine()
+                .lp("timestamp", "2015-04-17")
+                .lp("weight", "85.5")
+                .lp("bodyFat", "40")
+                .lp("bodyWater", "55")
+                .lp("visceralFat", "7")
+                .lp("muscleMass", "20")
+                .sp("pr", "7")
+                .lp("boneMass", "30")
+                .sp("dci", "3030")
+                .lp("metabolicAge", "40")
+                .lp("out", "res.fit")
+                .build()
+        );
 
         FitParams params = supplier.get();
 
@@ -87,11 +101,26 @@ public class CmdLineParamsSupplierTest {
         assertEquals("res.fit", supplier.getFileName());
     }
 
-    private static String p(String name, String value) {
-        return String.format("--%s %s ", name, value);
-    }
+    private static class CmdLine {
 
-    private static String[] a(String args) {
-        return args.trim().split("\\s+");
+        private List<String> arguments = Lists.newArrayList();
+
+        // short parameter
+        CmdLine sp(String param, String value) {
+            arguments.add("-" + param);
+            arguments.add(value);
+            return this;
+        }
+
+        // long parameter
+        CmdLine lp(String param, String value) {
+            arguments.add("--" + param);
+            arguments.add(value);
+            return this;
+        }
+
+        String[] build() {
+            return arguments.toArray(new String[arguments.size()]);
+        }
     }
 }
