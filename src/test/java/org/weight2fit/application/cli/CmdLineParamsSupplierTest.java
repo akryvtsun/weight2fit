@@ -17,6 +17,7 @@ import static org.junit.Assert.assertEquals;
 public class CmdLineParamsSupplierTest {
 
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
+    public static final String FILE_NAME = "res.fit";
     public static final double DELTA = 0.001;
 
     @Test(expected = NullPointerException.class)
@@ -28,23 +29,23 @@ public class CmdLineParamsSupplierTest {
     public void get_minimumArgsSet_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
-                .lp("timestamp", "2015-04-17")
-                .lp("out", "res.fit")
+                .sp("t", "2015-04-17")
+                .sp("o", FILE_NAME)
                 .build()
         );
 
         FitParams params = supplier.get();
 
         assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
-        assertEquals("res.fit", supplier.getFileName());
+        assertEquals(FILE_NAME, supplier.getFileName());
     }
 
     @Test(expected = CmdLineException.class)
-    public void get_incorrectTimestamp_ParseException() throws Exception {
+    public void get_incorrectTimestamp_CmdLineException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .lp("timestamp", "2015x04-17")
-                .lp("out", "res.fit")
+                .lp("out", FILE_NAME)
                 .build()
         );
 
@@ -56,8 +57,8 @@ public class CmdLineParamsSupplierTest {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .lp("timestamp", "2015-04-17")
-                .lp("weight", "85.5")
-                .lp("out", "res.fit")
+                .sp("w", "85.5")
+                .lp("out", FILE_NAME)
                 .build()
         );
 
@@ -65,7 +66,7 @@ public class CmdLineParamsSupplierTest {
 
         assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
         assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
-        assertEquals("res.fit", supplier.getFileName());
+        assertEquals(FILE_NAME, supplier.getFileName());
     }
 
     @Test
@@ -76,13 +77,13 @@ public class CmdLineParamsSupplierTest {
                 .lp("weight", "85.5")
                 .lp("bodyFat", "40")
                 .lp("bodyWater", "55")
-                .lp("visceralFat", "7")
+                .sp("vf", "7")
                 .lp("muscleMass", "20")
                 .sp("pr", "7")
                 .lp("boneMass", "30")
                 .sp("dci", "3030")
                 .lp("metabolicAge", "40")
-                .lp("out", "res.fit")
+                .lp("out", FILE_NAME)
                 .build()
         );
 
@@ -98,7 +99,7 @@ public class CmdLineParamsSupplierTest {
         assertEquals(30, params.getDoubleValue(FitFields.BONE_MASS), DELTA);
         assertEquals(3030, params.getIntValue(FitFields.DCI));
         assertEquals(40, params.getIntValue(FitFields.METABOLIC_AGE));
-        assertEquals("res.fit", supplier.getFileName());
+        assertEquals(FILE_NAME, supplier.getFileName());
     }
 
     private static class CmdLine {
