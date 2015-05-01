@@ -6,6 +6,7 @@ import org.kohsuke.args4j.CmdLineException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
+import java.io.File;
 import java.util.Date;
 import java.util.List;
 
@@ -18,6 +19,7 @@ public class CmdLineParamsSupplierTest {
 
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
     public static final String FILE_NAME = "res.fit";
+    public static final File FILE = new File(FILE_NAME);
     public static final double DELTA = 0.001;
 
     @Test(expected = NullPointerException.class)
@@ -37,7 +39,7 @@ public class CmdLineParamsSupplierTest {
         FitParams params = supplier.get();
 
         assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
-        assertEquals(FILE_NAME, supplier.getFileName());
+        assertEquals(FILE, supplier.getFile());
     }
 
     @Test(expected = CmdLineException.class)
@@ -66,7 +68,7 @@ public class CmdLineParamsSupplierTest {
 
         assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
         assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
-        assertEquals(FILE_NAME, supplier.getFileName());
+        assertEquals(FILE, supplier.getFile());
     }
 
     @Test
@@ -99,7 +101,7 @@ public class CmdLineParamsSupplierTest {
         assertEquals(30, params.getDoubleValue(FitFields.BONE_MASS), DELTA);
         assertEquals(3030, params.getIntValue(FitFields.DCI));
         assertEquals(40, params.getIntValue(FitFields.METABOLIC_AGE));
-        assertEquals(FILE_NAME, supplier.getFileName());
+        assertEquals(FILE, supplier.getFile());
     }
 
     private static class CmdLine {

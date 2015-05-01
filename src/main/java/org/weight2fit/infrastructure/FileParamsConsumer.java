@@ -11,7 +11,7 @@ import java.io.FileOutputStream;
  */
 public class FileParamsConsumer extends OutputStreamParamsConsumer {
 
-    public FileParamsConsumer(String fineName) throws FileNotFoundException {
-        super(new FileOutputStream(new File(fineName)));
+    public FileParamsConsumer(File file) throws FileNotFoundException {
+        super(new FileOutputStream(file));
     }
 }

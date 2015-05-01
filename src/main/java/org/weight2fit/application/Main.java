@@ -5,6 +5,7 @@ import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
 
+import java.io.File;
 import java.util.logging.Logger;
 
 /**
@@ -25,12 +26,12 @@ public class Main {
             CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
 
             FitParams params = supplier.get();
-            String fileName = supplier.getFileName();
+            File file = supplier.getFile();
 
-            FitParamsConsumer consumer = new FileParamsConsumer(fileName);
+            FitParamsConsumer consumer = new FileParamsConsumer(file);
             consumer.accept(params);
 
-            LOG.info("FIT file " + fileName + " was created");
+            LOG.info("FIT file " + file + " was created");
         }
         catch(Exception e) {
             LOG.severe(e.getMessage());

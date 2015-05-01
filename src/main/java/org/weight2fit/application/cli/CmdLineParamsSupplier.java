@@ -23,9 +23,10 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private final String[] args;
     private final CmdLineParser parser;
 
-    private final FitParams params = new FitParams();
     @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file", required = true, handler = FileOptionHandler.class)
     private File out;
+
+    private final FitParams params = new FitParams();
 
     public CmdLineParamsSupplier(String... args) {
         this.args = checkNotNull(args);
@@ -143,7 +144,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         }
     }
 
-    public String getFileName() {
-        return out.getName();
+    public File getFile() {
+        return out;
     }
 }
