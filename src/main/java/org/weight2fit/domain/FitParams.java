@@ -1,5 +1,6 @@
 package org.weight2fit.domain;
 
+import java.util.Date;
 import java.util.EnumMap;
 import java.util.Map;
 
@@ -10,14 +11,14 @@ import java.util.Map;
  */
 public final class FitParams {
 
-    private Map<FitFields, Object> holder = new EnumMap(FitFields.class);
+    private final Map<FitFields, Object> holder = new EnumMap<>(FitFields.class);
 
     public void setValue(FitFields field, Object value) {
         holder.put(field, value);
     }
 
-    public Object getValue(FitFields field) {
-        return holder.get(field);
+    public Date getDateValue(FitFields field) {
+        return (Date)getValue(field);
     }
 
     public int getIntValue(FitFields field) {
@@ -30,5 +31,9 @@ public final class FitParams {
 
     public boolean hasValue(FitFields field) {
         return holder.containsKey(field);
+    }
+
+    private Object getValue(FitFields field) {
+        return holder.get(field);
     }
 }

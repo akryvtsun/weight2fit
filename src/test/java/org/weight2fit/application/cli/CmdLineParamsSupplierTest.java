@@ -77,7 +77,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(DATE, params.getDateValue(FitFields.TIMESTAMP));
         assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
         assertEquals(FILE, supplier.getFile());
     }
@@ -102,7 +102,7 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(DATE, params.getDateValue(FitFields.TIMESTAMP));
         assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
         assertEquals(40, params.getDoubleValue(FitFields.BODY_FAT), DELTA);
         assertEquals(55, params.getDoubleValue(FitFields.BODY_WATER), DELTA);

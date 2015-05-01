@@ -6,7 +6,6 @@ import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 
 import java.io.OutputStream;
-import java.util.Date;
 
 import static com.google.common.base.Preconditions.checkNotNull;
 
@@ -28,7 +27,7 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
                 .manufacturer(Manufacturer.TANITA);
 
         if (params.hasValue(FitFields.TIMESTAMP))
-            builder.timestamp((Date)params.getValue(FitFields.TIMESTAMP));
+            builder.timestamp(params.getDateValue(FitFields.TIMESTAMP));
 
         if (params.hasValue(FitFields.WEIGHT))
             builder.weight(params.getDoubleValue(FitFields.WEIGHT));
