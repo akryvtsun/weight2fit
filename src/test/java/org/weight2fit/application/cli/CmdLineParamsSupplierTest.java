@@ -2,7 +2,7 @@ package org.weight2fit.application.cli;
 
 import com.google.common.collect.Lists;
 import org.junit.Test;
-import org.kohsuke.args4j.CmdLineException;
+import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
@@ -27,7 +27,7 @@ public class CmdLineParamsSupplierTest {
         new CmdLineParamsSupplier(null);
     }
 
-    @Test(expected = CmdLineException.class)
+    @Test(expected = FitException.class)
     public void get_absentsReqArgument_ok() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
@@ -39,7 +39,7 @@ public class CmdLineParamsSupplierTest {
         supplier.get();
     }
 
-    @Test(expected = CmdLineException.class)
+    @Test(expected = FitException.class)
     public void get_incorrectTimestamp_CmdLineException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
@@ -52,7 +52,7 @@ public class CmdLineParamsSupplierTest {
         supplier.get();
     }
 
-    @Test(expected = CmdLineException.class)
+    @Test(expected = FitException.class)
     public void get_incorrectWeight_CmdLineException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
                 new CmdLine()

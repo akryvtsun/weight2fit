@@ -5,6 +5,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
+import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
@@ -134,14 +135,15 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     }
 
     @Override
-    public FitParams get() throws Exception {
+    public FitParams get() throws FitException {
         try {
             parser.parseArgument(args);
             return params;
         }
         catch (CmdLineException e) {
             parser.printUsage(System.out);
-            throw e;
+
+            throw new FitException("Error during FitParams creation", e);
         }
     }
 

@@ -13,7 +13,7 @@ public interface FitParamsConsumer {
      * @param params  FIT options set
      *
      * @throws NullPointerException  if <code>params</code> is null
-     * @throws Exception  if something was wrong during options set consuming
+     * @throws FitException  if something was wrong during options set consuming
      */
-    void accept(FitParams params) throws Exception;
+    void accept(FitParams params) throws FitException;
 }

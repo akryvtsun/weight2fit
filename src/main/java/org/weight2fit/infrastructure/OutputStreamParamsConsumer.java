@@ -1,10 +1,12 @@
 package org.weight2fit.infrastructure;
 
 import com.garmin.fit.Manufacturer;
+import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 
+import java.io.IOException;
 import java.io.OutputStream;
 
 import static com.google.common.base.Preconditions.checkNotNull;
@@ -25,8 +27,19 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
     }
 
     @Override
-    public void accept(FitParams params) throws Exception {
+    public void accept(FitParams params) throws FitException {
         checkNotNull(params);
+
+        try {
+            byte[] buffer = generateParamBytes(params);
+            storeParamBytes(buffer);
+        } catch (IOException e) {
+
+            throw new FitException("Error during FitParams storing", e);
+        }
+    }
+
+    private byte[] generateParamBytes(FitParams params) {
 
         WeightScaleArrayBuilder builder = new WeightScaleArrayBuilder()
                 .manufacturer(DEFAULT_MANUFACTURER)
@@ -63,12 +76,13 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
         if (params.hasValue(FitFields.METABOLIC_AGE))
             builder.metabolicAge(params.getIntValue(FitFields.METABOLIC_AGE));
 
-        byte[] buffer = builder.build();
+        return builder.build();
+    }
 
+    private void storeParamBytes(byte[] buffer) throws IOException {
         try {
             os.write(buffer);
-        }
-        finally {
+        } finally {
             os.close();
         }
     }

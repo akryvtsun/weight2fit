@@ -11,7 +11,7 @@ public interface FitParamsSupplier {
      * Returns FIT options set.
      *
      * @return  FIT options set
-     * @throws Exception  if something was wrong during options set creation
+     * @throws FitException  if something was wrong during options set creation
      */
-    FitParams get() throws Exception;
+    FitParams get() throws FitException;
 }
