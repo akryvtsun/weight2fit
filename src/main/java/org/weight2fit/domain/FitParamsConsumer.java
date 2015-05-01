@@ -14,5 +14,5 @@ public interface FitParamsConsumer {
      * @throws Exception  if something was wrong during options set consuming
      */
     // TODO check for null parameter
-    public void accept(FitParams params) throws Exception;
+    void accept(FitParams params) throws Exception;
 }
