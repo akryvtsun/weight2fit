@@ -1,15 +1,20 @@
 Roadmap
 =======
 
+### v1 ###
 * single jar creation  
-* **release v1**
 
+### v1.5 ###
+* change domain model to support multiple weight records
+* create **CSVParamsSupplier** (or extend **CmdLineParamsSupplier**) for batch uploading old Fit data
+
+### v2 ###
 * add SWT UI
     * localization support
 * https://travis-ci.org usage ???     
 * review analogs
     * add not Tanita scale formats support ???
-* rethink domain model    
-* **release v2**
-
+    
+### v??? ###
+* rethink domain model
 * add Garmin Connect net uploading
