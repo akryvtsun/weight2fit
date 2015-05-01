@@ -14,6 +14,10 @@ import static com.google.common.base.Preconditions.checkNotNull;
  */
 public class OutputStreamParamsConsumer implements FitParamsConsumer {
 
+    private static final int DEFAULT_MANUFACTURER = Manufacturer.TANITA;
+    private static final int DEFAULT_PRODUCT = 1;
+    private static final long DEFAULT_SERIAL_NUMBER = 1L;
+
     private final OutputStream os;
 
     public OutputStreamParamsConsumer(OutputStream os) {
@@ -23,8 +27,10 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
     @Override
     public void accept(FitParams params) throws Exception {
 
-        WeightScaleBuilder builder = new WeightScaleBuilder()
-                .manufacturer(Manufacturer.TANITA);
+        WeightScaleArrayBuilder builder = new WeightScaleArrayBuilder()
+                .manufacturer(DEFAULT_MANUFACTURER)
+                .product(DEFAULT_PRODUCT)
+                .serialNumber(DEFAULT_SERIAL_NUMBER);
 
         if (params.hasValue(FitFields.TIMESTAMP))
             builder.timestamp(params.getDateValue(FitFields.TIMESTAMP));

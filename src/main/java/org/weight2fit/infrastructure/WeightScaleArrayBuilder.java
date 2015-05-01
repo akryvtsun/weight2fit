@@ -11,26 +11,38 @@ import static com.google.common.base.Preconditions.checkNotNull;
  *
  * @author Andriy Kryvtsun
  */
-public class WeightScaleBuilder {
+public class WeightScaleArrayBuilder {
     private final FileIdMesg fileIdMesg;
     private final WeightScaleMesg weightScaleMesg;
 
-    public WeightScaleBuilder() {
+    public WeightScaleArrayBuilder() {
         fileIdMesg = new FileIdMesg();
-        // mandatory fields
+        // one of mandatory fields
         fileIdMesg.setType(File.WEIGHT);
-        fileIdMesg.setProduct(111);
-        fileIdMesg.setSerialNumber(222L);
 
         weightScaleMesg = new WeightScaleMesg();
     }
 
-    public WeightScaleBuilder manufacturer(int value) {
+    ///// Device definition /////
+
+    public WeightScaleArrayBuilder manufacturer(int value) {
         fileIdMesg.setManufacturer(value);
         return this;
     }
 
-    public WeightScaleBuilder timestamp(Date value) {
+    public WeightScaleArrayBuilder product(int value) {
+        fileIdMesg.setProduct(value);
+        return this;
+    }
+
+    public WeightScaleArrayBuilder serialNumber(long value) {
+        fileIdMesg.setSerialNumber(value);
+        return this;
+    }
+
+    ///// Weight definition /////
+
+    public WeightScaleArrayBuilder timestamp(Date value) {
         weightScaleMesg.setTimestamp(new DateTime(value));
         return this;
     }
@@ -38,7 +50,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Weight in kg
      */
-    public WeightScaleBuilder weight(double value) {
+    public WeightScaleArrayBuilder weight(double value) {
         weightScaleMesg.setWeight((float) value);
         return this;
     }
@@ -46,7 +58,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Body Fat in %
      */
-    public WeightScaleBuilder percentFat(double value) {
+    public WeightScaleArrayBuilder percentFat(double value) {
         weightScaleMesg.setPercentFat((float) value);
         return this;
     }
@@ -54,7 +66,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Body Water in %
      */
-    public WeightScaleBuilder percentHydration(double value) {
+    public WeightScaleArrayBuilder percentHydration(double value) {
         weightScaleMesg.setPercentHydration((float) value);
         return this;
     }
@@ -62,7 +74,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Visceral Fat Mass in kg
      */
-    public WeightScaleBuilder visceralFatMass(double value) {
+    public WeightScaleArrayBuilder visceralFatMass(double value) {
         weightScaleMesg.setVisceralFatMass((float) value);
         return this;
     }
@@ -70,7 +82,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Visceral Fat
      */
-    public WeightScaleBuilder visceralFatRating(int value) {
+    public WeightScaleArrayBuilder visceralFatRating(int value) {
         weightScaleMesg.setVisceralFatRating((short) value);
         return this;
     }
@@ -78,7 +90,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Bone Mass in kg
      */
-    public WeightScaleBuilder boneMass(double value) {
+    public WeightScaleArrayBuilder boneMass(double value) {
         weightScaleMesg.setBoneMass((float) value);
         return this;
     }
@@ -86,7 +98,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Muscle Mass in kg
      */
-    public WeightScaleBuilder muscleMass(double value) {
+    public WeightScaleArrayBuilder muscleMass(double value) {
         weightScaleMesg.setMuscleMass((float) value);
         return this;
     }
@@ -94,7 +106,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Basal Met in kcal/day
      */
-    public WeightScaleBuilder basalMet(double value) {
+    public WeightScaleArrayBuilder basalMet(double value) {
         weightScaleMesg.setBasalMet((float) value);
         return this;
     }
@@ -103,7 +115,7 @@ public class WeightScaleBuilder {
      * Sets Daily Caloric Intake in kcal/day
      * Comment: ~4kJ per kcal, 0.25 allows max 16384 kcal
      */
-    public WeightScaleBuilder activeMet(double value) {
+    public WeightScaleArrayBuilder activeMet(double value) {
         weightScaleMesg.setActiveMet((float) value);
         return this;
     }
@@ -111,7 +123,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Physique Rating
      */
-    public WeightScaleBuilder physiqueRating(int value) {
+    public WeightScaleArrayBuilder physiqueRating(int value) {
         weightScaleMesg.setPhysiqueRating((short) value);
         return this;
     }
@@ -119,7 +131,7 @@ public class WeightScaleBuilder {
     /**
      * Sets Metabolic Age in years
      */
-    public WeightScaleBuilder metabolicAge(int value) {
+    public WeightScaleArrayBuilder metabolicAge(int value) {
         weightScaleMesg.setMetabolicAge((short) value);
         return this;
     }

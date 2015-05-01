@@ -15,20 +15,23 @@ import static org.junit.Assert.assertTrue;
  *
  * @author Andriy Kryvtsun
  */
-public class WeightScaleBuilderTest {
+public class WeightScaleArrayBuilderTest {
 
     @Test(expected = NullPointerException.class)
-    public void absentsMandatoryFields() {
-        new WeightScaleBuilder().build();
+    public void build_absentMandatoryFields_NullPointerException() {
+        new WeightScaleArrayBuilder().build();
     }
 
     @Test
-    public void checkIntegrity() {
-        byte[] buffer = new WeightScaleBuilder()
+    public void build_checkIntegrity_ok() {
+        byte[] buffer = new WeightScaleArrayBuilder()
             .manufacturer(Manufacturer.TANITA)
+            .product(1)
+            .serialNumber(1L)
             .timestamp(new Date())
             .weight(83f)
-        .build();
+            .percentFat(55)
+            .build();
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
