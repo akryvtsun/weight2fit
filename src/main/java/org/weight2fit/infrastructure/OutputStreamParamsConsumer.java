@@ -26,6 +26,7 @@ public class OutputStreamParamsConsumer implements FitParamsConsumer {
 
     @Override
     public void accept(FitParams params) throws Exception {
+        checkNotNull(params);
 
         WeightScaleArrayBuilder builder = new WeightScaleArrayBuilder()
                 .manufacturer(DEFAULT_MANUFACTURER)

@@ -8,6 +8,7 @@ import org.weight2fit.domain.FitParamsConsumer;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
+import java.io.OutputStream;
 import java.util.Date;
 
 import static org.junit.Assert.assertThat;
@@ -22,6 +23,13 @@ public class OutputStreamParamsConsumerTest {
     @Test(expected = NullPointerException.class)
     public void OutputStreamParamsConsumer_nullArgument_NullPointerException() {
         new OutputStreamParamsConsumer(null);
+    }
+
+    @Test(expected = NullPointerException.class)
+    public void accept_nullArgument_NullPointerException() throws Exception {
+        OutputStream os = new ByteArrayOutputStream();
+        FitParamsConsumer consumer = new OutputStreamParamsConsumer(os);
+        consumer.accept(null);
     }
 
     @Test
