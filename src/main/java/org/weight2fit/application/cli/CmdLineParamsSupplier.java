@@ -12,7 +12,7 @@ import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
  * FIT parameters reader from command line.

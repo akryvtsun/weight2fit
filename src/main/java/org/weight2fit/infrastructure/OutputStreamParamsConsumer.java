@@ -9,7 +9,7 @@ import org.weight2fit.domain.FitParamsConsumer;
 import java.io.IOException;
 import java.io.OutputStream;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
  * @author Andriy Kryvtsun

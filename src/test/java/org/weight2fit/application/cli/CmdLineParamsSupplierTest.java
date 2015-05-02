@@ -1,12 +1,12 @@
 package org.weight2fit.application.cli;
 
-import com.google.common.collect.Lists;
 import org.junit.Test;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -117,7 +117,7 @@ public class CmdLineParamsSupplierTest {
 
     private static class CmdLine {
 
-        private List<String> arguments = Lists.newArrayList();
+        private List<String> arguments = new ArrayList();
 
         // short parameter
         CmdLine sp(String param, String value) {

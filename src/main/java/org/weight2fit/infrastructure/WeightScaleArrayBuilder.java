@@ -4,7 +4,7 @@ import com.garmin.fit.*;
 
 import java.util.Date;
 
-import static com.google.common.base.Preconditions.checkNotNull;
+import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
  * Weight FIT parameters assembler.

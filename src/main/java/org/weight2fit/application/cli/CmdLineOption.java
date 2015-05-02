@@ -6,7 +6,7 @@ import org.kohsuke.args4j.spi.OptionHandler;
 
 import java.lang.annotation.Annotation;
 
-import static com.google.common.base.Preconditions.checkArgument;
+import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
  * @author Andiry Kryvtsun
@@ -123,8 +123,8 @@ public class CmdLineOption implements Option {
 
         public Option build() {
 
-            checkArgument(this.name != null, "name must be not null");
-            checkArgument(this.handler != null, "handler must be not null");
+            checkNotNull(this.name, "name must be not null");
+            checkNotNull(this.handler, "handler must be not null");
 
             final CmdLineOption option = new CmdLineOption();
 
