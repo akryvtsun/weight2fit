@@ -141,6 +141,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
             return params;
         }
         catch (CmdLineException e) {
+            System.out.println("weight2fit [options] --out FILE");
             parser.printUsage(System.out);
 
             throw new FitException("Error during FitParams creation", e);
