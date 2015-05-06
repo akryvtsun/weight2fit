@@ -3,14 +3,18 @@ package org.weight2fit.application.cli;
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.Option;
+import org.kohsuke.args4j.OptionHandlerFilter;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
+import org.kohsuke.args4j.spi.OptionHandler;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
+import java.util.Collections;
+import java.util.Comparator;
 
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
@@ -34,6 +38,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
 
         parser = new CmdLineParser(this);
         addOptions();
+        sortOptions();
     }
 
     private void addOptions() {
@@ -47,6 +52,19 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         addOption(FitFields.BONE_MASS, createBoneMassOption());
         addOption(FitFields.DCI, createDailyCalorieIntakeOption());
         addOption(FitFields.METABOLIC_AGE, createMetabolicAgeOption());
+    }
+
+    // put "out" option at the end of options list
+    // to beautify usage example view
+    private void sortOptions() {
+        Collections.sort(parser.getOptions(), new Comparator<OptionHandler>() {
+            @Override
+            public int compare(OptionHandler o1, OptionHandler o2) {
+                return o1 instanceof FileOptionHandler
+                        ? 1
+                        : o2 instanceof FileOptionHandler ? -1 : 0;
+            }
+        });
     }
 
     private Option createTimestampOption() {
@@ -141,7 +159,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
             return params;
         }
         catch (CmdLineException e) {
-            System.out.println("weight2fit [options] --out FILE");
+            System.out.println("Usage: weight2fit" + parser.printExample(OptionHandlerFilter.REQUIRED));
             parser.printUsage(System.out);
 
             throw new FitException("Error during FitParams creation", e);
