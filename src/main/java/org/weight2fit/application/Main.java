@@ -6,6 +6,7 @@ import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.io.File;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
@@ -18,7 +19,7 @@ import java.util.logging.Logger;
 // TODO add internalization (in GUI)
 public class Main {
 
-    private static final Logger LOG = Logger.getLogger(Main.class.getName());
+    private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
     public static void main(String... args) {
 
@@ -31,10 +32,10 @@ public class Main {
             FitParamsConsumer consumer = new FileParamsConsumer(file);
             consumer.accept(params);
 
-            LOG.info("FIT file " + file + " was created");
+            LOGGER.info("FIT file " + file + " was created");
         }
         catch(Exception e) {
-            LOG.severe(e.getMessage());
+            LOGGER.log(Level.SEVERE, "an exception was thrown", e);
         }
     }
 }
