@@ -77,8 +77,8 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getDateValue(FitFields.TIMESTAMP));
-        assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
+        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
         assertEquals(FILE, supplier.getFile());
     }
 
@@ -102,16 +102,16 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getDateValue(FitFields.TIMESTAMP));
-        assertEquals(85.5, params.getDoubleValue(FitFields.WEIGHT), DELTA);
-        assertEquals(40, params.getDoubleValue(FitFields.BODY_FAT), DELTA);
-        assertEquals(55, params.getDoubleValue(FitFields.BODY_WATER), DELTA);
-        assertEquals(7, params.getIntValue(FitFields.VISCERAL_FAT));
-        assertEquals(20, params.getDoubleValue(FitFields.MUSCLE_MASS), DELTA);
-        assertEquals(7, params.getIntValue(FitFields.PHYSIQUE_RATING));
-        assertEquals(30, params.getDoubleValue(FitFields.BONE_MASS), DELTA);
-        assertEquals(3030, params.getIntValue(FitFields.DCI));
-        assertEquals(40, params.getIntValue(FitFields.METABOLIC_AGE));
+        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
+        assertEquals(40, (Double)params.getValue(FitFields.BODY_FAT), DELTA);
+        assertEquals(55, (Double)params.getValue(FitFields.BODY_WATER), DELTA);
+        assertEquals(7, params.getValue(FitFields.VISCERAL_FAT));
+        assertEquals(20, (Double)params.getValue(FitFields.MUSCLE_MASS), DELTA);
+        assertEquals(7, params.getValue(FitFields.PHYSIQUE_RATING));
+        assertEquals(30, (Double)params.getValue(FitFields.BONE_MASS), DELTA);
+        assertEquals(3030, params.getValue(FitFields.DCI));
+        assertEquals(40, params.getValue(FitFields.METABOLIC_AGE));
         assertEquals(FILE, supplier.getFile());
     }
 
