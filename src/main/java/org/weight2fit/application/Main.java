@@ -32,10 +32,12 @@ public class Main {
             FitParamsConsumer consumer = new FileParamsConsumer(file);
             consumer.accept(params);
 
-            LOGGER.info("FIT file " + file + " was created");
+            System.out.println("FIT file " + file + " was created");
         }
         catch(Exception e) {
             LOGGER.log(Level.SEVERE, "an exception was thrown", e);
+
+            System.exit(1);
         }
     }
 }
