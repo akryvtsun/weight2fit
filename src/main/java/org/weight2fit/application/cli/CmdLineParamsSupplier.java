@@ -135,7 +135,6 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         return CmdLineOption.Builder.create()
                 .name("dci").longName("dailyCalorieIntake")
                 .description("Daily calorie intake in kcal/day")
-                .handler(IntOptionHandler.class)
                 .build();
     }
 
