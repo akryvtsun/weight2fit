@@ -110,7 +110,7 @@ public class CmdLineParamsSupplierTest {
         assertEquals(20, (Double)params.getValue(FitFields.MUSCLE_MASS), DELTA);
         assertEquals(7, params.getValue(FitFields.PHYSIQUE_RATING));
         assertEquals(30, (Double)params.getValue(FitFields.BONE_MASS), DELTA);
-        assertEquals(3030, params.getValue(FitFields.DCI));
+        assertEquals(3030, (Double)params.getValue(FitFields.DCI), DELTA);
         assertEquals(40, params.getValue(FitFields.METABOLIC_AGE));
         assertEquals(FILE, supplier.getFile());
     }
