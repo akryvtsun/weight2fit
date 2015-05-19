@@ -4,8 +4,11 @@ import org.junit.Test;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.shared.Constants;
 
 import java.io.File;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -67,19 +70,28 @@ public class CmdLineParamsSupplierTest {
 
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
+        final Date today = new Date();
+        today.setHours(0);
+        today.setMinutes(0);
+        today.setSeconds(0);
+
+        // create default file name
+        DateFormat formatter = new SimpleDateFormat(Constants.DATE_PATTERN);
+        String dateStr = formatter.format(today);
+        String fileName = String.format(Constants.FILE_PATTERN, dateStr);
+        final File file = new File(fileName);
+
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
-                .lp("timestamp", "2015-04-17")
-                .sp("w", "85.5")
-                .lp("out", FILE_NAME)
+                .lp("weight", "85.5")
                 .build()
         );
 
         FitParams params = supplier.get();
 
-        assertEquals(DATE, params.getValue(FitFields.TIMESTAMP));
+        assertEquals(today, params.getValue(FitFields.TIMESTAMP));
         assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
-        assertEquals(FILE, supplier.getFile());
+        assertEquals(file, supplier.getFile());
     }
 
     @Test

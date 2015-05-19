@@ -5,7 +5,7 @@ package org.weight2fit.domain.shared;
  *
  * @author Andriy Kryvtsun
  */
-public class Utils {
+public final class Utils {
 
     /**
      * Ensures that an object reference passed as a parameter to the calling method is not null.

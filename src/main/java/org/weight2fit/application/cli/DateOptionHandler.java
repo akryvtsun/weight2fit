@@ -5,7 +5,9 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OneArgumentOptionHandler;
 import org.kohsuke.args4j.spi.Setter;
+import org.weight2fit.domain.shared.Constants;
 
+import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -15,8 +17,7 @@ import java.util.Date;
  */
 public class DateOptionHandler extends OneArgumentOptionHandler<Date> {
 
-    static final String DATE_PATTERN = "yyyy-MM-dd";
-    private static final SimpleDateFormat DATE_FORMAT = new SimpleDateFormat(DATE_PATTERN);
+    private static final DateFormat DATE_FORMAT = new SimpleDateFormat(Constants.DATE_PATTERN);
 
     public DateOptionHandler(CmdLineParser parser, OptionDef option, Setter<? super Date> setter) {
         super(parser, option, setter);

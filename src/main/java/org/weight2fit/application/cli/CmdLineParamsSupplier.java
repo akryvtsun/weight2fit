@@ -11,6 +11,7 @@ import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
+import org.weight2fit.domain.shared.Constants;
 
 import java.io.File;
 import java.util.Collections;
@@ -28,7 +29,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private final String[] args;
     private final CmdLineParser parser;
 
-    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file", required = true, handler = FileOptionHandler.class)
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file", handler = FileOptionHandler.class)
     private File out;
 
     private final FitParams params = new FitParams();
@@ -70,9 +71,8 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private Option createTimestampOption() {
         return CmdLineOption.Builder.create()
                 .name("t").longName("timestamp")
-                .required()
                 .description("Timestamp of measurement")
-                .metaVar(DateOptionHandler.DATE_PATTERN)
+                .metaVar(Constants.DATE_PATTERN)
                 .handler(DateOptionHandler.class)
                 .build();
     }
