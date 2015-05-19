@@ -6,7 +6,10 @@ import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.logging.Level;
+import java.util.logging.LogManager;
 import java.util.logging.Logger;
 
 /**
@@ -18,6 +21,12 @@ import java.util.logging.Logger;
 // TODO add informative logging everywhere
 // TODO add internalization (in GUI)
 public class Main {
+
+    static {
+        try {
+            initLogging();
+        } catch (IOException e) { }
+    }
 
     private static final Logger LOGGER = Logger.getLogger(Main.class.getName());
 
@@ -38,6 +47,14 @@ public class Main {
             LOGGER.log(Level.SEVERE, "an exception was thrown", e);
 
             System.exit(1);
+        }
+    }
+
+    private static void initLogging() throws IOException {
+        String logFile = System.getProperty("java.util.logging.config.file");
+        if(logFile == null){
+            InputStream inputStream = Main.class.getClassLoader().getResourceAsStream("logging.properties");
+            LogManager.getLogManager().readConfiguration(inputStream);
         }
     }
 }
