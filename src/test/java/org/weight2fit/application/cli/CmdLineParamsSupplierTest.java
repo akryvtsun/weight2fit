@@ -4,12 +4,10 @@ import org.junit.Test;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
-import org.weight2fit.domain.shared.Constants;
 
 import java.io.File;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -71,15 +69,7 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
         final Date today = new Date();
-        today.setHours(0);
-        today.setMinutes(0);
-        today.setSeconds(0);
-
-        // create default file name
-        DateFormat formatter = new SimpleDateFormat(Constants.DATE_PATTERN);
-        String dateStr = formatter.format(today);
-        String fileName = String.format(Constants.FILE_PATTERN, dateStr);
-        final File file = new File(fileName);
+        final File defaultFile = CliUtils.createDefaultFile(today);
 
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
@@ -89,9 +79,17 @@ public class CmdLineParamsSupplierTest {
 
         FitParams params = supplier.get();
 
-        assertEquals(today, params.getValue(FitFields.TIMESTAMP));
+        Date timestamp = params.getValue(FitFields.TIMESTAMP);
+        assertEquals(truncateMillis(today), truncateMillis(timestamp));
         assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
-        assertEquals(file, supplier.getFile());
+        assertEquals(defaultFile, supplier.getFile());
+    }
+
+    private Date truncateMillis(Date date) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(date);
+        cal.set(Calendar.MILLISECOND, 0);
+        return cal.getTime();
     }
 
     @Test

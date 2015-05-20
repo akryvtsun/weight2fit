@@ -1,4 +1,4 @@
-package org.weight2fit.domain.shared;
+package org.weight2fit.application.shared;
 
 /**
  * Common application constants.

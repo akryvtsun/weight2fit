@@ -7,15 +7,16 @@ import org.kohsuke.args4j.OptionHandlerFilter;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
+import org.weight2fit.application.shared.Constants;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
-import org.weight2fit.domain.shared.Constants;
 
 import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.Date;
 
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
@@ -155,6 +156,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     public FitParams get() throws FitException {
         try {
             parser.parseArgument(args);
+            completeArguments();
             return params;
         }
         catch (CmdLineException e) {
@@ -163,6 +165,18 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
             parser.printUsage(System.out);
 
             throw new FitException("Error during FitParams creation", e);
+        }
+    }
+
+    private void completeArguments() {
+        // if timestamp isn't set use current date
+        if (!params.hasValue(FitFields.TIMESTAMP)) {
+            params.setValue(FitFields.TIMESTAMP, new Date());
+        }
+        // if file name isn't set use timestamp for it
+        if (out == null) {
+            Date timestamp = params.getValue(FitFields.TIMESTAMP);
+            out = CliUtils.createDefaultFile(timestamp);
         }
     }
 
