@@ -8,7 +8,7 @@ How to Use
 ----------
 To start the program execute from the command line
 ```
-java -jar weight2fit -w (--weight) value [OPTIONAL_PARAMETERS]
+java -jar weight2fit.jar -w (--weight) value [OPTIONAL_PARAMETERS]
 ```
 Here are
 ```
@@ -24,6 +24,7 @@ Here are
  -ma (--metabolicAge) value        : Metabolic age in years
  -o (--out) FILE                   : Output FIT file
 ```
+The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/en/iconlegend).  
 
 Building
 --------
