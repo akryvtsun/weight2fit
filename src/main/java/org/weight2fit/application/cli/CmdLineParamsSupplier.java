@@ -30,7 +30,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
     private final String[] args;
     private final CmdLineParser parser;
 
-    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file", handler = FileOptionHandler.class)
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file name", handler = FileOptionHandler.class)
     private File out;
 
     private final FitParams params = new FitParams();

@@ -22,7 +22,7 @@ Here are
  -bm (--boneMass) value            : Bone mass of the body in kg
  -dci (--dailyCalorieIntake) value : Daily calorie intake in kcal/day
  -ma (--metabolicAge) value        : Metabolic age in years
- -o (--out) FILE                   : Output FIT file
+ -o (--out) FILE                   : Output FIT file name
 ```
 The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
 on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/health-legends.png).  
@@ -33,13 +33,12 @@ Regardless of your operating system, you must have the following things installe
 
   * JRE 1.7 or greater
   * Maven 3.x or greater
-  * Git
 
 Open a system shell and check out the sources into some directory. Then `cd` into that directory and type:
 
 `mvn clean package`
 
-The resulting built artifact will be located under the `target` directory. That's it.
+The resulting built artifact will be located under the `target` directory.
 
 License
 -------
