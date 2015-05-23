@@ -23,7 +23,7 @@
     </repositories>
 
     <scm>
-        <developerConnection>scm:git:ssh://git@github.com:englishman/weight2fit.git</developerConnection>
+        <developerConnection>scm:git:git://github.com:englishman/weight2fit.git</developerConnection>
     </scm>
 
     <build>
