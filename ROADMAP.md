@@ -6,6 +6,7 @@ Roadmap
 * implement SWT UI with manual params entering
 * create Windows, Linux, MacOS executable files
 * https://travis-ci.org usage ??? 
+* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
 
 ### v2.? ###
 * add localization support
