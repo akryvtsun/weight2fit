@@ -1,9 +1,6 @@
 Roadmap
 =======
 
-### v1 ###
-* create first release
-  
 ### v1.x ###
 * add all FIT standard scale fields support
 * make domain model more strict (use reflection for model fields access)

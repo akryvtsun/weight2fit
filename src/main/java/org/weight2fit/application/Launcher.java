@@ -10,7 +10,7 @@ import java.util.logging.LogManager;
  *
  * @author Andriy Kryvtsun
  */
-public class Main {
+public class Launcher {
 
     public static void main(String... args) {
         try {
@@ -30,7 +30,7 @@ public class Main {
         String logFile = System.getProperty("java.util.logging.config.file");
 
         if(logFile == null) {
-            InputStream propertiesStream = Main.class.getClassLoader().getResourceAsStream("logging.properties");
+            InputStream propertiesStream = Launcher.class.getClassLoader().getResourceAsStream("logging.properties");
             LogManager.getLogManager().readConfiguration(propertiesStream);
         }
     }
