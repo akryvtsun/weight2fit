@@ -12,13 +12,14 @@ Roadmap
 * add localization support
 * add info in lbs and kgs
 * add fields set config support
-* add not Tanita scale formats support ???
 * create web-site ???
     
 ### v??? ###
-* add Garmin Connect net uploading
+* plugins support
+    * add Garmin Connect net uploading
+    * add not Tanita scale input formats support ???
+    * create **CSVParamsSupplier** (or extend **CmdLineParamsSupplier**) for batch uploading old Fit data
 * change domain model to support multiple weight records
     * add domain validation
     * make domain model more strict (use reflection for model fields access)
-* create **CSVParamsSupplier** (or extend **CmdLineParamsSupplier**) for batch uploading old Fit data
-* plugins support
+
