@@ -24,11 +24,11 @@ Here are
  -ma (--metabolicAge) value        : Metabolic age in years
  -o (--out) FILE                   : Output FIT file name
 ```
-The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
-on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/health-legends.png).  
-
 If `timestamp` param is missing current date value will be used. If `out` param is missed `timestamp` value 
 will be used as a name of file.
+
+The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
+on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/health-legends.png).
 
 Building
 --------
