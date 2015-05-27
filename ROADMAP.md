@@ -1,18 +1,20 @@
 Roadmap
 =======
 
-### v2.0 ###
+### v1.5 ###
 * review analogs
-* implement SWT UI with manual params entering
+* implement SWT UI with manual params entering for Windows and Linux
+* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
+* add fields set config support
+
+### v2.0 ###
 * create Windows, Linux, MacOS executable files
 * https://travis-ci.org usage ??? 
-* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
+* create web-site ???
 
 ### v2.? ###
 * add localization support
 * add info in lbs and kgs
-* add fields set config support
-* create web-site ???
     
 ### v??? ###
 * plugins support
