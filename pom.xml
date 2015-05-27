@@ -15,9 +15,8 @@
 
     <repositories>
         <repository>
-            <id>in-project</id>
-            <name>In Project Repo</name>
-            <url>file://${project.basedir}/repo</url>
+            <id>in-project-repo</id>
+            <url>file://${project.basedir}/lib</url>
         </repository>
     </repositories>
 
