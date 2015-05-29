@@ -4,7 +4,8 @@ Roadmap
 ### v1.5 ###
 * review analogs
 * implement SWT UI with manual params entering for Windows and Linux
-* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
+    * generate jars [for different platforms] (http://stackoverflow.com/questions/17845423/maven-shade-plugin-to-produce-two-jars)
+* add [weight fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons)
 * add fields set config support
 
 ### v2.0 ###
