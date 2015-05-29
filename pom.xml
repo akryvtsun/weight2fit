@@ -40,6 +40,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
+                    <shadedArtifactId>${project.artifactId}-${project.activeProfiles[0].id}</shadedArtifactId>
                     <minimizeJar>true</minimizeJar>
                     <filters>
                         <filter>
