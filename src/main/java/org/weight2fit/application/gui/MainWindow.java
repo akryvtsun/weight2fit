@@ -1,27 +1,24 @@
 package org.weight2fit.application.gui;
 
 import org.eclipse.swt.SWT;
+import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.FormAttachment;
 import org.eclipse.swt.layout.FormData;
 import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.Label;
-import org.eclipse.swt.widgets.Shell;
-import org.eclipse.swt.widgets.Text;
+import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.shared.Constants;
 
 /**
  * @author Andriy Kryvtsun
  */
 public class MainWindow {
-    private Display display;
     private Shell shell;
 
     public MainWindow(Display display) {
-        this.display = display;
-
-        shell = new Shell(display);
+        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setSize(250, 250);
+
+        centerShell(display);
 
         shell.setText(Constants.APP_NAME);
         shell.setLayout(new FormLayout());
@@ -58,6 +55,17 @@ public class MainWindow {
 
         //shell.pack();
         shell.open();
+    }
+
+    private void centerShell(Display display) {
+        Monitor primary = display.getPrimaryMonitor();
+        Rectangle bounds = primary.getBounds();
+        Rectangle rect = shell.getBounds();
+
+        int x = bounds.x + (bounds.width - rect.width) / 2;
+        int y = bounds.y + (bounds.height - rect.height) / 2;
+
+        shell.setLocation(x, y);
     }
 
     public boolean isDisposed() {
