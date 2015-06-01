@@ -8,6 +8,7 @@ import org.eclipse.swt.widgets.Display;
 import org.eclipse.swt.widgets.Label;
 import org.eclipse.swt.widgets.Shell;
 import org.eclipse.swt.widgets.Text;
+import org.weight2fit.application.shared.Constants;
 
 /**
  * @author Andriy Kryvtsun
@@ -22,7 +23,7 @@ public class MainWindow {
         shell = new Shell(display);
         shell.setSize(250, 250);
 
-        shell.setText("A FormLayout Example");
+        shell.setText(Constants.APP_NAME);
         shell.setLayout(new FormLayout());
 
         final Label l1 = new Label(shell, SWT.RIGHT);
