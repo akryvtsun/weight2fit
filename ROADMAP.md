@@ -9,6 +9,8 @@ Roadmap
 
 ### v2.0 ###
 * create Windows, Linux, MacOS executable files
+    * remove 'swt' from artifactId in local repo
+    * use artifactId from local repo as platformId for file name generation
 * https://travis-ci.org usage ??? 
 * create web-site ???
 
