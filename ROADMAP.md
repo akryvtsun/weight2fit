@@ -11,6 +11,7 @@ Roadmap
 * create Windows, Linux, MacOS executable files
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
+    * add MacOS SWT into local repo
 * https://travis-ci.org usage ??? 
 * create web-site ???
 

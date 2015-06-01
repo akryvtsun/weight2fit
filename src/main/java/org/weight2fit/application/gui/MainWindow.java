@@ -15,7 +15,7 @@ public class MainWindow {
     private Shell shell;
 
     public MainWindow(Display display) {
-        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
+        shell = new Shell(display/*, SWT.CLOSE | SWT.TITLE*/);
         shell.setSize(250, 250);
 
         centerShell(display);
@@ -52,6 +52,9 @@ public class MainWindow {
         fd.top = new FormAttachment(l2, 0, SWT.TOP);
         fd.left = new FormAttachment(l2, 10);
         t2.setLayoutData(fd);
+
+//        Button pushButton = new Button(shell, SWT.PUSH);
+//        pushButton.setText("Im a Push Button");
 
         //shell.pack();
         shell.open();
