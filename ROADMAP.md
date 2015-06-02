@@ -2,8 +2,9 @@ Roadmap
 =======
 
 ### v1.5 ###
-* review analogs
 * implement SWT UI with manual params entering for Windows and Linux
+* avoid unneeded *.jar files generation
+* review analogs
 * add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
 * add fields set config support
 
