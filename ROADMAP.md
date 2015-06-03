@@ -2,14 +2,17 @@ Roadmap
 =======
 
 ### v1.5 ###
-* review analogs
 * implement SWT UI with manual params entering for Windows and Linux
-    * generate jars [for different platforms] (http://stackoverflow.com/questions/17845423/maven-shade-plugin-to-produce-two-jars)
-* add [weight fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons)
+* avoid unneeded *.jar files generation
+* review analogs
+* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
 * add fields set config support
 
 ### v2.0 ###
 * create Windows, Linux, MacOS executable files
+    * remove 'swt' from artifactId in local repo
+    * use artifactId from local repo as platformId for file name generation
+    * add MacOS SWT into local repo
 * https://travis-ci.org usage ??? 
 * create web-site ???
 
