@@ -5,8 +5,10 @@ Roadmap
 * implement SWT UI with manual params entering for Windows and Linux
 * avoid unneeded *.jar files generation
 * review analogs
-* add weight fit logo http://www.thisisant.com/consumer/ant-101/activity-icons/
-* add fields set config support
+* add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README 
+* configuration
+    * add fields set config support
+    * add info in lbs and kgs
 
 ### v2.0 ###
 * create Windows, Linux, MacOS executable files
@@ -18,7 +20,6 @@ Roadmap
 
 ### v2.? ###
 * add localization support
-* add info in lbs and kgs
     
 ### v??? ###
 * plugins support
