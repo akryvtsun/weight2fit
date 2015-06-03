@@ -4,21 +4,23 @@ Roadmap
 ### v1.5 ###
 * implement SWT UI with manual params entering for Windows and Linux
 * avoid unneeded *.jar files generation
-* review analogs
 * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README 
-* configuration
-    * add fields set config support
-    * add info in lbs and kgs
 
 ### v2.0 ###
 * create Windows, Linux, MacOS executable files
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
     * add MacOS SWT into local repo
-* https://travis-ci.org usage ??? 
 * create web-site ???
 
-### v2.? ###
+### v2.5 ###
+* review analogs
+* add menu
+    * File/Exit
+    * Edit/Preferences
+        * add fields set config support
+        * add info in lbs and kgs
+    * Help/About
 * add localization support
     
 ### v??? ###
@@ -29,4 +31,5 @@ Roadmap
 * change domain model to support multiple weight records
     * add domain validation
     * make domain model more strict (use reflection for model fields access)
+* https://travis-ci.org usage ??? 
 
