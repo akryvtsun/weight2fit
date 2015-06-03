@@ -25,7 +25,6 @@
     </scm>
 
     <build>
-
         <plugins>
             <plugin>
                 <artifactId>maven-compiler-plugin</artifactId>
@@ -41,6 +40,7 @@
                 <artifactId>maven-shade-plugin</artifactId>
                 <version>2.3</version>
                 <configuration>
+                    <shadedArtifactId>${project.artifactId}-${platformId}</shadedArtifactId>
                     <minimizeJar>true</minimizeJar>
                     <filters>
                         <filter>
@@ -69,11 +69,9 @@
                 </executions>
             </plugin>
         </plugins>
-
     </build>
 
     <dependencies>
-
         <dependency>
             <groupId>com.garmin</groupId>
             <artifactId>fit-sdk</artifactId>
@@ -87,11 +85,44 @@
         </dependency>
 
         <dependency>
+            <groupId>org.eclipse.swt</groupId>
+            <artifactId>${swt.artifactId}</artifactId>
+            <version>4.4.2</version>
+        </dependency>
+
+        <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
             <version>4.11</version>
             <scope>test</scope>
         </dependency>
-
     </dependencies>
+
+    <profiles>
+        <profile>
+            <id>windows</id>
+            <activation>
+                <os>
+                    <family>windows</family>
+                </os>
+            </activation>
+            <properties>
+                <swt.artifactId>swt-win32-win32-x86_64</swt.artifactId>
+                <platformId>windows</platformId>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>linux</id>
+            <activation>
+                <os>
+                    <name>linux</name>
+                </os>
+            </activation>
+            <properties>
+                <swt.artifactId>swt-gtk-linux-x86_64</swt.artifactId>
+                <platformId>linux</platformId>
+            </properties>
+        </profile>
+    </profiles>
 </project>

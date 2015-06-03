@@ -161,7 +161,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         }
         catch (CmdLineException e) {
             System.out.println("Error: " + e.getLocalizedMessage());
-            System.out.println("Usage: weight2fit" + parser.printExample(OptionHandlerFilter.REQUIRED));
+            System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED));
             parser.printUsage(System.out);
 
             throw new FitException("Error during FitParams creation", e);
