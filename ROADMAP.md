@@ -3,6 +3,7 @@ Roadmap
 
 ### v1.5 ###
 * implement SWT UI with manual params entering for Windows and Linux
+    * add keyboard shortcuts in MainWindow ???
 * avoid unneeded *.jar files generation
 * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README 
 
