@@ -3,11 +3,11 @@ package org.weight2fit.application.gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
+import org.eclipse.swt.events.VerifyEvent;
+import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Rectangle;
-import org.eclipse.swt.layout.FormAttachment;
-import org.eclipse.swt.layout.FormData;
-import org.eclipse.swt.layout.FormLayout;
-import org.eclipse.swt.layout.RowLayout;
+import org.eclipse.swt.layout.GridData;
+import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.shared.Constants;
 
@@ -18,11 +18,10 @@ public class MainWindow {
     private Shell shell;
 
     public MainWindow(Display display) {
-        shell = new Shell(display/*, SWT.CLOSE | SWT.TITLE*/);
-        //shell.setSize(250, 250);
+        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
 
         shell.setText(Constants.APP_NAME);
-        RowLayout layout = new RowLayout(SWT.VERTICAL);
+        GridLayout layout = new GridLayout();
         layout.marginLeft = 5;
         layout.marginTop = 5;
         layout.marginRight = 5;
@@ -32,7 +31,11 @@ public class MainWindow {
         createMeasures(shell);
 
         Button button = new Button(shell, SWT.PUSH);
-        button.setText("Generate");
+        button.setText("Generate file");
+        GridData data = new GridData();
+        data.horizontalAlignment = GridData.END;
+        data.grabExcessHorizontalSpace = true;
+        button.setLayoutData(data);
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -50,37 +53,68 @@ public class MainWindow {
     private void createMeasures(Composite parent) {
         Group group = new Group(parent, SWT.NULL /*SHADOW_ETCHED_IN*/);
         group.setText("Measures");
-        group.setLayout(new FormLayout());
 
-        final Label l1 = new Label(group, SWT.RIGHT);
-        l1.setText("First Name");
-        FormData fd = new FormData();
-        fd.top = new FormAttachment(10, 10);
-        fd.left = new FormAttachment(0, 10);
-        fd.bottom = new FormAttachment(30, 0);
-        fd.right = new FormAttachment(40, 0);
-        l1.setLayoutData(fd);
+        GridData data = new GridData();
+        data.horizontalAlignment = GridData.FILL;
+        data.verticalAlignment = GridData.FILL;
+        data.grabExcessHorizontalSpace = true;
+        data.grabExcessVerticalSpace = true;
+        group.setLayoutData(data);
 
-        final Label l2 = new Label(group, SWT.RIGHT);
-        l2.setText("Last Name");
-        fd = new FormData();
-        fd.top = new FormAttachment(l1, 5);
-        fd.left = new FormAttachment(0, 10);
-        fd.bottom = new FormAttachment(40, 0);
-        fd.right = new FormAttachment(40, 0);
-        l2.setLayoutData(fd);
+        GridLayout layout = new GridLayout();
+        layout.numColumns = 6;
+        layout.marginLeft = 5;
+        layout.marginTop = 5;
+        layout.marginRight = 5;
+        layout.marginBottom = 5;
+        group.setLayout(layout);
 
-        final Text t1 = new Text(group, SWT.BORDER | SWT.SINGLE);
-        fd = new FormData();
-        fd.top = new FormAttachment(l1, 0, SWT.TOP);
-        fd.left = new FormAttachment(l1, 10);
-        t1.setLayoutData(fd);
+        new Label(group, SWT.RIGHT).setText("Timestamp:");;
+        final Text timestampText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        timestampText.addVerifyListener(new VerifyListener() {
+            @Override
+            public void verifyText(VerifyEvent e) {
+                System.out.println(e.text);
+                e.doit = false;
+            }
+        });
+        new Label(group, SWT.RIGHT);
 
-        final Text t2 = new Text(group, SWT.BORDER | SWT.SINGLE);
-        fd = new FormData();
-        fd.top = new FormAttachment(l2, 0, SWT.TOP);
-        fd.left = new FormAttachment(l2, 10);
-        t2.setLayoutData(fd);
+        new Label(group, SWT.RIGHT).setText("Weight:");
+        final Text weightText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("kg");
+
+        new Label(group, SWT.RIGHT).setText("Body Fat:");
+        final Text bodyFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("%");
+
+        new Label(group, SWT.RIGHT).setText("Body Water:");
+        final Text bodyWaterText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("%");
+
+        new Label(group, SWT.RIGHT).setText("Visceral Fat:");
+        final Text visceralFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT);
+
+        new Label(group, SWT.RIGHT).setText("Muscle Mass:");
+        final Text muscleMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("kg");
+
+        new Label(group, SWT.RIGHT).setText("Physique Rating:");
+        final Text physiqueRatingText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT);
+
+        new Label(group, SWT.RIGHT).setText("Bone Mass:");
+        final Text boneMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("kg");
+
+        new Label(group, SWT.RIGHT).setText("DCI:");;
+        final Text dciText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("C");
+
+        new Label(group, SWT.RIGHT).setText("Metabolic Age:");;
+        final Text metabolicAgeText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("years");
     }
 
     private void centerShell(Display display) {
