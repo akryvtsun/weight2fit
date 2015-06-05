@@ -11,6 +11,7 @@ Roadmap
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
     * add MacOS SWT into local repo
+* show program version from Metafile in GUI and CLI    
 * create web-site ???
 
 ### v2.5 ###
