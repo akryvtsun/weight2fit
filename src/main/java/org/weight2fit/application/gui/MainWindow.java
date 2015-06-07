@@ -3,7 +3,6 @@ package org.weight2fit.application.gui;
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
-import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
@@ -12,12 +11,11 @@ import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.shared.Constants;
 
 /**
+ * Main application window.
+ *
  * @author Andriy Kryvtsun
  */
 public class MainWindow {
-
-    private static VerifyListener DOUBLE_CHECKER = new DoubleVerifyListener();
-    private static VerifyListener INTEGER_CHECKER = new IntVerifyListener();
 
     private Shell shell;
 
@@ -75,16 +73,16 @@ public class MainWindow {
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        Text timestamp = createField(group, "Timestamp:", null, null);
-        Text weight = createField(group, "Weight:", "kg", DOUBLE_CHECKER);
-        Text bodyFat = createField(group, "Body Fat:", "%", DOUBLE_CHECKER);
-        Text bodyWater = createField(group, "Body Water:", "%", DOUBLE_CHECKER);
-        Text visceralFat = createField(group, "Visceral Fat:", null, INTEGER_CHECKER);
-        Text muscleMass = createField(group, "Muscle Mass:", "kg", DOUBLE_CHECKER);
-        Text physiqueRating = createField(group, "Physique Rating:", null, INTEGER_CHECKER);
-        Text boneMass = createField(group, "Bone Mass:", "kg", DOUBLE_CHECKER);
-        Text metabolicAge = createField(group, "Metabolic Age:", "years", INTEGER_CHECKER);
-        Text dci = createField(group, "DCI:", "C", INTEGER_CHECKER);
+        Text timestamp = createField(group, "Timestamp:", null, FieldVerifiers.DATE);
+        Text weight = createField(group, "Weight:", "kg", FieldVerifiers.DOUBLE);
+        Text bodyFat = createField(group, "Body Fat:", "%", FieldVerifiers.DOUBLE);
+        Text bodyWater = createField(group, "Body Water:", "%", FieldVerifiers.DOUBLE);
+        Text visceralFat = createField(group, "Visceral Fat:", null, FieldVerifiers.INTEGER);
+        Text muscleMass = createField(group, "Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
+        Text physiqueRating = createField(group, "Physique Rating:", null, FieldVerifiers.INTEGER);
+        Text boneMass = createField(group, "Bone Mass:", "kg", FieldVerifiers.DOUBLE);
+        Text metabolicAge = createField(group, "Metabolic Age:", "years", FieldVerifiers.INTEGER);
+        Text dci = createField(group, "DCI:", "C", FieldVerifiers.INTEGER);
 
         return group;
     }
@@ -118,47 +116,5 @@ public class MainWindow {
 
     public boolean isDisposed() {
         return shell.isDisposed();
-    }
-
-//    static class DateVerifyListener implements VerifyListener {
-//        @Override
-//        public void verifyText(VerifyEvent e) {
-//            e.doit = true;
-//            try {
-//                Text source = (Text)e.getSource();
-//                String toCheck = source.getText() + e.text;
-//                UIUtils.parse(toCheck);
-//            } catch (ParseException e1) {
-//                e.doit = false;
-//            }
-//        }
-//    }
-
-    static class DoubleVerifyListener implements VerifyListener {
-        @Override
-        public void verifyText(VerifyEvent e) {
-            e.doit = true;
-            try {
-                Text source = (Text)e.getSource();
-                String toCheck = source.getText() + e.text;
-                Double.parseDouble(toCheck);
-            } catch (NumberFormatException e1) {
-                e.doit = false;
-            }
-        }
-    }
-
-    static class IntVerifyListener implements VerifyListener {
-        @Override
-        public void verifyText(VerifyEvent e) {
-            e.doit = true;
-            try {
-                Text source = (Text)e.getSource();
-                String toCheck = source.getText() + e.text;
-                Integer.parseInt(toCheck);
-            } catch (NumberFormatException e1) {
-                e.doit = false;
-            }
-        }
     }
 }
