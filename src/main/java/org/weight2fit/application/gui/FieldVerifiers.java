@@ -19,6 +19,12 @@ public class FieldVerifiers {
         @Override
         public void verifyText(VerifyEvent e) {
             e.doit = true;
+            for (int i = 0; i < e.text.length(); i++) {
+                char c = e.text.charAt(i);
+                e.doit = Character.isDigit(c) || c == '-';
+                if (!e.doit)
+                    break;
+            }
         }
     }
 
