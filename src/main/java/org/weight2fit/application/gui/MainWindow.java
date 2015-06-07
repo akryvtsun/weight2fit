@@ -15,6 +15,8 @@ import org.weight2fit.application.shared.Constants;
  *
  * @author Andriy Kryvtsun
  */
+// TODO use Spinner for integer fields
+// TODO use date/time picker for Timestamp
 public class MainWindow {
 
     private Shell shell;
