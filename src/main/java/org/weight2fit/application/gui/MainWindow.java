@@ -15,12 +15,17 @@ import org.weight2fit.application.shared.Constants;
  * @author Andriy Kryvtsun
  */
 public class MainWindow {
+
+    private static VerifyListener DOUBLE_CHECKER = new DoubleVerifyListener();
+    private static VerifyListener INTEGER_CHECKER = new IntVerifyListener();
+
     private Shell shell;
 
     public MainWindow(Display display) {
-        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
 
+        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setText(Constants.APP_NAME);
+
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;
         layout.marginTop = 5;
@@ -29,14 +34,21 @@ public class MainWindow {
         layout.verticalSpacing = 10;
         shell.setLayout(layout);
 
-        createMeasures(shell);
+        Group group = createMeasures(shell);
+
+        GridData data = new GridData();
+        data.horizontalAlignment = GridData.FILL;
+        data.verticalAlignment = GridData.FILL;
+        data.grabExcessHorizontalSpace = true;
+        data.grabExcessVerticalSpace = true;
+        group.setLayoutData(data);
 
         Button button = new Button(shell, SWT.PUSH);
-        button.setText("Generate file");
-        GridData data = new GridData();
-        data.horizontalAlignment = GridData.END;
-        data.grabExcessHorizontalSpace = true;
-        button.setLayoutData(data);
+        button.setText("Generate File");
+        GridData data2 = new GridData();
+        data2.horizontalAlignment = GridData.END;
+        data2.grabExcessHorizontalSpace = true;
+        button.setLayoutData(data2);
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
@@ -51,16 +63,9 @@ public class MainWindow {
         shell.open();
     }
 
-    private void createMeasures(Composite parent) {
-        Group group = new Group(parent, SWT.NULL /*SHADOW_ETCHED_IN*/);
+    private Group createMeasures(Composite parent) {
+        Group group = new Group(parent, SWT.NULL);
         group.setText("Measures");
-
-        GridData data = new GridData();
-        data.horizontalAlignment = GridData.FILL;
-        data.verticalAlignment = GridData.FILL;
-        data.grabExcessHorizontalSpace = true;
-        data.grabExcessVerticalSpace = true;
-        group.setLayoutData(data);
 
         GridLayout layout = new GridLayout();
         layout.numColumns = 6;
@@ -70,73 +75,34 @@ public class MainWindow {
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        Label label2 = new Label(group, SWT.RIGHT);
-        label2.setText("Timestamp:");
-        label2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text timestampText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        timestampText.addVerifyListener(new VerifyListener() {
-            @Override
-            public void verifyText(VerifyEvent e) {
-                System.out.println(e.text);
-                e.doit = false;
-            }
-        });
-        new Label(group, SWT.RIGHT);
+        Text timestamp = createField(group, "Timestamp:", null, null);
+        Text weight = createField(group, "Weight:", "kg", DOUBLE_CHECKER);
+        Text bodyFat = createField(group, "Body Fat:", "%", DOUBLE_CHECKER);
+        Text bodyWater = createField(group, "Body Water:", "%", DOUBLE_CHECKER);
+        Text visceralFat = createField(group, "Visceral Fat:", null, INTEGER_CHECKER);
+        Text muscleMass = createField(group, "Muscle Mass:", "kg", DOUBLE_CHECKER);
+        Text physiqueRating = createField(group, "Physique Rating:", null, INTEGER_CHECKER);
+        Text boneMass = createField(group, "Bone Mass:", "kg", DOUBLE_CHECKER);
+        Text metabolicAge = createField(group, "Metabolic Age:", "years", INTEGER_CHECKER);
+        Text dci = createField(group, "DCI:", "C", INTEGER_CHECKER);
 
-        Label label3 = new Label(group, SWT.RIGHT);
-        label3.setText("Weight:");
-        label3.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text weightText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("kg");
+        return group;
+    }
 
-        Label label4 = new Label(group, SWT.RIGHT);
-        label4.setText("Body Fat:");
-        label4.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text bodyFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        Label label = new Label(group, SWT.RIGHT);
-        label.setText("%");
+    private Text createField(Group group, String titleStr, String unitStr, VerifyListener verifier) {
+        Label title = new Label(group, SWT.RIGHT);
+        title.setText(titleStr);
+        title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
-        Label label1 = new Label(group, SWT.RIGHT);
-        label1.setText("Body Water:");
-        label1.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text bodyWaterText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("%");
+        final Text field = new Text(group, SWT.BORDER | SWT.SINGLE | SWT.RIGHT);
+        if (verifier != null)
+            field.addVerifyListener(verifier);
 
-        Label label5 = new Label(group, SWT.RIGHT);
-        label5.setText("Visceral Fat:");
-        label5.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text visceralFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT);
+        Label unit = new Label(group, SWT.RIGHT);
+        if (unitStr != null)
+            unit.setText(unitStr);
 
-        Label label6 = new Label(group, SWT.RIGHT);
-        label6.setText("Muscle Mass:");
-        label6.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text muscleMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("kg");
-
-        Label label7 = new Label(group, SWT.RIGHT);
-        label7.setText("Physique Rating:");
-        label7.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text physiqueRatingText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT);
-
-        Label label8 = new Label(group, SWT.RIGHT);
-        label8.setText("Bone Mass:");
-        label8.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text boneMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("kg");
-
-        Label label9 = new Label(group, SWT.RIGHT);
-        label9.setText("Metabolic Age:");
-        label9.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text metabolicAgeText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("years");
-
-        Label label10 = new Label(group, SWT.RIGHT);
-        label10.setText("DCI:");
-        label10.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
-        final Text dciText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("C");
+        return field;
     }
 
     private void centerShell(Display display) {
@@ -152,5 +118,47 @@ public class MainWindow {
 
     public boolean isDisposed() {
         return shell.isDisposed();
+    }
+
+//    static class DateVerifyListener implements VerifyListener {
+//        @Override
+//        public void verifyText(VerifyEvent e) {
+//            e.doit = true;
+//            try {
+//                Text source = (Text)e.getSource();
+//                String toCheck = source.getText() + e.text;
+//                UIUtils.parse(toCheck);
+//            } catch (ParseException e1) {
+//                e.doit = false;
+//            }
+//        }
+//    }
+
+    static class DoubleVerifyListener implements VerifyListener {
+        @Override
+        public void verifyText(VerifyEvent e) {
+            e.doit = true;
+            try {
+                Text source = (Text)e.getSource();
+                String toCheck = source.getText() + e.text;
+                Double.parseDouble(toCheck);
+            } catch (NumberFormatException e1) {
+                e.doit = false;
+            }
+        }
+    }
+
+    static class IntVerifyListener implements VerifyListener {
+        @Override
+        public void verifyText(VerifyEvent e) {
+            e.doit = true;
+            try {
+                Text source = (Text)e.getSource();
+                String toCheck = source.getText() + e.text;
+                Integer.parseInt(toCheck);
+            } catch (NumberFormatException e1) {
+                e.doit = false;
+            }
+        }
     }
 }
