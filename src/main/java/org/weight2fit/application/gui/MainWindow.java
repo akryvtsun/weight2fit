@@ -26,6 +26,7 @@ public class MainWindow {
         layout.marginTop = 5;
         layout.marginRight = 5;
         layout.marginBottom = 5;
+        layout.verticalSpacing = 10;
         shell.setLayout(layout);
 
         createMeasures(shell);
@@ -69,7 +70,9 @@ public class MainWindow {
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        new Label(group, SWT.RIGHT).setText("Timestamp:");;
+        Label label2 = new Label(group, SWT.RIGHT);
+        label2.setText("Timestamp:");
+        label2.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text timestampText = new Text(group, SWT.BORDER | SWT.SINGLE);
         timestampText.addVerifyListener(new VerifyListener() {
             @Override
@@ -80,41 +83,60 @@ public class MainWindow {
         });
         new Label(group, SWT.RIGHT);
 
-        new Label(group, SWT.RIGHT).setText("Weight:");
+        Label label3 = new Label(group, SWT.RIGHT);
+        label3.setText("Weight:");
+        label3.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text weightText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT).setText("kg");
 
-        new Label(group, SWT.RIGHT).setText("Body Fat:");
+        Label label4 = new Label(group, SWT.RIGHT);
+        label4.setText("Body Fat:");
+        label4.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text bodyFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("%");
+        Label label = new Label(group, SWT.RIGHT);
+        label.setText("%");
 
-        new Label(group, SWT.RIGHT).setText("Body Water:");
+        Label label1 = new Label(group, SWT.RIGHT);
+        label1.setText("Body Water:");
+        label1.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text bodyWaterText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT).setText("%");
 
-        new Label(group, SWT.RIGHT).setText("Visceral Fat:");
+        Label label5 = new Label(group, SWT.RIGHT);
+        label5.setText("Visceral Fat:");
+        label5.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text visceralFatText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT);
 
-        new Label(group, SWT.RIGHT).setText("Muscle Mass:");
+        Label label6 = new Label(group, SWT.RIGHT);
+        label6.setText("Muscle Mass:");
+        label6.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text muscleMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT).setText("kg");
 
-        new Label(group, SWT.RIGHT).setText("Physique Rating:");
+        Label label7 = new Label(group, SWT.RIGHT);
+        label7.setText("Physique Rating:");
+        label7.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text physiqueRatingText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT);
 
-        new Label(group, SWT.RIGHT).setText("Bone Mass:");
+        Label label8 = new Label(group, SWT.RIGHT);
+        label8.setText("Bone Mass:");
+        label8.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text boneMassText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT).setText("kg");
 
-        new Label(group, SWT.RIGHT).setText("DCI:");;
-        final Text dciText = new Text(group, SWT.BORDER | SWT.SINGLE);
-        new Label(group, SWT.RIGHT).setText("C");
-
-        new Label(group, SWT.RIGHT).setText("Metabolic Age:");;
+        Label label9 = new Label(group, SWT.RIGHT);
+        label9.setText("Metabolic Age:");
+        label9.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         final Text metabolicAgeText = new Text(group, SWT.BORDER | SWT.SINGLE);
         new Label(group, SWT.RIGHT).setText("years");
+
+        Label label10 = new Label(group, SWT.RIGHT);
+        label10.setText("DCI:");
+        label10.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+        final Text dciText = new Text(group, SWT.BORDER | SWT.SINGLE);
+        new Label(group, SWT.RIGHT).setText("C");
     }
 
     private void centerShell(Display display) {
