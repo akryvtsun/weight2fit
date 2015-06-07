@@ -23,6 +23,7 @@ Roadmap
         * add fields set config support
         * add info in lbs and kgs
     * Help/About
+        * link to FIT params explanation 
 * add localization support
     
 ### v??? ###
