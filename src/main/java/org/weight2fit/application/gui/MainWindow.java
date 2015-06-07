@@ -9,6 +9,13 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.shared.Constants;
+import org.weight2fit.application.shared.UiUtils;
+import org.weight2fit.domain.FitException;
+import org.weight2fit.domain.FitFields;
+import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.FitParamsSupplier;
+
+import java.io.File;
 
 /**
  * Main application window.
@@ -17,9 +24,22 @@ import org.weight2fit.application.shared.Constants;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-public class MainWindow {
+public class MainWindow implements FitParamsSupplier {
 
     private Shell shell;
+
+    private Text timestamp;
+    private Text weight;
+    private Text bodyFat;
+    private Text bodyWater;
+    private Text visceralFat;
+    private Text muscleMass;
+    private Text physiqueRating;
+    private Text boneMass;
+    private Text metabolicAge;
+    private Text dci;
+
+    private FitParams params;
 
     public MainWindow(Display display) {
 
@@ -52,15 +72,29 @@ public class MainWindow {
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
+                prepareParams();
                 shell.close();
             }
         });
 
         shell.pack();
-
         centerShell(display);
 
         shell.open();
+    }
+
+    private void prepareParams() {
+        try {
+            params = new FitParams();
+            if (timestamp.getText().length() > 0) {
+                params.setValue(FitFields.TIMESTAMP, UiUtils.parse(timestamp.getText()));
+            }
+            if (weight.getText().length() > 0) {
+                params.setValue(FitFields.WEIGHT, Double.parseDouble(weight.getText()));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
     }
 
     private Group createMeasures(Composite parent) {
@@ -75,16 +109,16 @@ public class MainWindow {
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        Text timestamp = createField(group, "Timestamp:", null, FieldVerifiers.DATE);
-        Text weight = createField(group, "Weight:", "kg", FieldVerifiers.DOUBLE);
-        Text bodyFat = createField(group, "Body Fat:", "%", FieldVerifiers.DOUBLE);
-        Text bodyWater = createField(group, "Body Water:", "%", FieldVerifiers.DOUBLE);
-        Text visceralFat = createField(group, "Visceral Fat:", null, FieldVerifiers.INTEGER);
-        Text muscleMass = createField(group, "Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
-        Text physiqueRating = createField(group, "Physique Rating:", null, FieldVerifiers.INTEGER);
-        Text boneMass = createField(group, "Bone Mass:", "kg", FieldVerifiers.DOUBLE);
-        Text metabolicAge = createField(group, "Metabolic Age:", "years", FieldVerifiers.INTEGER);
-        Text dci = createField(group, "DCI:", "C", FieldVerifiers.INTEGER);
+        timestamp = createField(group, "Timestamp:", null, FieldVerifiers.DATE);
+        weight = createField(group, "Weight:", "kg", FieldVerifiers.DOUBLE);
+        bodyFat = createField(group, "Body Fat:", "%", FieldVerifiers.DOUBLE);
+        bodyWater = createField(group, "Body Water:", "%", FieldVerifiers.DOUBLE);
+        visceralFat = createField(group, "Visceral Fat:", null, FieldVerifiers.INTEGER);
+        muscleMass = createField(group, "Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
+        physiqueRating = createField(group, "Physique Rating:", null, FieldVerifiers.INTEGER);
+        boneMass = createField(group, "Bone Mass:", "kg", FieldVerifiers.DOUBLE);
+        metabolicAge = createField(group, "Metabolic Age:", "years", FieldVerifiers.INTEGER);
+        dci = createField(group, "DCI:", "C", FieldVerifiers.INTEGER);
 
         return group;
     }
@@ -118,5 +152,14 @@ public class MainWindow {
 
     public boolean isDisposed() {
         return shell.isDisposed();
+    }
+
+    @Override
+    public FitParams get() throws FitException {
+        return params;
+    }
+
+    public File getFile() {
+        return new File("out.fit");
     }
 }

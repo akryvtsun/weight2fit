@@ -8,6 +8,7 @@ import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.weight2fit.application.shared.Constants;
+import org.weight2fit.application.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
@@ -176,7 +177,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         // if file name isn't set use timestamp for it
         if (out == null) {
             Date timestamp = params.getValue(FitFields.TIMESTAMP);
-            out = CliUtils.createDefaultFile(timestamp);
+            out = UiUtils.createDefaultFile(timestamp);
         }
     }
 

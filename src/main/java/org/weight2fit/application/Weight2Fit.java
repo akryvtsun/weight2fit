@@ -30,34 +30,39 @@ public class Weight2Fit {
     }
 
     public int execute() {
-        if (args.length == 0) {
-            Display display = Display.getDefault();
-
-            MainWindow window = new MainWindow(display);
-
-            while (!window.isDisposed()) {
-                if (!display.readAndDispatch())
-                    display.sleep();
-            }
-            display.dispose();
-
-            return 0;
-        }
-
         int result = 0;
 
         try {
-            CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+            FitParams params;
+            File file;
 
-            FitParams params = supplier.get();
-            File file = supplier.getFile();
+            if (args.length == 0) {
+                Display display = Display.getDefault();
+
+                MainWindow window = new MainWindow(display);
+
+                while (!window.isDisposed()) {
+                    if (!display.readAndDispatch())
+                        display.sleep();
+                }
+                display.dispose();
+
+                params = window.get();
+                file = window.getFile();
+            }
+            else {
+                CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+
+                params = supplier.get();
+                file = supplier.getFile();
+            }
 
             FitParamsConsumer consumer = new FileParamsConsumer(file);
             consumer.accept(params);
 
             System.out.println("FIT file '" + file + "' was created");
         }
-        catch(Exception e) {
+        catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);
 
             result = 1;

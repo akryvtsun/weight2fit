@@ -5,6 +5,7 @@ import org.kohsuke.args4j.CmdLineParser;
 import org.kohsuke.args4j.OptionDef;
 import org.kohsuke.args4j.spi.OneArgumentOptionHandler;
 import org.kohsuke.args4j.spi.Setter;
+import org.weight2fit.application.shared.UiUtils;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -22,7 +23,7 @@ public class DateOptionHandler extends OneArgumentOptionHandler<Date> {
     protected Date parse(String argument) throws NumberFormatException, CmdLineException {
 
         try {
-            return CliUtils.parse(argument);
+            return UiUtils.parse(argument);
         } catch (ParseException e) {
             throw new CmdLineException(owner, e);
         }
