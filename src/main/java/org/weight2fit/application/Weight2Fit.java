@@ -13,6 +13,13 @@ import java.util.logging.Logger;
 /**
  * Weight2Fit application.
  * Orchestrates all internal components.
+ * <p>
+ * Process returns
+ * <ul>
+ *     <li>0 - if successful execution</li>
+ *     <li>1 - if execution canceled by user</li>
+ *     <li>2 - if something is wrong during execution</li>
+ * </ul>
  *
  * @author Andriy Kryvtsun
  */
@@ -37,17 +44,21 @@ public class Weight2Fit {
                 : new CmdLineParamsSupplier(args);
 
             FitParams params = supplier.get();
+
+            if (params == null)
+                return 1;
+
             File outFile = supplier.getFile();
 
             FitParamsConsumer consumer = new FileParamsConsumer(outFile);
             consumer.accept(params);
 
-            System.out.println("FIT outFile '" + outFile + "' was created");
+            System.out.println("FIT file '" + outFile + "' was created");
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);
 
-            result = 1;
+            result = 2;
         }
 
         return result;
