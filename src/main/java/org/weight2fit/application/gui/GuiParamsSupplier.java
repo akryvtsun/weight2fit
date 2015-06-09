@@ -16,6 +16,7 @@ import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.io.File;
+import java.text.ParseException;
 
 /**
  * Main application window.
@@ -86,14 +87,41 @@ public class GuiParamsSupplier implements FitFileParamsSupplier {
     private void prepareParams() {
         try {
             params = new FitParams();
-            if (timestamp.getText().length() > 0) {
-                params.setValue(FitFields.TIMESTAMP, UiUtils.parse(timestamp.getText()));
-            }
-            if (weight.getText().length() > 0) {
-                params.setValue(FitFields.WEIGHT, Double.parseDouble(weight.getText()));
-            }
+
+            obtainDateParam(timestamp, FitFields.TIMESTAMP);
+            obtainDoubleParam(weight, FitFields.WEIGHT);
+            obtainDoubleParam(bodyFat, FitFields.BODY_FAT);
+            obtainDoubleParam(bodyWater, FitFields.BODY_WATER);
+            obtainIntParam(visceralFat, FitFields.VISCERAL_FAT);
+            obtainDoubleParam(muscleMass, FitFields.MUSCLE_MASS);
+            obtainIntParam(physiqueRating, FitFields.PHYSIQUE_RATING);
+            obtainDoubleParam(boneMass, FitFields.BONE_MASS);
+            obtainIntParam(metabolicAge, FitFields.METABOLIC_AGE);
+            obtainIntParam(dci, FitFields.DCI);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
+        }
+    }
+
+    private void obtainDateParam(Text txtField, FitFields fitField) throws ParseException {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, UiUtils.parse(value));
+        }
+    }
+
+    private void obtainDoubleParam(Text txtField, FitFields fitField) {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, Double.parseDouble(value));
+        }
+    }
+
+    private void obtainIntParam(Text txtField, FitFields fitField) {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, Integer.parseInt(value));
         }
     }
 
@@ -150,15 +178,11 @@ public class GuiParamsSupplier implements FitFileParamsSupplier {
         shell.setLocation(x, y);
     }
 
-    public boolean isDisposed() {
-        return shell.isDisposed();
-    }
-
     @Override
     public FitParams get() throws FitException {
         shell.open();
 
-        while (!isDisposed()) {
+        while (!shell.isDisposed()) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
