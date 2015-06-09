@@ -3,7 +3,9 @@ Roadmap
 
 ### v1.5 ###
 * implement SWT UI with manual params entering for Windows and Linux
-    * add keyboard shortcuts in MainWindow ???
+    * update unit tests
+    * show program version from Metafile in GUI and CLI
+    * add [keyboard shortcuts] (http://book.javanb.com/swt-a-developer-notebook/swtadn-chp-3-sect-9.html) in MainWindow ???
 * avoid unneeded *.jar files generation
 * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README 
 
@@ -12,7 +14,6 @@ Roadmap
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
     * add MacOS SWT into local repo
-* show program version from Metafile in GUI and CLI    
 * create web-site ???
 
 ### v2.5 ###
@@ -35,4 +36,5 @@ Roadmap
     * add domain validation
     * make domain model more strict (use reflection for model fields access)
 * https://travis-ci.org usage ??? 
+* Android port ???
 
