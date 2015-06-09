@@ -1,7 +1,7 @@
 package org.weight2fit.application;
 
 import org.weight2fit.application.cli.CmdLineParamsSupplier;
-import org.weight2fit.application.gui.MainWindow;
+import org.weight2fit.application.gui.GuiParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -32,26 +32,17 @@ public class Weight2Fit {
         int result = 0;
 
         try {
-            FitParams params;
-            File file;
+            FitFileParamsSupplier supplier = args.length == 0
+                ? new GuiParamsSupplier()
+                : new CmdLineParamsSupplier(args);
 
-            if (args.length == 0) {
-                MainWindow window = new MainWindow();
+            FitParams params = supplier.get();
+            File outFile = supplier.getFile();
 
-                params = window.get();
-                file = window.getFile();
-            }
-            else {
-                CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
-
-                params = supplier.get();
-                file = supplier.getFile();
-            }
-
-            FitParamsConsumer consumer = new FileParamsConsumer(file);
+            FitParamsConsumer consumer = new FileParamsConsumer(outFile);
             consumer.accept(params);
 
-            System.out.println("FIT file '" + file + "' was created");
+            System.out.println("FIT outFile '" + outFile + "' was created");
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);

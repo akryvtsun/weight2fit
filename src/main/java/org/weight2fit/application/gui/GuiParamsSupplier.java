@@ -8,12 +8,12 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
+import org.weight2fit.application.FitFileParamsSupplier;
 import org.weight2fit.application.shared.Constants;
 import org.weight2fit.application.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
-import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
 
@@ -24,7 +24,7 @@ import java.io.File;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-public class MainWindow implements FitParamsSupplier {
+public class GuiParamsSupplier implements FitFileParamsSupplier {
 
     private final Display display;
     private final Shell shell;
@@ -42,7 +42,7 @@ public class MainWindow implements FitParamsSupplier {
 
     private FitParams params;
 
-    public MainWindow() {
+    public GuiParamsSupplier() {
         display = Display.getDefault();
 
         shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
@@ -167,6 +167,7 @@ public class MainWindow implements FitParamsSupplier {
         return params;
     }
 
+    @Override
     public File getFile() {
         return new File("out.fit");
     }

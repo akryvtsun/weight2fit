@@ -7,12 +7,12 @@ import org.kohsuke.args4j.OptionHandlerFilter;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
+import org.weight2fit.application.FitFileParamsSupplier;
 import org.weight2fit.application.shared.Constants;
 import org.weight2fit.application.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
-import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
 import java.util.Collections;
@@ -26,7 +26,7 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-public class CmdLineParamsSupplier implements FitParamsSupplier {
+public class CmdLineParamsSupplier implements FitFileParamsSupplier {
 
     private final String[] args;
     private final CmdLineParser parser;
@@ -181,6 +181,7 @@ public class CmdLineParamsSupplier implements FitParamsSupplier {
         }
     }
 
+    @Override
     public File getFile() {
         return out;
     }
