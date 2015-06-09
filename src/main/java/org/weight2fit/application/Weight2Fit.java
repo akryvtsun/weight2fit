@@ -1,6 +1,5 @@
 package org.weight2fit.application;
 
-import org.eclipse.swt.widgets.Display;
 import org.weight2fit.application.cli.CmdLineParamsSupplier;
 import org.weight2fit.application.gui.MainWindow;
 import org.weight2fit.domain.FitParams;
@@ -37,15 +36,7 @@ public class Weight2Fit {
             File file;
 
             if (args.length == 0) {
-                Display display = Display.getDefault();
-
-                MainWindow window = new MainWindow(display);
-
-                while (!window.isDisposed()) {
-                    if (!display.readAndDispatch())
-                        display.sleep();
-                }
-                display.dispose();
+                MainWindow window = new MainWindow();
 
                 params = window.get();
                 file = window.getFile();

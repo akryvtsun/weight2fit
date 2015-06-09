@@ -26,7 +26,8 @@ import java.io.File;
 // TODO use date/time picker for Timestamp
 public class MainWindow implements FitParamsSupplier {
 
-    private Shell shell;
+    private final Display display;
+    private final Shell shell;
 
     private Text timestamp;
     private Text weight;
@@ -41,7 +42,8 @@ public class MainWindow implements FitParamsSupplier {
 
     private FitParams params;
 
-    public MainWindow(Display display) {
+    public MainWindow() {
+        display = Display.getDefault();
 
         shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setText(Constants.APP_NAME);
@@ -79,8 +81,6 @@ public class MainWindow implements FitParamsSupplier {
 
         shell.pack();
         centerShell(display);
-
-        shell.open();
     }
 
     private void prepareParams() {
@@ -156,6 +156,14 @@ public class MainWindow implements FitParamsSupplier {
 
     @Override
     public FitParams get() throws FitException {
+        shell.open();
+
+        while (!isDisposed()) {
+            if (!display.readAndDispatch())
+                display.sleep();
+        }
+        display.dispose();
+
         return params;
     }
 
