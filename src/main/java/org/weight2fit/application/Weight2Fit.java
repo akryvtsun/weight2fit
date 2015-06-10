@@ -1,7 +1,7 @@
 package org.weight2fit.application;
 
-import org.weight2fit.application.cli.CmdLineParamsSupplier;
-import org.weight2fit.application.gui.GuiParamsSupplier;
+import org.weight2fit.application.ui.cli.CmdLineParamsSupplier;
+import org.weight2fit.application.ui.gui.GuiParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -23,6 +23,7 @@ import java.util.logging.Logger;
  *
  * @author Andriy Kryvtsun
  */
+// TODO rethink 'shared' packages usage
 // TODO add informative logging everywhere
 // TODO add internalization (in GUI)
 public class Weight2Fit {

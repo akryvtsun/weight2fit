@@ -1,4 +1,4 @@
-package org.weight2fit.application.cli;
+package org.weight2fit.application.ui.cli;
 
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.spi.FieldSetter;

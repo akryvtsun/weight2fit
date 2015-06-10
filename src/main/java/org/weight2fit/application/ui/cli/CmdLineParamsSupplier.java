@@ -1,4 +1,4 @@
-package org.weight2fit.application.cli;
+package org.weight2fit.application.ui.cli;
 
 import org.kohsuke.args4j.CmdLineException;
 import org.kohsuke.args4j.CmdLineParser;
@@ -7,17 +7,14 @@ import org.kohsuke.args4j.OptionHandlerFilter;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
-import org.weight2fit.application.UiFitParamsSupplier;
-import org.weight2fit.application.shared.Constants;
-import org.weight2fit.application.shared.UiUtils;
+import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
+import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
-import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
-import java.util.Date;
 import java.util.List;
 
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
@@ -27,21 +24,18 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-public class CmdLineParamsSupplier implements UiFitParamsSupplier {
+public class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private final String[] args;
     private final CmdLineParser parser;
 
-    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file name", handler = FileOptionHandler.class)
-    private File out;
-
     @Option(name = "-h", aliases = { "--help" }, help = true, usage = "Shows help info")
     private boolean help;
 
-    private final FitParams params = new FitParams();
-
     public CmdLineParamsSupplier(String... args) {
         this.args = checkNotNull(args);
+
+        params = new FitParams();
 
         parser = new CmdLineParser(this);
         addOptions();
@@ -178,7 +172,7 @@ public class CmdLineParamsSupplier implements UiFitParamsSupplier {
                 return null;
             }
             else {
-                completeArguments();
+                completeParams();
                 return params;
             }
         }
@@ -193,22 +187,5 @@ public class CmdLineParamsSupplier implements UiFitParamsSupplier {
     private void showHelpInfo() {
         System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED));
         parser.printUsage(System.out);
-    }
-
-    private void completeArguments() {
-        // if timestamp isn't set use current date
-        if (!params.hasValue(FitFields.TIMESTAMP)) {
-            params.setValue(FitFields.TIMESTAMP, new Date());
-        }
-        // if file name isn't set use timestamp for it
-        if (out == null) {
-            Date timestamp = params.getValue(FitFields.TIMESTAMP);
-            out = UiUtils.createDefaultFile(timestamp);
-        }
-    }
-
-    @Override
-    public File getFile() {
-        return out;
     }
 }

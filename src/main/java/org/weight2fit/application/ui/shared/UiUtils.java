@@ -1,4 +1,4 @@
-package org.weight2fit.application.shared;
+package org.weight2fit.application.ui.shared;
 
 import java.io.File;
 import java.text.DateFormat;

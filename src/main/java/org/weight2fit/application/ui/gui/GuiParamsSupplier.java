@@ -1,4 +1,4 @@
-package org.weight2fit.application.gui;
+package org.weight2fit.application.ui.gui;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
@@ -8,14 +8,13 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
-import org.weight2fit.application.UiFitParamsSupplier;
-import org.weight2fit.application.shared.Constants;
-import org.weight2fit.application.shared.UiUtils;
+import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
+import org.weight2fit.application.ui.shared.Constants;
+import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
-import java.io.File;
 import java.text.ParseException;
 import java.util.Date;
 
@@ -26,7 +25,7 @@ import java.util.Date;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-public class GuiParamsSupplier implements UiFitParamsSupplier {
+public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private final Display display;
     private final Shell shell;
@@ -41,8 +40,6 @@ public class GuiParamsSupplier implements UiFitParamsSupplier {
     private Text boneMass;
     private Text metabolicAge;
     private Text dci;
-
-    private FitParams params;
 
     public GuiParamsSupplier() {
         display = Display.getDefault();
@@ -100,7 +97,9 @@ public class GuiParamsSupplier implements UiFitParamsSupplier {
             obtainIntParam(metabolicAge, FitFields.METABOLIC_AGE);
             obtainIntParam(dci, FitFields.DCI);
 
-        } catch (Exception e) {
+            completeParams();
+        }
+        catch (Exception e) {
             throw new RuntimeException(e);
         }
     }
@@ -194,10 +193,5 @@ public class GuiParamsSupplier implements UiFitParamsSupplier {
         display.dispose();
 
         return params;
-    }
-
-    @Override
-    public File getFile() {
-        return new File("out.fit");
     }
 }

@@ -1,7 +1,7 @@
-package org.weight2fit.application.cli;
+package org.weight2fit.application.ui.cli;
 
 import org.junit.Test;
-import org.weight2fit.application.shared.UiUtils;
+import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;

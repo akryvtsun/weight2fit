@@ -1,4 +1,4 @@
-package org.weight2fit.application.gui;
+package org.weight2fit.application.ui.gui;
 
 import org.eclipse.swt.events.VerifyEvent;
 import org.eclipse.swt.events.VerifyListener;
