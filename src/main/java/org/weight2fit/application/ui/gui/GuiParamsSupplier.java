@@ -45,7 +45,7 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
         display = Display.getDefault();
 
         shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
-        shell.setText(Constants.APP_NAME);
+        shell.setText(Constants.APP_NAME + " " + getVersion());
 
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;

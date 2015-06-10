@@ -8,13 +8,23 @@ import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.Date;
+import java.util.jar.JarFile;
+import java.util.jar.Manifest;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
+ * Common logic for all <code>UiFitParamsSupplier</code> impls.
+ *
  * @author Andriy Kryvtsun
  */
 // TODO remove CLI arg4j @Option from this common class
 public abstract class AbstractUiFitParamsSupplier implements UiFitParamsSupplier {
+
+    private static final Logger LOG = Logger.getLogger(AbstractUiFitParamsSupplier.class.getName());
 
     protected FitParams params;
 
@@ -36,5 +46,20 @@ public abstract class AbstractUiFitParamsSupplier implements UiFitParamsSupplier
             Date timestamp = params.getValue(FitFields.TIMESTAMP);
             out = UiUtils.createDefaultFile(timestamp);
         }
+    }
+
+    protected String getVersion() {
+        String version = "current version";
+
+        InputStream is = getClass().getResourceAsStream('/' + JarFile.MANIFEST_NAME);
+        if (is != null) {
+            try {
+                version = new Manifest(is).getMainAttributes().getValue("Version");
+            } catch (IOException e) {
+                LOG.log(Level.FINE, "an exception was thrown", e);
+            }
+        }
+
+        return version;
     }
 }

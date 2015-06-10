@@ -37,4 +37,5 @@ Roadmap
     * make domain model more strict (use reflection for model fields access)
 * https://travis-ci.org usage ??? 
 * Android port ???
+* ProGuard usage ???
 

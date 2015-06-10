@@ -168,7 +168,7 @@ public class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
             parser.parseArgument(args);
 
             if (help) {
-                showHelpInfo();
+                showHelpInfo(true);
                 return null;
             }
             else {
@@ -178,14 +178,17 @@ public class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
         }
         catch (CmdLineException e) {
             System.out.println("Error: " + e.getLocalizedMessage());
-            showHelpInfo();
+            showHelpInfo(false);
 
             throw new FitException("Error during FitParams creation", e);
         }
     }
 
-    private void showHelpInfo() {
-        System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED));
+    private void showHelpInfo(boolean showVersion) {
+        if (showVersion)
+            System.out.println(Constants.APP_NAME + " " + getVersion());
+
+        System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED) + " [options]");
         parser.printUsage(System.out);
     }
 }
