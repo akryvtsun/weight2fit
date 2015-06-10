@@ -16,13 +16,17 @@ public final class UiUtils {
     private static final DateFormat DATE_FORMAT = new SimpleDateFormat(Constants.DATE_PATTERN);
 
     public static File createDefaultFile(Date timestamp) {
-        String dateStr = DATE_FORMAT.format(timestamp);
+        String dateStr = toString(timestamp);
         String fileName = String.format(Constants.FILE_PATTERN, dateStr);
         return new File(fileName);
     }
 
     public static Date parse(String source) throws ParseException {
         return DATE_FORMAT.parse(source);
+    }
+
+    public static String toString(Date timestamp) {
+        return DATE_FORMAT.format(timestamp);
     }
 
     private UiUtils() {}

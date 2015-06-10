@@ -17,6 +17,7 @@ import org.weight2fit.domain.FitParams;
 
 import java.io.File;
 import java.text.ParseException;
+import java.util.Date;
 
 /**
  * Main application window.
@@ -138,7 +139,11 @@ public class GuiParamsSupplier implements UiFitParamsSupplier {
         group.setLayout(layout);
 
         timestamp = createField(group, "Timestamp:", null, FieldVerifiers.DATE);
+        timestamp.setText(UiUtils.toString(new Date()));
+
         weight = createField(group, "Weight:", "kg", FieldVerifiers.DOUBLE);
+        weight.setFocus();
+
         bodyFat = createField(group, "Body Fat:", "%", FieldVerifiers.DOUBLE);
         bodyWater = createField(group, "Body Water:", "%", FieldVerifiers.DOUBLE);
         visceralFat = createField(group, "Visceral Fat:", null, FieldVerifiers.INTEGER);
