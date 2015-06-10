@@ -8,7 +8,7 @@ import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
-import org.weight2fit.application.FitFileParamsSupplier;
+import org.weight2fit.application.UiFitParamsSupplier;
 import org.weight2fit.application.shared.Constants;
 import org.weight2fit.application.shared.UiUtils;
 import org.weight2fit.domain.FitException;
@@ -25,7 +25,7 @@ import java.text.ParseException;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-public class GuiParamsSupplier implements FitFileParamsSupplier {
+public class GuiParamsSupplier implements UiFitParamsSupplier {
 
     private final Display display;
     private final Shell shell;

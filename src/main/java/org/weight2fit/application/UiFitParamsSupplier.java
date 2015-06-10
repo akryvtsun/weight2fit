@@ -9,7 +9,7 @@ import java.io.File;
  *
  * @author Andriy Kryvtsun
  */
-public interface FitFileParamsSupplier extends FitParamsSupplier {
+public interface UiFitParamsSupplier extends FitParamsSupplier {
 
     /**
      * Output file for params

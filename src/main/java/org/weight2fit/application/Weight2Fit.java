@@ -39,7 +39,7 @@ public class Weight2Fit {
         int result = 0;
 
         try {
-            FitFileParamsSupplier supplier = args.length == 0
+            UiFitParamsSupplier supplier = args.length == 0
                 ? new GuiParamsSupplier()
                 : new CmdLineParamsSupplier(args);
 
