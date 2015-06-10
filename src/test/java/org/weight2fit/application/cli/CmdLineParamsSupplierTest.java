@@ -30,7 +30,7 @@ public class CmdLineParamsSupplierTest {
     }
 
     @Test(expected = FitException.class)
-    public void get_absentsReqArgument_ok() throws Exception {
+    public void get_absentsReqArgument_FitException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .sp("t", "2015-04-17")
@@ -42,7 +42,7 @@ public class CmdLineParamsSupplierTest {
     }
 
     @Test(expected = FitException.class)
-    public void get_incorrectTimestamp_CmdLineException() throws Exception {
+    public void get_incorrectTimestamp_FitException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
                 .lp("timestamp", "2015x04-17")
@@ -55,7 +55,7 @@ public class CmdLineParamsSupplierTest {
     }
 
     @Test(expected = FitException.class)
-    public void get_incorrectWeight_CmdLineException() throws Exception {
+    public void get_incorrectWeight_FitException() throws Exception {
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
                 new CmdLine()
                         .lp("timestamp", "2015-04-17")
