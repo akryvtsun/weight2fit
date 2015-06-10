@@ -18,6 +18,7 @@ import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.Date;
+import java.util.List;
 
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
@@ -33,6 +34,9 @@ public class CmdLineParamsSupplier implements FitFileParamsSupplier {
 
     @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file name", handler = FileOptionHandler.class)
     private File out;
+
+    @Option(name = "-h", aliases = { "--help" }, help = true, usage = "Shows help info")
+    private boolean help;
 
     private final FitParams params = new FitParams();
 
@@ -57,10 +61,21 @@ public class CmdLineParamsSupplier implements FitFileParamsSupplier {
         addOption(FitFields.METABOLIC_AGE, createMetabolicAgeOption());
     }
 
-    // put "out" option at the end of options list
-    // to beautify usage example view
+    // beautify usage example view
     private void sortOptions() {
-        Collections.sort(parser.getOptions(), new Comparator<OptionHandler>() {
+        List<OptionHandler> options = parser.getOptions();
+        // put "help" at the end of options list
+        Collections.sort(options, new Comparator<OptionHandler>() {
+            @Override
+            public int compare(OptionHandler o1, OptionHandler o2) {
+                return o1.option.help()
+                        ? 1
+                        : o2.option.help() ? -1 : 0;
+            }
+        });
+        // put "out" just before the last "help" option
+        List<OptionHandler> subList = options.subList(0, options.size() - 1);
+        Collections.sort(subList, new Comparator<OptionHandler>() {
             @Override
             public int compare(OptionHandler o1, OptionHandler o2) {
                 return o1 instanceof FileOptionHandler
@@ -157,16 +172,27 @@ public class CmdLineParamsSupplier implements FitFileParamsSupplier {
     public FitParams get() throws FitException {
         try {
             parser.parseArgument(args);
-            completeArguments();
-            return params;
+
+            if (help) {
+                showHelpInfo();
+                return null;
+            }
+            else {
+                completeArguments();
+                return params;
+            }
         }
         catch (CmdLineException e) {
             System.out.println("Error: " + e.getLocalizedMessage());
-            System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED));
-            parser.printUsage(System.out);
+            showHelpInfo();
 
             throw new FitException("Error during FitParams creation", e);
         }
+    }
+
+    private void showHelpInfo() {
+        System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED));
+        parser.printUsage(System.out);
     }
 
     private void completeArguments() {

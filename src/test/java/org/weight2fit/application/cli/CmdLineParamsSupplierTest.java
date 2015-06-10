@@ -13,6 +13,7 @@ import java.util.Date;
 import java.util.List;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNull;
 
 /**
  * @author Andriy Kryvtsun
@@ -65,6 +66,19 @@ public class CmdLineParamsSupplierTest {
         );
 
         supplier.get();
+    }
+
+    @Test
+    public void get_showHelp_ok() throws Exception {
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+                new CmdLine()
+                        .lp("help", null)
+                        .build()
+        );
+
+        FitParams params = supplier.get();
+
+        assertNull(params);
     }
 
     @Test
@@ -133,14 +147,16 @@ public class CmdLineParamsSupplierTest {
         // short parameter
         CmdLine sp(String param, String value) {
             arguments.add("-" + param);
-            arguments.add(value);
+            if (value != null)
+                arguments.add(value);
             return this;
         }
 
         // long parameter
         CmdLine lp(String param, String value) {
             arguments.add("--" + param);
-            arguments.add(value);
+            if (value != null)
+                arguments.add(value);
             return this;
         }
 
