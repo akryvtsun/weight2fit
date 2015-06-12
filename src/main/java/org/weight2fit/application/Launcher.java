@@ -1,5 +1,8 @@
 package org.weight2fit.application;
 
+import org.weight2fit.application.ui.cli.CmdLineApplication;
+import org.weight2fit.application.ui.gui.GuiApplication;
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.logging.LogManager;
@@ -19,7 +22,9 @@ public class Launcher {
             // avoid any error messages during init logging
         }
 
-        Weight2Fit application = new Weight2Fit(args);
+        Weight2FitApplication application = args.length == 0
+                ? new GuiApplication()
+                : new CmdLineApplication(args);
         int result = application.execute();
 
         System.exit(result);

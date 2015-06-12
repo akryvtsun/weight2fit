@@ -1,7 +1,7 @@
-package org.weight2fit.application;
+package org.weight2fit.application.ui.cli;
 
-import org.weight2fit.application.ui.cli.CmdLineParamsSupplier;
-import org.weight2fit.application.ui.gui.GuiParamsSupplier;
+import org.weight2fit.application.Weight2FitApplication;
+import org.weight2fit.application.ui.UiFitParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -11,39 +11,25 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Weight2Fit application.
- * Orchestrates all internal components.
- * <p>
- * Process returns
- * <ul>
- *     <li>0 - if successful execution</li>
- *     <li>1 - if execution canceled by user</li>
- *     <li>2 - if something is wrong during execution</li>
- * </ul>
+ * Command Line application
  *
  * @author Andriy Kryvtsun
  */
-// TODO rethink 'shared' packages usage
-// TODO add informative logging everywhere
-// TODO add internalization (in GUI)
-public class Weight2Fit {
-
-    private static final Logger LOG = Logger.getLogger(Weight2Fit.class.getName());
+public class CmdLineApplication implements Weight2FitApplication {
+    private static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
 
     private final String[] args;
 
-    public Weight2Fit(String... args) {
+    public CmdLineApplication(String... args) {
         this.args = args;
     }
 
+    @Override
     public int execute() {
         int result = 0;
 
         try {
-            UiFitParamsSupplier supplier = args.length == 0
-                ? new GuiParamsSupplier()
-                : new CmdLineParamsSupplier(args);
-
+            UiFitParamsSupplier supplier = new CmdLineParamsSupplier(args);
             FitParams params = supplier.get();
 
             if (params == null)

@@ -1,4 +1,4 @@
-package org.weight2fit.application;
+package org.weight2fit.application.ui;
 
 import org.weight2fit.domain.FitParamsSupplier;
 

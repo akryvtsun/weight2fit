@@ -2,7 +2,6 @@ package org.weight2fit.application.ui;
 
 import org.kohsuke.args4j.Option;
 import org.kohsuke.args4j.spi.FileOptionHandler;
-import org.weight2fit.application.UiFitParamsSupplier;
 import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
