@@ -35,6 +35,7 @@ public abstract class AbstractUiFitParamsSupplier implements UiFitParamsSupplier
         return out;
     }
 
+    // TODO move to domain validation
     protected void completeParams() {
         // if timestamp isn't set use current date
         if (!params.hasValue(FitFields.TIMESTAMP)) {

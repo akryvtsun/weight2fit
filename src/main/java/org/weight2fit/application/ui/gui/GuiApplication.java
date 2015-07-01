@@ -1,7 +1,11 @@
 package org.weight2fit.application.ui.gui;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.Shell;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiFitParamsSupplier;
+import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -25,24 +29,37 @@ public class GuiApplication implements Weight2FitApplication {
     public int execute() {
         int result = 0;
 
+        Display display = Display.getDefault();
+
+        Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
+        shell.setText(Constants.APP_NAME /*+ " " + getVersion()*/);
+        shell.open();
+
         try {
-            UiFitParamsSupplier supplier = new GuiParamsSupplier();
-            FitParams params = supplier.get();
+            UiFitParamsSupplier supplier = new GuiParamsSupplier(display, shell);
 
-            if (params == null)
-                return 1;
+            while (true) {
+                FitParams params = supplier.get();
 
-            File outFile = supplier.getFile();
+                if (params == null)
+                    return 1;
 
-            FitParamsConsumer consumer = new FileParamsConsumer(outFile);
-            consumer.accept(params);
+                File outFile = supplier.getFile();
 
-            System.out.println("FIT file '" + outFile + "' was created");
+                FitParamsConsumer consumer = new FileParamsConsumer(outFile);
+                consumer.accept(params);
+
+                System.out.println("FIT file '" + outFile + "' was created");
+            }
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);
 
             result = 2;
+        }
+        finally {
+            shell.close();
+            display.dispose();
         }
 
         return result;

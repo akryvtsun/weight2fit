@@ -9,7 +9,6 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
-import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
@@ -40,12 +39,11 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     private Text boneMass;
     private Text metabolicAge;
     private Text dci;
+    private boolean isClosed = false;
 
-    public GuiParamsSupplier() {
-        display = Display.getDefault();
-
-        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
-        shell.setText(Constants.APP_NAME + " " + getVersion());
+    public GuiParamsSupplier(Display display, Shell shell) {
+        this.display = display;
+        this.shell = shell;
 
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;
@@ -74,7 +72,7 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 prepareParams();
-                shell.close();
+                isClosed = true;
             }
         });
 
@@ -184,13 +182,12 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     @Override
     public FitParams get() throws FitException {
-        shell.open();
+        isClosed = false;
 
-        while (!shell.isDisposed()) {
+        while (!isClosed) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
-        display.dispose();
 
         return params;
     }
