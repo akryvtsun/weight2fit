@@ -10,7 +10,7 @@ public interface Weight2FitApplication {
     /**
      * Executes application
      *
-     * @return
+     * @return  exit code:
      * <ul>
      *     <li>0 - if successful execution</li>
      *     <li>1 - if execution canceled by user</li>

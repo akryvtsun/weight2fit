@@ -13,6 +13,8 @@ import java.util.Date;
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
+ * Common <code>OutputStream</code> implementation of <code>FitParamsConsumer</code>.
+ *
  * @author Andriy Kryvtsun
  */
 public class OutputStreamParamsConsumer implements FitParamsConsumer {

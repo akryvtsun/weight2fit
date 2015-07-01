@@ -9,6 +9,9 @@ import java.lang.annotation.Annotation;
 import static org.weight2fit.domain.shared.Utils.checkNotNull;
 
 /**
+ * args4j <code>Option</code> implementation.
+ * Uses fluent API for convenience of manipulation.
+ *
  * @author Andiry Kryvtsun
  */
 public class CmdLineOption implements Option {

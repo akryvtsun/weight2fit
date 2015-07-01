@@ -11,6 +11,8 @@ import java.text.ParseException;
 import java.util.Date;
 
 /**
+ * <code>OptionHandler</code> implementation for parsing <code>java.util.Date</code> arguments.
+ *
  * @author Andriy Kryvtsun
  */
 public class DateOptionHandler extends OneArgumentOptionHandler<Date> {
