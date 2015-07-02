@@ -3,11 +3,15 @@ Roadmap
 
 ### v1.5 ###
 * implement SWT UI with manual params entering for Windows and Linux
-    * update unit tests
     * show program version from Metafile in GUI and CLI
+    * protect incorrect input in GUI fit fields  
     * add [keyboard shortcuts] (http://book.javanb.com/swt-a-developer-notebook/swtadn-chp-3-sect-9.html) in MainWindow ???
+    * Make UiFitParamsSupplier reusable, make common Weight2FitApplication again 
+    * update unit tests
 * avoid unneeded *.jar files generation
-* add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README 
+* update README
+    * add GUI screen shots
+    * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README
 
 ### v2.0 ###
 * create Windows, Linux, MacOS executable files
