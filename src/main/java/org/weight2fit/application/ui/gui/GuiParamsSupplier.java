@@ -9,6 +9,7 @@ import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
 import org.eclipse.swt.widgets.*;
 import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
+import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
@@ -29,6 +30,8 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     private final Display display;
     private final Shell shell;
 
+    private boolean isGenerated = false;
+
     private Text timestamp;
     private Text weight;
     private Text bodyFat;
@@ -39,11 +42,12 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     private Text boneMass;
     private Text metabolicAge;
     private Text dci;
-    private boolean isClosed = false;
 
-    public GuiParamsSupplier(Display display, Shell shell) {
-        this.display = display;
-        this.shell = shell;
+    public GuiParamsSupplier() {
+        display = Display.getDefault();
+
+        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
+        shell.setText(Constants.APP_NAME + " " + getVersion());
 
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;
@@ -72,7 +76,7 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
             @Override
             public void widgetSelected(SelectionEvent e) {
                 prepareParams();
-                isClosed = true;
+                isGenerated = true;
             }
         });
 
@@ -182,9 +186,13 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     @Override
     public FitParams get() throws FitException {
-        isClosed = false;
+        if (isGenerated) {
+            isGenerated = false;
+            params = null;
+        } else
+            shell.open();
 
-        while (!isClosed) {
+        while (!shell.isDisposed() && !isGenerated) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
