@@ -30,8 +30,6 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     private final Display display;
     private final Shell shell;
 
-    private boolean isGenerated = false;
-
     private Text timestamp;
     private Text weight;
     private Text bodyFat;
@@ -42,6 +40,8 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     private Text boneMass;
     private Text metabolicAge;
     private Text dci;
+
+    private boolean doGeneration = false;
 
     public GuiParamsSupplier() {
         display = Display.getDefault();
@@ -75,56 +75,12 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
-                prepareParams();
-                isGenerated = true;
+                doGeneration = true;
             }
         });
 
         shell.pack();
         centerShell(display);
-    }
-
-    private void prepareParams() {
-        try {
-            params = new FitParams();
-
-            obtainDateParam(timestamp, FitFields.TIMESTAMP);
-            obtainDoubleParam(weight, FitFields.WEIGHT);
-            obtainDoubleParam(bodyFat, FitFields.BODY_FAT);
-            obtainDoubleParam(bodyWater, FitFields.BODY_WATER);
-            obtainIntParam(visceralFat, FitFields.VISCERAL_FAT);
-            obtainDoubleParam(muscleMass, FitFields.MUSCLE_MASS);
-            obtainIntParam(physiqueRating, FitFields.PHYSIQUE_RATING);
-            obtainDoubleParam(boneMass, FitFields.BONE_MASS);
-            obtainIntParam(metabolicAge, FitFields.METABOLIC_AGE);
-            obtainIntParam(dci, FitFields.DCI);
-
-            completeParams();
-        }
-        catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-    }
-
-    private void obtainDateParam(Text txtField, FitFields fitField) throws ParseException {
-        String value = txtField.getText();
-        if (value.length() > 0) {
-            params.setValue(fitField, UiUtils.parse(value));
-        }
-    }
-
-    private void obtainDoubleParam(Text txtField, FitFields fitField) {
-        String value = txtField.getText();
-        if (value.length() > 0) {
-            params.setValue(fitField, Double.parseDouble(value));
-        }
-    }
-
-    private void obtainIntParam(Text txtField, FitFields fitField) {
-        String value = txtField.getText();
-        if (value.length() > 0) {
-            params.setValue(fitField, Integer.parseInt(value));
-        }
     }
 
     private Group createMeasures(Composite parent) {
@@ -190,17 +146,67 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     @Override
     public FitParams get() throws FitException {
-        if (isGenerated) {
-            isGenerated = false;
-            params = null;
-        } else
+        // clean up
+        if (doGeneration)
+            doGeneration = false;
+         else
             shell.open();
 
-        while (!shell.isDisposed() && !isGenerated) {
+        // SWT main loop
+        while (!shell.isDisposed() && !doGeneration) {
             if (!display.readAndDispatch())
                 display.sleep();
         }
 
+        // result preparation
+        if (doGeneration) {
+            prepareParams();
+            completeParams();
+        }
+        else
+            params = null;
+
         return params;
+    }
+
+    private void prepareParams() throws FitException {
+        try {
+            params = new FitParams();
+
+            obtainDateParam(timestamp, FitFields.TIMESTAMP);
+            obtainDoubleParam(weight, FitFields.WEIGHT);
+            obtainDoubleParam(bodyFat, FitFields.BODY_FAT);
+            obtainDoubleParam(bodyWater, FitFields.BODY_WATER);
+            obtainIntParam(visceralFat, FitFields.VISCERAL_FAT);
+            obtainDoubleParam(muscleMass, FitFields.MUSCLE_MASS);
+            obtainIntParam(physiqueRating, FitFields.PHYSIQUE_RATING);
+            obtainDoubleParam(boneMass, FitFields.BONE_MASS);
+            obtainIntParam(metabolicAge, FitFields.METABOLIC_AGE);
+            obtainIntParam(dci, FitFields.DCI);
+        }
+        catch (Exception e) {
+            throw new FitException("Error during FitParams creation", e);
+        }
+    }
+
+    private void obtainDateParam(Text txtField, FitFields fitField) throws ParseException {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, UiUtils.parse(value));
+        }
+    }
+
+    private void obtainDoubleParam(Text txtField, FitFields fitField) {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, Double.parseDouble(value));
+        }
+    }
+
+    private void obtainIntParam(Text txtField, FitFields fitField) {
+        String value = txtField.getText();
+        if (value.length() > 0) {
+            params.setValue(fitField, Integer.parseInt(value));
+        }
     }
 }
