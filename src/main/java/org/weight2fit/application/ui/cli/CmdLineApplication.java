@@ -32,15 +32,16 @@ public class CmdLineApplication implements Weight2FitApplication {
             UiFitParamsSupplier supplier = new CmdLineParamsSupplier(args);
             FitParams params = supplier.get();
 
-            if (params == null)
-                return 1;
+            if (params != null) {
+                File outFile = supplier.getFile();
 
-            File outFile = supplier.getFile();
+                FitParamsConsumer consumer = new FileParamsConsumer(outFile);
+                consumer.accept(params);
 
-            FitParamsConsumer consumer = new FileParamsConsumer(outFile);
-            consumer.accept(params);
-
-            System.out.println("FIT file '" + outFile + "' was created");
+                System.out.println("FIT file '" + outFile + "' was created");
+            }
+            else
+                result = 1;
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);

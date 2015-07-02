@@ -28,21 +28,22 @@ public class GuiApplication implements Weight2FitApplication {
         try {
             UiFitParamsSupplier supplier = new GuiParamsSupplier();
 
-            while (true) {
-                FitParams params = supplier.get();
+            FitParams params;
+            do {
+                params = supplier.get();
 
-                if (params == null) {
-                    result = 1;
-                    break;
+                if (params != null) {
+                    File outFile = supplier.getFile();
+
+                    FitParamsConsumer consumer = new FileParamsConsumer(outFile);
+                    consumer.accept(params);
+
+                    System.out.println("FIT file '" + outFile + "' was created");
                 }
-
-                File outFile = supplier.getFile();
-
-                FitParamsConsumer consumer = new FileParamsConsumer(outFile);
-                consumer.accept(params);
-
-                System.out.println("FIT file '" + outFile + "' was created");
             }
+            while (params != null);
+
+            result = 1;
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);
