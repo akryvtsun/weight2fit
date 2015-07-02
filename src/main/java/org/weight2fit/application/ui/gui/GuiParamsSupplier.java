@@ -158,14 +158,18 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
     }
 
     private Text createField(Group group, String titleStr, String unitStr, VerifyListener verifier) {
+        // field label
         Label title = new Label(group, SWT.RIGHT);
         title.setText(titleStr);
         title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
 
+        // input field
         final Text field = new Text(group, SWT.BORDER | SWT.SINGLE | SWT.RIGHT);
+        field.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         if (verifier != null)
             field.addVerifyListener(verifier);
 
+        // field unit
         Label unit = new Label(group, SWT.RIGHT);
         if (unitStr != null)
             unit.setText(unitStr);
