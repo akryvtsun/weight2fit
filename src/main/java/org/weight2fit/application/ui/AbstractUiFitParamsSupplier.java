@@ -7,11 +7,10 @@ import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
+import java.security.CodeSource;
 import java.util.Date;
+import java.util.jar.Attributes;
 import java.util.jar.JarFile;
-import java.util.jar.Manifest;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -49,15 +48,19 @@ public abstract class AbstractUiFitParamsSupplier implements UiFitParamsSupplier
     }
 
     protected String getVersion() {
-        String version = "current version";
+        String version = "<last version>";
 
-        InputStream is = getClass().getResourceAsStream('/' + JarFile.MANIFEST_NAME);
-        if (is != null) {
-            try {
-                version = new Manifest(is).getMainAttributes().getValue("Version");
-            } catch (IOException e) {
-                LOG.log(Level.FINE, "an exception was thrown", e);
+        try {
+            CodeSource codeSource = getClass().getProtectionDomain().getCodeSource();
+            String path = codeSource.getLocation().toURI().getPath();
+
+            if (path.endsWith(".jar") || path.endsWith(".exe")) {
+                JarFile jarFile = new JarFile(path);
+                Attributes attrs = jarFile.getManifest().getMainAttributes();
+                version = attrs.getValue("Version");
             }
+        } catch (Exception e) {
+            LOG.log(Level.FINE, "an exception was thrown", e);
         }
 
         return version;
