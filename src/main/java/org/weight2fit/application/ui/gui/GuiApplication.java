@@ -1,5 +1,9 @@
 package org.weight2fit.application.ui.gui;
 
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.widgets.Display;
+import org.eclipse.swt.widgets.MessageBox;
+import org.eclipse.swt.widgets.Shell;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiFitParamsSupplier;
 import org.weight2fit.domain.FitParams;
@@ -18,18 +22,19 @@ import java.util.logging.Logger;
 public class GuiApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
 
+    private final Display display;
+
     public GuiApplication() {
+        display = Display.getDefault();
     }
 
     @Override
     public int execute() {
-        int result = 0;
+        UiFitParamsSupplier supplier = new GuiParamsSupplier();
 
-        try {
-            UiFitParamsSupplier supplier = new GuiParamsSupplier();
-
-            FitParams params;
-            do {
+        FitParams params = null;
+        do {
+            try {
                 params = supplier.get();
 
                 if (params != null) {
@@ -38,19 +43,29 @@ public class GuiApplication implements Weight2FitApplication {
                     FitParamsConsumer consumer = new FileParamsConsumer(outFile);
                     consumer.accept(params);
 
-                    System.out.println("FIT file '" + outFile + "' was created");
+                    showMessage(SWT.ICON_INFORMATION, "Info", "FIT file '" + outFile + "' was created");
                 }
+            } catch (Exception e) {
+                LOG.log(Level.SEVERE, "an exception was thrown", e);
+
+                String errorMessage = e.getCause() != null
+                        ? e.getCause().getLocalizedMessage()
+                        : e.getLocalizedMessage();
+                showMessage(SWT.ICON_ERROR, "Error", errorMessage);
             }
-            while (params != null);
-
-            result = 1;
         }
-        catch (Exception e) {
-            LOG.log(Level.SEVERE, "an exception was thrown", e);
+        while (params != null);
 
-            result = 2;
-        }
+        return 1;
+    }
 
-        return result;
+    private void showMessage(int flags, String text, String message) {
+        Shell parent = display.getActiveShell();
+
+        MessageBox messageBox = new MessageBox(parent, SWT.OK | SWT.SHEET | flags);
+        messageBox.setText(text);
+        messageBox.setMessage(message);
+
+        messageBox.open();
     }
 }
