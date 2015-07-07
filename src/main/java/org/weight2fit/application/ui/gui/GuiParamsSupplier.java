@@ -163,8 +163,10 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
             prepareParams();
             completeParams();
         }
-        else
+        else {
+            display.dispose();
             params = null;
+        }
 
         return params;
     }
