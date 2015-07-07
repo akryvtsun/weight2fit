@@ -30,7 +30,7 @@ public class GuiApplication implements Weight2FitApplication {
 
     @Override
     public int execute() {
-        UiFitParamsSupplier supplier = new GuiParamsSupplier();
+        UiFitParamsSupplier supplier = new GuiParamsSupplier(display);
 
         FitParams params = null;
         do {
@@ -59,10 +59,10 @@ public class GuiApplication implements Weight2FitApplication {
         return 1;
     }
 
-    private void showMessage(int flags, String text, String message) {
+    private void showMessage(int type, String text, String message) {
         Shell parent = display.getActiveShell();
 
-        MessageBox messageBox = new MessageBox(parent, SWT.OK | SWT.SHEET | flags);
+        MessageBox messageBox = new MessageBox(parent, SWT.SHEET | type);
         messageBox.setText(text);
         messageBox.setMessage(message);
 

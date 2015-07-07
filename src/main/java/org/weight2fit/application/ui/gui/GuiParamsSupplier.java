@@ -43,10 +43,16 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private boolean doGeneration = false;
 
-    public GuiParamsSupplier() {
-        display = Display.getDefault();
+    public GuiParamsSupplier(Display display) {
+        this.display = display;
 
-        shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
+        shell = createShell(display);
+        shell.pack();
+        centerWidget(display, shell);
+    }
+
+    private Shell createShell(Display display) {
+        Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setText(Constants.APP_NAME + " " + getVersion());
 
         GridLayout layout = new GridLayout();
@@ -67,7 +73,7 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
         group.setLayoutData(data);
 
         Button button = new Button(shell, SWT.PUSH);
-        button.setText("Generate File");
+        button.setText("&Generate File");
         GridData data2 = new GridData();
         data2.horizontalAlignment = GridData.END;
         data2.grabExcessHorizontalSpace = true;
@@ -79,8 +85,7 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
             }
         });
 
-        shell.pack();
-        centerShell(display);
+        return shell;
     }
 
     private Group createMeasures(Composite parent) {
@@ -95,20 +100,20 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        timestamp = createField(group, "Timestamp:", null, FieldVerifiers.DATE);
+        timestamp = createField(group, "&Timestamp:", null, FieldVerifiers.DATE);
         timestamp.setText(UiUtils.toString(new Date()));
 
-        weight = createField(group, "Weight:", "kg", FieldVerifiers.DOUBLE);
+        weight = createField(group, "&Weight:", "kg", FieldVerifiers.DOUBLE);
         weight.setFocus();
 
-        bodyFat = createField(group, "Body Fat:", "%", FieldVerifiers.DOUBLE);
-        bodyWater = createField(group, "Body Water:", "%", FieldVerifiers.DOUBLE);
-        visceralFat = createField(group, "Visceral Fat:", null, FieldVerifiers.INTEGER);
-        muscleMass = createField(group, "Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
-        physiqueRating = createField(group, "Physique Rating:", null, FieldVerifiers.INTEGER);
-        boneMass = createField(group, "Bone Mass:", "kg", FieldVerifiers.DOUBLE);
-        metabolicAge = createField(group, "Metabolic Age:", "years", FieldVerifiers.INTEGER);
-        dci = createField(group, "DCI:", "C", FieldVerifiers.INTEGER);
+        bodyFat = createField(group, "Body &Fat:", "%", FieldVerifiers.DOUBLE);
+        bodyWater = createField(group, "&Body Water:", "%", FieldVerifiers.DOUBLE);
+        visceralFat = createField(group, "&Visceral Fat:", null, FieldVerifiers.INTEGER);
+        muscleMass = createField(group, "&Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
+        physiqueRating = createField(group, "Physique &Rating:", null, FieldVerifiers.INTEGER);
+        boneMass = createField(group, "B&one Mass:", "kg", FieldVerifiers.DOUBLE);
+        metabolicAge = createField(group, "Metabolic &Age:", "years", FieldVerifiers.INTEGER);
+        dci = createField(group, "&DCI:", "C", FieldVerifiers.INTEGER);
 
         return group;
     }
@@ -133,15 +138,15 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
         return field;
     }
 
-    private void centerShell(Display display) {
+    private static void centerWidget(Display display, Control widget) {
         Monitor primary = display.getPrimaryMonitor();
         Rectangle bounds = primary.getBounds();
-        Rectangle rect = shell.getBounds();
+        Rectangle rect = widget.getBounds();
 
         int x = bounds.x + (bounds.width - rect.width) / 2;
         int y = bounds.y + (bounds.height - rect.height) / 2;
 
-        shell.setLocation(x, y);
+        widget.setLocation(x, y);
     }
 
     @Override
