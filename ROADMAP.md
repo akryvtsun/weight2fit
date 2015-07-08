@@ -3,7 +3,6 @@ Roadmap
 
 ### v1.5 ###
 * implement SWT UI with manual params entering for Windows and Linux
-    * Make UiFitParamsSupplier reusable, make common Weight2FitApplication again 
     * update unit tests
 * avoid unneeded *.jar files generation
 * update README
