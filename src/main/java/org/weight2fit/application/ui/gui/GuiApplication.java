@@ -1,14 +1,10 @@
 package org.weight2fit.application.ui.gui;
 
 import org.eclipse.swt.SWT;
-import org.eclipse.swt.widgets.Display;
-import org.eclipse.swt.widgets.MessageBox;
-import org.eclipse.swt.widgets.Shell;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiFitParamsSupplier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
-import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -22,15 +18,15 @@ import java.util.logging.Logger;
 public class GuiApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
 
-    private final Display display;
+    private final GuiFactory factory;
 
-    public GuiApplication() {
-        display = Display.getDefault();
+    public GuiApplication(GuiFactory factory) {
+        this.factory = factory;
     }
 
     @Override
     public int execute() {
-        UiFitParamsSupplier supplier = new GuiParamsSupplier(display);
+        UiFitParamsSupplier supplier = factory.createSupplier();
 
         FitParams params = null;
         do {
@@ -40,10 +36,10 @@ public class GuiApplication implements Weight2FitApplication {
                 if (params != null) {
                     File outFile = supplier.getFile();
 
-                    FitParamsConsumer consumer = new FileParamsConsumer(outFile);
+                    FitParamsConsumer consumer = factory.createConsumer(outFile);
                     consumer.accept(params);
 
-                    showMessage(SWT.ICON_INFORMATION, "Info", "FIT file '" + outFile + "' was created");
+                    factory.showMessage(SWT.ICON_INFORMATION, "Info", "FIT file '" + outFile + "' was created");
                 }
             } catch (Exception e) {
                 LOG.log(Level.SEVERE, "an exception was thrown", e);
@@ -51,21 +47,11 @@ public class GuiApplication implements Weight2FitApplication {
                 String errorMessage = e.getCause() != null
                         ? e.getCause().getLocalizedMessage()
                         : e.getLocalizedMessage();
-                showMessage(SWT.ICON_ERROR, "Error", errorMessage);
+                factory.showMessage(SWT.ICON_ERROR, "Error", errorMessage);
             }
         }
         while (params != null);
 
         return 1;
-    }
-
-    private void showMessage(int type, String text, String message) {
-        Shell parent = display.getActiveShell();
-
-        MessageBox messageBox = new MessageBox(parent, SWT.SHEET | type);
-        messageBox.setText(text);
-        messageBox.setMessage(message);
-
-        messageBox.open();
     }
 }

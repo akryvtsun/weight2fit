@@ -2,6 +2,7 @@ package org.weight2fit.application;
 
 import org.weight2fit.application.ui.cli.CmdLineApplication;
 import org.weight2fit.application.ui.gui.GuiApplication;
+import org.weight2fit.application.ui.gui.SwtFactory;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -23,7 +24,7 @@ public class Launcher {
         }
 
         Weight2FitApplication application = args.length == 0
-                ? new GuiApplication()
+                ? new GuiApplication(new SwtFactory())
                 : new CmdLineApplication(args);
         int result = application.execute();
 
