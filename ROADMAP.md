@@ -10,6 +10,7 @@ Roadmap
     * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README
 
 ### v2.0 ###
+* TODOs processing
 * create Windows, Linux, MacOS executable files
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
