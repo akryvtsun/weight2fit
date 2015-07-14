@@ -7,6 +7,7 @@ import org.kohsuke.args4j.OptionHandlerFilter;
 import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
+import org.kohsuke.args4j.spi.Setter;
 import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
 import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.domain.FitException;
@@ -158,7 +159,7 @@ public class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
     }
 
     private void addOption(FitFields field, Option option) {
-        FitFieldSetter setter = new FitFieldSetter(params, field);
+        Setter setter = new FitFieldSetter(params, field);
         parser.addOption(setter, option);
     }
 
