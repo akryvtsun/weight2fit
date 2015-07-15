@@ -13,7 +13,7 @@ import java.lang.reflect.AnnotatedElement;
  *
  * @author Andriy Kryvtsun
  */
-public class FitFieldSetter implements Setter {
+class FitFieldSetter implements Setter {
 
     private final FitParams params;
     private final FitFields field;

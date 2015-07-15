@@ -12,6 +12,7 @@ import java.util.Date;
 
 /**
  * <code>OptionHandler</code> implementation for parsing <code>java.util.Date</code> arguments.
+ * Must have <b>public</b> access level cause of reflection introspection in <b>args4j</b>.
  *
  * @author Andriy Kryvtsun
  */

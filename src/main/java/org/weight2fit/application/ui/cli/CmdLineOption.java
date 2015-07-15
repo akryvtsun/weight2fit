@@ -14,7 +14,7 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-public class CmdLineOption implements Option {
+class CmdLineOption implements Option {
 
     private String name;
     private String[] aliases;
