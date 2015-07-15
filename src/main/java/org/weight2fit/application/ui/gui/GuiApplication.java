@@ -1,8 +1,8 @@
 package org.weight2fit.application.ui.gui;
 
-import org.eclipse.swt.SWT;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiFitParamsSupplier;
+import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 
@@ -19,9 +19,11 @@ public class GuiApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
 
     private final GuiFactory factory;
+    private final UiNotifier notifier;
 
-    public GuiApplication(GuiFactory factory) {
+    public GuiApplication(GuiFactory factory, UiNotifier notifier) {
         this.factory = factory;
+        this.notifier = notifier;
     }
 
     @Override
@@ -39,7 +41,7 @@ public class GuiApplication implements Weight2FitApplication {
                     FitParamsConsumer consumer = factory.createConsumer(outFile);
                     consumer.accept(params);
 
-                    factory.showMessage(SWT.ICON_INFORMATION, "Info", "FIT file '" + outFile + "' was created");
+                    notifier.showInfoMessage("FIT file '" + outFile + "' was created");
                 }
             } catch (Exception e) {
                 LOG.log(Level.SEVERE, "an exception was thrown", e);
@@ -47,7 +49,8 @@ public class GuiApplication implements Weight2FitApplication {
                 String errorMessage = e.getCause() != null
                         ? e.getCause().getLocalizedMessage()
                         : e.getLocalizedMessage();
-                factory.showMessage(SWT.ICON_ERROR, "Error", errorMessage);
+
+                notifier.showErrorMessage(errorMessage);
             }
         }
         while (params != null);

@@ -14,6 +14,4 @@ public interface GuiFactory {
     UiFitParamsSupplier createSupplier();
 
     FitParamsConsumer createConsumer(File outFile) throws FileNotFoundException;
-
-    void showMessage(int type, String text, String message);
 }

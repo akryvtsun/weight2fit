@@ -2,6 +2,7 @@ package org.weight2fit.application.ui.cli;
 
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiFitParamsSupplier;
+import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.infrastructure.FileParamsConsumer;
@@ -18,9 +19,11 @@ import java.util.logging.Logger;
 public class CmdLineApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
 
+    private final UiNotifier notifier;
     private final String[] args;
 
-    public CmdLineApplication(String... args) {
+    public CmdLineApplication(UiNotifier notifier, String... args) {
+        this.notifier = notifier;
         this.args = args;
     }
 
@@ -38,13 +41,19 @@ public class CmdLineApplication implements Weight2FitApplication {
                 FitParamsConsumer consumer = new FileParamsConsumer(outFile);
                 consumer.accept(params);
 
-                System.out.println("FIT file '" + outFile + "' was created");
+                notifier.showInfoMessage("FIT file '" + outFile + "' was created");
             }
             else
                 result = 1;
         }
         catch (Exception e) {
             LOG.log(Level.SEVERE, "an exception was thrown", e);
+
+            String errorMessage = e.getCause() != null
+                    ? e.getCause().getLocalizedMessage()
+                    : e.getLocalizedMessage();
+
+            notifier.showErrorMessage(errorMessage);
 
             result = 2;
         }
