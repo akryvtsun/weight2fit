@@ -22,7 +22,14 @@ public class CmdLineApplication implements Weight2FitApplication {
     private final UiFitParamsSupplier supplier;
     private final UiNotifier notifier;
 
-    public CmdLineApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
+    public static Weight2FitApplication create(String... args) {
+        UiFitParamsSupplier supplier = new CmdLineParamsSupplier(args);
+        UiNotifier notifier = new CmdLineNotifier();
+
+        return new CmdLineApplication(supplier, notifier);
+    }
+
+    CmdLineApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
         this.supplier = supplier;
         this.notifier = notifier;
     }

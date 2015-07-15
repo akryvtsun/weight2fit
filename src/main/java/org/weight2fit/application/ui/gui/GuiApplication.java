@@ -22,7 +22,14 @@ public class GuiApplication implements Weight2FitApplication {
     private final UiFitParamsSupplier supplier;
     private final UiNotifier notifier;
 
-    public GuiApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
+    public static Weight2FitApplication create() {
+        UiFitParamsSupplier supplier = new GuiParamsSupplier();
+        UiNotifier notifier = new GuiNotifier();
+
+        return new GuiApplication(supplier, notifier);
+    }
+
+    GuiApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
         this.supplier = supplier;
         this.notifier = notifier;
     }

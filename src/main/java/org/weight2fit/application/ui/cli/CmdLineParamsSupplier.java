@@ -25,7 +25,7 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-public class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
+class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private final String[] args;
     private final CmdLineParser parser;

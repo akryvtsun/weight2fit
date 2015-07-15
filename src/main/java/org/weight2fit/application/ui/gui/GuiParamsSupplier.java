@@ -25,7 +25,7 @@ import java.util.Date;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
+class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private final Display display;
     private final Shell shell;

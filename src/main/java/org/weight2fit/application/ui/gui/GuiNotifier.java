@@ -9,7 +9,7 @@ import org.weight2fit.application.ui.UiNotifier;
 /**
  * @author Andriy Kryvtsun
  */
-public class GuiNotifier implements UiNotifier {
+class GuiNotifier implements UiNotifier {
 
     private final Display display;
 
