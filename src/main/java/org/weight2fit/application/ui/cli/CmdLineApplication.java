@@ -19,12 +19,12 @@ import java.util.logging.Logger;
 public class CmdLineApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
 
+    private final UiFitParamsSupplier supplier;
     private final UiNotifier notifier;
-    private final String[] args;
 
-    public CmdLineApplication(UiNotifier notifier, String... args) {
+    public CmdLineApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
+        this.supplier = supplier;
         this.notifier = notifier;
-        this.args = args;
     }
 
     @Override
@@ -32,7 +32,6 @@ public class CmdLineApplication implements Weight2FitApplication {
         int result = 0;
 
         try {
-            UiFitParamsSupplier supplier = new CmdLineParamsSupplier(args);
             FitParams params = supplier.get();
 
             if (params != null) {

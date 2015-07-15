@@ -43,8 +43,8 @@ public class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private boolean doGeneration = false;
 
-    public GuiParamsSupplier(Display display) {
-        this.display = display;
+    public GuiParamsSupplier() {
+        display = Display.getDefault();
 
         shell = createShell(display);
         shell.pack();

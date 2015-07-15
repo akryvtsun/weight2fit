@@ -5,6 +5,7 @@ import org.weight2fit.application.ui.UiFitParamsSupplier;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
+import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.io.File;
 import java.util.logging.Level;
@@ -18,19 +19,18 @@ import java.util.logging.Logger;
 public class GuiApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
 
-    private final GuiFactory factory;
+    private final UiFitParamsSupplier supplier;
     private final UiNotifier notifier;
 
-    public GuiApplication(GuiFactory factory, UiNotifier notifier) {
-        this.factory = factory;
+    public GuiApplication(UiFitParamsSupplier supplier, UiNotifier notifier) {
+        this.supplier = supplier;
         this.notifier = notifier;
     }
 
     @Override
     public int execute() {
-        UiFitParamsSupplier supplier = factory.createSupplier();
-
         FitParams params = null;
+
         do {
             try {
                 params = supplier.get();
@@ -38,7 +38,7 @@ public class GuiApplication implements Weight2FitApplication {
                 if (params != null) {
                     File outFile = supplier.getFile();
 
-                    FitParamsConsumer consumer = factory.createConsumer(outFile);
+                    FitParamsConsumer consumer = new FileParamsConsumer(outFile);
                     consumer.accept(params);
 
                     notifier.showInfoMessage("FIT file '" + outFile + "' was created");
