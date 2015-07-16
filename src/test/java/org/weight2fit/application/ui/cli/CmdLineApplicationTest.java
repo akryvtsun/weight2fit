@@ -1,4 +1,4 @@
-package org.weight2fit.application.ui.gui;
+package org.weight2fit.application.ui.cli;
 
 import org.junit.Test;
 import org.weight2fit.application.Weight2FitApplication;
@@ -15,12 +15,14 @@ import java.io.FileNotFoundException;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Matchers.contains;
 import static org.mockito.Mockito.*;
 
 /**
  * @author Andriy Kryvtsun
  */
-public class GuiApplicationTest {
+public class CmdLineApplicationTest {
 
     @Test
     public void execute_getFitParams_ok() throws FitException, FileNotFoundException {
@@ -32,7 +34,7 @@ public class GuiApplicationTest {
         final File file = new File(fileName);
 
         UiFitParamsSupplier supplier = mock(UiFitParamsSupplier.class);
-        when(supplier.get()).thenReturn(params).thenReturn(null);
+        when(supplier.get()).thenReturn(params);
         when(supplier.getFile()).thenReturn(file);
 
         FitParamsConsumer consumer = mock(FitParamsConsumer.class);
@@ -41,14 +43,31 @@ public class GuiApplicationTest {
 
         UiNotifier notifier = mock(UiNotifier.class);
 
-        Weight2FitApplication application = new GuiApplication(supplier, consumerCreator, notifier);
+        Weight2FitApplication application = new CmdLineApplication(supplier, consumerCreator, notifier);
         int result = application.execute();
 
-        assertEquals(1, result);
+        assertEquals(0, result);
 
         verify(consumer, times(1)).accept(params);
 
         verify(notifier, times(1)).showInfoMessage(contains(fileName));
         verify(notifier, never()).showErrorMessage(anyString());
+    }
+
+    @Test
+    public void execute_getFitParams_withError() throws FitException, FileNotFoundException {
+        UiFitParamsSupplier supplier = mock(UiFitParamsSupplier.class);
+        when(supplier.get()).thenThrow(FitException.class);
+
+        FileParamsConsumerCreator consumerCreator = mock(FileParamsConsumerCreator.class);
+        UiNotifier notifier = mock(UiNotifier.class);
+
+        Weight2FitApplication application = new CmdLineApplication(supplier, consumerCreator, notifier);
+        int result = application.execute();
+
+        assertEquals(2, result);
+
+        verify(notifier, times(1)).showErrorMessage(anyString());
+        verify(notifier, never()).showInfoMessage(anyString());
     }
 }
