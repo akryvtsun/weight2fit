@@ -34,9 +34,12 @@ public class Launcher {
     private static void initializeLogging() throws IOException {
         String logFile = System.getProperty("java.util.logging.config.file");
 
-        if(logFile == null) {
-            InputStream propertiesStream = Launcher.class.getClassLoader().getResourceAsStream("logging.properties");
-            LogManager.getLogManager().readConfiguration(propertiesStream);
-        }
+        if(logFile == null)
+            loadSilentLoggingProperties();
+    }
+
+    private static void loadSilentLoggingProperties() throws IOException {
+        InputStream propertiesStream = Launcher.class.getClassLoader().getResourceAsStream("logging.properties");
+        LogManager.getLogManager().readConfiguration(propertiesStream);
     }
 }
