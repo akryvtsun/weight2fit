@@ -1,15 +1,12 @@
 package org.weight2fit.application.ui.cli;
 
 import org.weight2fit.application.Weight2FitApplication;
-import org.weight2fit.application.ui.FileParamsConsumerCreator;
-import org.weight2fit.application.ui.UiFitParamsSupplier;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
+import org.weight2fit.domain.FitParamsSupplier;
 import org.weight2fit.infrastructure.FileParamsConsumer;
 
-import java.io.File;
-import java.io.FileNotFoundException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -21,26 +18,22 @@ import java.util.logging.Logger;
 public class CmdLineApplication implements Weight2FitApplication {
     private static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
 
-    private final UiFitParamsSupplier supplier;
-    private final FileParamsConsumerCreator consumeCreator;
+    private final FitParamsSupplier supplier;
+    private final FitParamsConsumer consumer;
     private final UiNotifier notifier;
 
     public static Weight2FitApplication create(String... args) {
-        UiFitParamsSupplier supplier = new CmdLineParamsSupplier(args);
-        FileParamsConsumerCreator creator = new FileParamsConsumerCreator() {
-            @Override
-            public FitParamsConsumer create(File file) throws FileNotFoundException {
-                return new FileParamsConsumer(file);
-            }
-        };
         UiNotifier notifier = new CmdLineNotifier();
 
-        return new CmdLineApplication(supplier, creator, notifier);
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+        FitParamsConsumer consumer = new FileParamsConsumer(supplier, notifier);
+
+        return new CmdLineApplication(supplier, consumer, notifier);
     }
 
-    CmdLineApplication(UiFitParamsSupplier supplier, FileParamsConsumerCreator consumeCreator, UiNotifier notifier) {
+    CmdLineApplication(FitParamsSupplier supplier, FitParamsConsumer consumer, UiNotifier notifier) {
         this.supplier = supplier;
-        this.consumeCreator = consumeCreator;
+        this.consumer = consumer;
         this.notifier = notifier;
     }
 
@@ -51,14 +44,8 @@ public class CmdLineApplication implements Weight2FitApplication {
         try {
             FitParams params = supplier.get();
 
-            if (params != null) {
-                File outFile = supplier.getFile();
-
-                FitParamsConsumer consumer = consumeCreator.create(outFile);
+            if (params != null)
                 consumer.accept(params);
-
-                notifier.showInfoMessage("FIT file '" + outFile + "' was created");
-            }
             else
                 result = 1;
         }

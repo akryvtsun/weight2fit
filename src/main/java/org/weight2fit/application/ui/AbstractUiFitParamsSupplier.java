@@ -5,6 +5,7 @@ import org.kohsuke.args4j.spi.FileOptionHandler;
 import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
 import java.security.CodeSource;
@@ -20,7 +21,7 @@ import java.util.logging.Logger;
  * @author Andriy Kryvtsun
  */
 // TODO remove CLI arg4j @Option from this common class
-public abstract class AbstractUiFitParamsSupplier implements UiFitParamsSupplier {
+public abstract class AbstractUiFitParamsSupplier implements FitParamsSupplier, FileSupplier {
 
     private static final Logger LOG = Logger.getLogger(AbstractUiFitParamsSupplier.class.getName());
 
