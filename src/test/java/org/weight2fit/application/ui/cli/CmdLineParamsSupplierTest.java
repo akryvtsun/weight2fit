@@ -1,7 +1,6 @@
 package org.weight2fit.application.ui.cli;
 
 import org.junit.Test;
-import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
@@ -84,7 +83,6 @@ public class CmdLineParamsSupplierTest {
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
         final Date today = new Date();
-        final File defaultFile = UiUtils.createDefaultFile(today);
 
         CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
             new CmdLine()
@@ -97,7 +95,6 @@ public class CmdLineParamsSupplierTest {
         Date timestamp = params.getValue(FitFields.TIMESTAMP);
         assertEquals(truncateMillis(today), truncateMillis(timestamp));
         assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
-        assertEquals(defaultFile, supplier.getFile());
     }
 
     private Date truncateMillis(Date date) {

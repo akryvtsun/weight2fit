@@ -5,6 +5,7 @@ import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsConsumer;
 import org.weight2fit.domain.FitParamsSupplier;
+import org.weight2fit.infrastructure.EmptyFileSupplier;
 import org.weight2fit.infrastructure.FileParamsConsumer;
 
 import java.util.logging.Level;
@@ -23,10 +24,10 @@ public class GuiApplication implements Weight2FitApplication {
     private final UiNotifier notifier;
 
     public static Weight2FitApplication create() {
-        UiNotifier notifier = new GuiNotifier();
+        FitParamsSupplier supplier = new GuiParamsSupplier();
 
-        GuiParamsSupplier supplier = new GuiParamsSupplier();
-        FitParamsConsumer consumer = new FileParamsConsumer(supplier, notifier);
+        UiNotifier notifier = new GuiNotifier();
+        FitParamsConsumer consumer = new FileParamsConsumer(new EmptyFileSupplier(), notifier);
 
         return new GuiApplication(supplier, consumer, notifier);
     }

@@ -14,6 +14,7 @@ import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.FitParamsSupplier;
 
 import java.text.ParseException;
 import java.util.Date;
@@ -25,7 +26,7 @@ import java.util.Date;
  */
 // TODO use Spinner for integer fields
 // TODO use date/time picker for Timestamp
-class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
+class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier {
 
     private final Display display;
     private final Shell shell;
@@ -53,7 +54,7 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private Shell createShell(Display display) {
         Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
-        shell.setText(Constants.APP_NAME + " " + getVersion());
+        shell.setText(Constants.APP_NAME + " " + UiUtils.getVersion());
 
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;

@@ -9,11 +9,15 @@ import org.kohsuke.args4j.spi.IntOptionHandler;
 import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
 import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
+import org.weight2fit.application.ui.FileSupplier;
 import org.weight2fit.application.ui.shared.Constants;
+import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
+import org.weight2fit.domain.FitParamsSupplier;
 
+import java.io.File;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -25,10 +29,14 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
+// TODO use here UiNotifier impl
+class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier, FileSupplier {
 
     private final String[] args;
     private final CmdLineParser parser;
+
+    @Option(name = "-o", aliases = { "--out" }, usage = "Output FIT file name", handler = FileOptionHandler.class)
+    private File out;
 
     @Option(name = "-h", aliases = { "--help" }, help = true, usage = "Shows help info")
     private boolean help;
@@ -187,9 +195,14 @@ class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier {
 
     private void showHelpInfo(boolean showVersion) {
         if (showVersion)
-            System.out.println(Constants.APP_NAME + " " + getVersion());
+            System.out.println(Constants.APP_NAME + " " + UiUtils.getVersion());
 
         System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED) + " [options]");
         parser.printUsage(System.out);
+    }
+
+    @Override
+    public File getFile() {
+        return out;
     }
 }
