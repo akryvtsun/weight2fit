@@ -10,6 +10,7 @@ import org.kohsuke.args4j.spi.OptionHandler;
 import org.kohsuke.args4j.spi.Setter;
 import org.weight2fit.application.ui.AbstractUiFitParamsSupplier;
 import org.weight2fit.application.ui.FileSupplier;
+import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.application.ui.shared.Constants;
 import org.weight2fit.application.ui.shared.UiUtils;
 import org.weight2fit.domain.FitException;
@@ -18,6 +19,7 @@ import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
 import java.io.File;
+import java.io.StringWriter;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
@@ -29,9 +31,9 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-// TODO use here UiNotifier impl instead of direct System.out usage
 class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier, FileSupplier {
 
+    private final UiNotifier notifier;
     private final String[] args;
     private final CmdLineParser parser;
 
@@ -41,7 +43,8 @@ class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitPa
     @Option(name = "-h", aliases = { "--help" }, help = true, usage = "Shows help info")
     private boolean help;
 
-    public CmdLineParamsSupplier(String... args) {
+    public CmdLineParamsSupplier(UiNotifier notifier, String... args) {
+        this.notifier = checkNotNull(notifier);
         this.args = checkNotNull(args);
 
         params = new FitParams();
@@ -186,7 +189,6 @@ class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitPa
             }
         }
         catch (CmdLineException e) {
-            System.out.println("Error: " + e.getLocalizedMessage());
             showHelpInfo(false);
 
             throw new FitException("Error during FitParams creation", e);
@@ -195,10 +197,23 @@ class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitPa
 
     private void showHelpInfo(boolean showVersion) {
         if (showVersion)
-            System.out.println(Constants.APP_NAME + " " + UiUtils.getVersion());
+            showVersionInfo();
+        showUsageLine();
+        showOptions();
+    }
 
-        System.out.println("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED) + " [options]");
-        parser.printUsage(System.out);
+    private void showVersionInfo() {
+        notifier.showInfoMessage(Constants.APP_NAME + " " + UiUtils.getVersion());
+    }
+
+    private void showUsageLine() {
+        notifier.showInfoMessage("Usage: " + Constants.APP_NAME + parser.printExample(OptionHandlerFilter.REQUIRED) + " [options]");
+    }
+
+    private void showOptions() {
+        StringWriter writer = new StringWriter();
+        parser.printUsage(writer, null);
+        notifier.showInfoMessage(writer.toString());
     }
 
     @Override

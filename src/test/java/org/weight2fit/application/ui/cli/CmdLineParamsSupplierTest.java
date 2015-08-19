@@ -1,6 +1,10 @@
 package org.weight2fit.application.ui.cli;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
@@ -13,10 +17,13 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
+import static org.mockito.Matchers.anyString;
+import static org.mockito.Mockito.*;
 
 /**
  * @author Andriy Kryvtsun
  */
+@RunWith(MockitoJUnitRunner.class)
 public class CmdLineParamsSupplierTest {
 
     public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
@@ -24,14 +31,17 @@ public class CmdLineParamsSupplierTest {
     public static final File FILE = new File(FILE_NAME);
     public static final double DELTA = 0.001;
 
+    @Mock
+    UiNotifier notifier;
+
     @Test(expected = NullPointerException.class)
     public void CmdLineParamsSupplier_emptyArgsSet_NullPointerException() throws Exception {
-        new CmdLineParamsSupplier(null);
+        new CmdLineParamsSupplier(notifier, null);
     }
 
     @Test(expected = FitException.class)
     public void get_absentsReqArgument_FitException() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
             new CmdLine()
                 .sp("t", "2015-04-17")
                 .sp("o", FILE_NAME)
@@ -43,7 +53,7 @@ public class CmdLineParamsSupplierTest {
 
     @Test(expected = FitException.class)
     public void get_incorrectTimestamp_FitException() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
             new CmdLine()
                 .lp("timestamp", "2015x04-17")
                 .lp("weight", "85.5")
@@ -56,7 +66,7 @@ public class CmdLineParamsSupplierTest {
 
     @Test(expected = FitException.class)
     public void get_incorrectWeight_FitException() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
                 new CmdLine()
                         .lp("timestamp", "2015-04-17")
                         .lp("weight", "85x5")
@@ -69,7 +79,7 @@ public class CmdLineParamsSupplierTest {
 
     @Test
     public void get_showHelp_ok() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
                 new CmdLine()
                         .lp("help", null)
                         .build()
@@ -78,13 +88,14 @@ public class CmdLineParamsSupplierTest {
         FitParams params = supplier.get();
 
         assertNull(params);
+        verify(notifier, times(3)).showInfoMessage(anyString());
     }
 
     @Test
     public void get_minimumArgsSet_ok() throws Exception {
         final Date today = new Date();
 
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
             new CmdLine()
                 .lp("weight", "85.5")
                 .build()
@@ -95,6 +106,8 @@ public class CmdLineParamsSupplierTest {
         Date timestamp = params.getValue(FitFields.TIMESTAMP);
         assertEquals(truncateMillis(today), truncateMillis(timestamp));
         assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
+
+        verify(notifier, never()).showInfoMessage(anyString());
     }
 
     private Date truncateMillis(Date date) {
@@ -106,7 +119,7 @@ public class CmdLineParamsSupplierTest {
 
     @Test
     public void get_allParamsSet_ok() throws Exception {
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier,
             new CmdLine()
                 .lp("timestamp", "2015-04-17")
                 .lp("weight", "85.5")
@@ -135,6 +148,8 @@ public class CmdLineParamsSupplierTest {
         assertEquals(3030, (Double)params.getValue(FitFields.DCI), DELTA);
         assertEquals(40, params.getValue(FitFields.METABOLIC_AGE));
         assertEquals(FILE, supplier.getFile());
+
+        verify(notifier, never()).showInfoMessage(anyString());
     }
 
     private static class CmdLine {

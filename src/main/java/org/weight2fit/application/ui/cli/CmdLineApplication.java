@@ -25,7 +25,7 @@ public class CmdLineApplication implements Weight2FitApplication {
     public static Weight2FitApplication create(String... args) {
         UiNotifier notifier = new CmdLineNotifier();
 
-        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(args);
+        CmdLineParamsSupplier supplier = new CmdLineParamsSupplier(notifier, args);
         FitParamsConsumer consumer = new FileParamsConsumer(supplier, notifier);
 
         return new CmdLineApplication(supplier, consumer, notifier);
@@ -56,7 +56,7 @@ public class CmdLineApplication implements Weight2FitApplication {
                     ? e.getCause().getLocalizedMessage()
                     : e.getLocalizedMessage();
 
-            notifier.showErrorMessage(errorMessage);
+            notifier.showErrorMessage("Error: " + errorMessage);
 
             result = 2;
         }
