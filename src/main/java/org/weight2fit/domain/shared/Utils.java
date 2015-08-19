@@ -5,6 +5,7 @@ package org.weight2fit.domain.shared;
  *
  * @author Andriy Kryvtsun
  */
+// TODO: replace with java.util.Objects#requireNonNull
 public final class Utils {
 
     /**

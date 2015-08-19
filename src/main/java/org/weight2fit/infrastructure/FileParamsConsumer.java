@@ -39,6 +39,7 @@ public class FileParamsConsumer implements FitParamsConsumer {
             outFile = UiUtils.createDefaultFile(timestamp);
         }
 
+        // TODO: check output stream closing correctness
         try {
             OutputStream os = new FileOutputStream(outFile);
             FitParamsConsumer consumer = new OutputStreamParamsConsumer(os);

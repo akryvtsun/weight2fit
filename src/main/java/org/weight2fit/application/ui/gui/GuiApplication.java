@@ -24,9 +24,9 @@ public class GuiApplication implements Weight2FitApplication {
     private final UiNotifier notifier;
 
     public static Weight2FitApplication create() {
-        FitParamsSupplier supplier = new GuiParamsSupplier();
-
         UiNotifier notifier = new GuiNotifier();
+
+        FitParamsSupplier supplier = new GuiParamsSupplier();
         FitParamsConsumer consumer = new FileParamsConsumer(new EmptyFileSupplier(), notifier);
 
         return new GuiApplication(supplier, consumer, notifier);

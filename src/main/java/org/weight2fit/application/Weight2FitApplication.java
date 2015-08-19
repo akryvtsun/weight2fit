@@ -5,6 +5,7 @@ package org.weight2fit.application;
  *
  * @author Andriy Kryvtsun
  */
+// TODO: add constants for exit codes
 public interface Weight2FitApplication {
 
     /**

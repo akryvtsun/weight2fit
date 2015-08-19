@@ -29,7 +29,7 @@ import static org.weight2fit.domain.shared.Utils.checkNotNull;
  *
  * @author Andiry Kryvtsun
  */
-// TODO use here UiNotifier impl
+// TODO use here UiNotifier impl instead of direct System.out usage
 class CmdLineParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier, FileSupplier {
 
     private final String[] args;
