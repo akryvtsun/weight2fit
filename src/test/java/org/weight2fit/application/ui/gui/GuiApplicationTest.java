@@ -10,6 +10,7 @@ import org.weight2fit.domain.*;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Mockito.*;
@@ -44,5 +45,19 @@ public class GuiApplicationTest {
 
         verify(consumer, times(1)).accept(params);
         verify(notifier, never()).showErrorMessage(anyString());
+    }
+
+    @Test
+    public void execute_getFitParams_withError() throws FitException, FileNotFoundException {
+        when(supplier.get()).thenThrow(FitException.class);
+
+        GuiApplication.LOG.setLevel(Level.OFF); // avoid console exception showing
+        Weight2FitApplication application = new GuiApplication(supplier, consumer, notifier);
+        int result = application.execute();
+
+        assertEquals(1, result);
+
+        verify(consumer, never()).accept(any(FitParams.class));
+        verify(notifier, times(1)).showErrorMessage(anyString());
     }
 }

@@ -50,6 +50,8 @@ public class GuiParamsSupplierTest {
             protected Group createMeasures(Composite parent) {
                 Group group = super.createMeasures(parent);
                 timestamp.setText("2015-08-20");
+                weight.setText("88.3");
+                metabolicAge.setText("43");
                 return group;
             }
         };
@@ -66,6 +68,8 @@ public class GuiParamsSupplierTest {
 
         assertNotNull(params);
         assertNotNull(params.getValue(FitFields.TIMESTAMP));
+        assertNotNull(params.getValue(FitFields.WEIGHT));
+        assertNotNull(params.getValue(FitFields.METABOLIC_AGE));
 
         // initiates disposing of internal display
         when(supplier.shell.isDisposed()).thenReturn(true);

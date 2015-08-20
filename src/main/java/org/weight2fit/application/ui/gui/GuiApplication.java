@@ -17,7 +17,7 @@ import java.util.logging.Logger;
  * @author Andriy Kryvtsun
  */
 public class GuiApplication implements Weight2FitApplication {
-    private static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
+    static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
 
     private final FitParamsSupplier supplier;
     private final FitParamsConsumer consumer;

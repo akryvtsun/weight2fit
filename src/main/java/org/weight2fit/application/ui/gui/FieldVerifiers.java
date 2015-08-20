@@ -9,7 +9,7 @@ import org.eclipse.swt.widgets.Text;
  *
  * @author Andriy Kryvtsun
  */
-class FieldVerifiers {
+final class FieldVerifiers {
 
     static VerifyListener DATE = new DateVerifyListener();
     static VerifyListener DOUBLE = new DoubleVerifyListener();
@@ -55,4 +55,6 @@ class FieldVerifiers {
             }
         }
     }
+
+    private FieldVerifiers() {}
 }

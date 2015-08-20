@@ -16,7 +16,7 @@ import java.util.logging.Logger;
  * @author Andriy Kryvtsun
  */
 public class CmdLineApplication implements Weight2FitApplication {
-    private static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
+    static final Logger LOG = Logger.getLogger(CmdLineApplication.class.getName());
 
     private final FitParamsSupplier supplier;
     private final FitParamsConsumer consumer;

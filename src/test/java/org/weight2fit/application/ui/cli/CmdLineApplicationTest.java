@@ -10,6 +10,7 @@ import org.weight2fit.domain.*;
 
 import java.io.FileNotFoundException;
 import java.util.Date;
+import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.Matchers.anyString;
@@ -51,6 +52,7 @@ public class CmdLineApplicationTest {
     public void execute_getFitParams_withError() throws FitException, FileNotFoundException {
         when(supplier.get()).thenThrow(FitException.class);
 
+        CmdLineApplication.LOG.setLevel(Level.OFF); // avoid console exception showing
         Weight2FitApplication application = new CmdLineApplication(supplier, consumer, notifier);
         int result = application.execute();
 

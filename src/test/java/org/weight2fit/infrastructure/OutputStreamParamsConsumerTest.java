@@ -37,6 +37,7 @@ public class OutputStreamParamsConsumerTest {
         FitParams params = new FitParams();
         params.setValue(FitFields.TIMESTAMP, new Date());
         params.setValue(FitFields.WEIGHT, 80.5);
+        params.setValue(FitFields.METABOLIC_AGE, 43);
 
         ByteArrayOutputStream os = new ByteArrayOutputStream();
         FitParamsConsumer consumer = new OutputStreamParamsConsumer(os);
@@ -45,6 +46,6 @@ public class OutputStreamParamsConsumerTest {
 
         assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
         assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
-        assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT));
+        assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT, FitFields.METABOLIC_AGE));
     }
 }

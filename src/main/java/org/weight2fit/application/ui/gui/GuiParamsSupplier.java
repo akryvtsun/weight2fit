@@ -32,14 +32,14 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
     final Shell shell;
 
     Text timestamp;
-    private Text weight;
+    Text weight;
     private Text bodyFat;
     private Text bodyWater;
     private Text visceralFat;
     private Text muscleMass;
     private Text physiqueRating;
     private Text boneMass;
-    private Text metabolicAge;
+    Text metabolicAge;
     private Text dci;
 
     boolean doGeneration = false;

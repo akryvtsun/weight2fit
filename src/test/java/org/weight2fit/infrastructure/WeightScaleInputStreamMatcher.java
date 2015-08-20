@@ -21,6 +21,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
         mapping.put(Fit.FIELD_NUM_TIMESTAMP, FitFields.TIMESTAMP);
         mapping.put(0, FitFields.WEIGHT);
         mapping.put(1, FitFields.BODY_FAT);
+        mapping.put(10, FitFields.METABOLIC_AGE);
     }
 
     private final Set<FitFields> fields;
