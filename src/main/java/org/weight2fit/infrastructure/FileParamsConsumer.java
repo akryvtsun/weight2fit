@@ -32,16 +32,10 @@ public class FileParamsConsumer implements FitParamsConsumer {
     @Override
     public void accept(FitParams params) throws FitException {
 
-        File outFile = supplier.getFile();
-        // if file name isn't set use timestamp for it
-        if (outFile == null) {
-            Date timestamp = params.getValue(FitFields.TIMESTAMP);
-            outFile = UiUtils.createDefaultFile(timestamp);
-        }
+        File outFile = getOutFile(params);
 
-        // TODO: check output stream closing correctness
         try {
-            OutputStream os = new FileOutputStream(outFile);
+            OutputStream os = createOutputStream(outFile);
             FitParamsConsumer consumer = new OutputStreamParamsConsumer(os);
 
             consumer.accept(params);
@@ -52,5 +46,19 @@ public class FileParamsConsumer implements FitParamsConsumer {
 
             throw new FitException("Can not create output file", e);
         }
+    }
+
+    private File getOutFile(FitParams params) {
+        File outFile = supplier.getFile();
+        // if file name isn't set use timestamp for it
+        if (outFile == null) {
+            Date timestamp = params.getValue(FitFields.TIMESTAMP);
+            outFile = UiUtils.createDefaultFile(timestamp);
+        }
+        return outFile;
+    }
+
+    protected OutputStream createOutputStream(File outFile) throws FileNotFoundException {
+        return new FileOutputStream(outFile);
     }
 }
