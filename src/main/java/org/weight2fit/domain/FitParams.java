@@ -10,7 +10,7 @@ import java.util.Map;
  */
 public final class FitParams {
 
-    private final Map<FitFields, Object> holder = new EnumMap<>(FitFields.class);
+    private final Map<FitFields, Object> holder = new EnumMap<FitFields, Object>(FitFields.class);
 
     @SuppressWarnings("unchecked")
     public <T> T getValue(FitFields field) {

@@ -2,10 +2,12 @@ package org.weight2fit.domain.shared;
 
 /**
  * Common tools and utility methods.
+ * <p>
+ * Don't replace methods with <code>java.util.Objects#requireNonNull</code>.
+ * It's available only from JDK 1.7
  *
  * @author Andriy Kryvtsun
  */
-// TODO: replace with java.util.Objects#requireNonNull
 public final class Utils {
 
     /**
