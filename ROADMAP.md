@@ -2,9 +2,8 @@ Roadmap
 =======
 
 ### v1.5 ###
-* implement SWT UI with manual params entering for Windows and Linux
-    * update unit tests
 * avoid unneeded *.jar files generation
+* add application icon
 * update README
     * add GUI screen shots
     * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README
@@ -27,6 +26,7 @@ Roadmap
     * Help/About
         * link to FIT params explanation 
 * add localization support
+* update FIT SDK
     
 ### v??? ###
 * plugins support
