@@ -55,7 +55,7 @@ public class FileParamsConsumerTest {
     public void accept_getFileNameFromFitParams_ok() throws Exception {
         final Date DATE = new Date(2015 - 1900, 8 - 1, 20);
 
-        FileSupplier supplier = mock(FileSupplier.class);
+        FileSupplier supplier = new EmptyFileSupplier();
         UiNotifier notifier = mock(UiNotifier.class);
 
         final OutputStream outputStream = mock(OutputStream.class);
@@ -80,7 +80,7 @@ public class FileParamsConsumerTest {
 
     @Test(expected = FitException.class)
     public void accept_problemWhileOutput() throws Exception {
-        FileSupplier supplier = mock(FileSupplier.class);
+        FileSupplier supplier = new EmptyFileSupplier();
         UiNotifier notifier = mock(UiNotifier.class);
 
         FitParamsConsumer consumer = new FileParamsConsumer(supplier, notifier) {
