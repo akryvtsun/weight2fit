@@ -34,7 +34,7 @@ Building
 --------
 Regardless of your operating system, you must have the following things installed on it and included in your path:
 
-  * JRE 1.5 or greater
+  * JRE 1.6 or greater
   * Maven 3.x or greater
 
 Open a system shell and check out the sources into some directory. Then `cd` into that directory and type:
