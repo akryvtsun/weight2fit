@@ -29,9 +29,9 @@ import java.util.Date;
 class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier {
 
     private final Display display;
-    private final Shell shell;
+    final Shell shell;
 
-    private Text timestamp;
+    Text timestamp;
     private Text weight;
     private Text bodyFat;
     private Text bodyWater;
@@ -42,17 +42,20 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
     private Text metabolicAge;
     private Text dci;
 
-    private boolean doGeneration = false;
+    boolean doGeneration = false;
 
     public GuiParamsSupplier() {
-        display = Display.getDefault();
+        this.display = Display.getDefault();
 
         shell = createShell(display);
+        Group group = createMeasures(shell);
+        createButton(shell, group);
+
         shell.pack();
         centerWidget(display, shell);
     }
 
-    private Shell createShell(Display display) {
+    Shell createShell(Display display) {
         Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setText(Constants.APP_NAME + " " + UiUtils.getVersion());
 
@@ -64,32 +67,10 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         layout.verticalSpacing = 10;
         shell.setLayout(layout);
 
-        Group group = createMeasures(shell);
-
-        GridData data = new GridData();
-        data.horizontalAlignment = GridData.FILL;
-        data.verticalAlignment = GridData.FILL;
-        data.grabExcessHorizontalSpace = true;
-        data.grabExcessVerticalSpace = true;
-        group.setLayoutData(data);
-
-        Button button = new Button(shell, SWT.PUSH);
-        button.setText("&Generate File");
-        GridData data2 = new GridData();
-        data2.horizontalAlignment = GridData.END;
-        data2.grabExcessHorizontalSpace = true;
-        button.setLayoutData(data2);
-        button.addSelectionListener(new SelectionAdapter() {
-            @Override
-            public void widgetSelected(SelectionEvent e) {
-                doGeneration = true;
-            }
-        });
-
         return shell;
     }
 
-    private Group createMeasures(Composite parent) {
+    Group createMeasures(Composite parent) {
         Group group = new Group(parent, SWT.NULL);
         group.setText("Measures");
 
@@ -137,6 +118,28 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
             unit.setText(unitStr);
 
         return field;
+    }
+
+    private void createButton(Shell shell, Group group) {
+        GridData data = new GridData();
+        data.horizontalAlignment = GridData.FILL;
+        data.verticalAlignment = GridData.FILL;
+        data.grabExcessHorizontalSpace = true;
+        data.grabExcessVerticalSpace = true;
+        group.setLayoutData(data);
+
+        Button button = new Button(shell, SWT.PUSH);
+        button.setText("&Generate File");
+        GridData data2 = new GridData();
+        data2.horizontalAlignment = GridData.END;
+        data2.grabExcessHorizontalSpace = true;
+        button.setLayoutData(data2);
+        button.addSelectionListener(new SelectionAdapter() {
+            @Override
+            public void widgetSelected(SelectionEvent e) {
+                doGeneration = true;
+            }
+        });
     }
 
     private static void centerWidget(Display display, Control widget) {
