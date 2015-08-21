@@ -2,6 +2,7 @@ package org.weight2fit.application;
 
 import org.weight2fit.application.ui.cli.CmdLineApplication;
 import org.weight2fit.application.ui.gui.GuiApplication;
+import org.weight2fit.application.ui.shared.UiUtils;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -39,7 +40,7 @@ public class Launcher {
     }
 
     private static void loadSilentLoggingProperties() throws IOException {
-        InputStream propertiesStream = Launcher.class.getClassLoader().getResourceAsStream("logging.properties");
+        InputStream propertiesStream = UiUtils.getResource("logging.properties");
         LogManager.getLogManager().readConfiguration(propertiesStream);
     }
 }

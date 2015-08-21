@@ -1,6 +1,9 @@
 package org.weight2fit.application.ui.shared;
 
+import org.weight2fit.application.Launcher;
+
 import java.io.File;
+import java.io.InputStream;
 import java.security.CodeSource;
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -53,6 +56,10 @@ public final class UiUtils {
         }
 
         return version;
+    }
+
+    public static InputStream getResource(String name) {
+        return Launcher.class.getClassLoader().getResourceAsStream(name);
     }
 
     private UiUtils() {}

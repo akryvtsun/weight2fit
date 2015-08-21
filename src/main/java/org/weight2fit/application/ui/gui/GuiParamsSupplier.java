@@ -4,6 +4,7 @@ import org.eclipse.swt.SWT;
 import org.eclipse.swt.events.SelectionAdapter;
 import org.eclipse.swt.events.SelectionEvent;
 import org.eclipse.swt.events.VerifyListener;
+import org.eclipse.swt.graphics.Image;
 import org.eclipse.swt.graphics.Rectangle;
 import org.eclipse.swt.layout.GridData;
 import org.eclipse.swt.layout.GridLayout;
@@ -59,6 +60,9 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         Shell shell = new Shell(display, SWT.CLOSE | SWT.TITLE);
         shell.setText(Constants.APP_NAME + " " + UiUtils.getVersion());
 
+        Image logo = loadImage("logo.png");
+        shell.setImage(logo);
+
         GridLayout layout = new GridLayout();
         layout.marginLeft = 5;
         layout.marginTop = 5;
@@ -68,6 +72,10 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         shell.setLayout(layout);
 
         return shell;
+    }
+
+    private Image loadImage(String imageName) {
+        return new Image(display, UiUtils.getResource(imageName));
     }
 
     Group createMeasures(Composite parent) {
@@ -130,10 +138,15 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
 
         Button button = new Button(shell, SWT.PUSH);
         button.setText("&Generate File");
+
+        Image generate = loadImage("generate.png");
+        button.setImage(generate);
+
         GridData data2 = new GridData();
         data2.horizontalAlignment = GridData.END;
         data2.grabExcessHorizontalSpace = true;
         button.setLayoutData(data2);
+
         button.addSelectionListener(new SelectionAdapter() {
             @Override
             public void widgetSelected(SelectionEvent e) {
