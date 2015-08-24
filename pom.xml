@@ -42,6 +42,7 @@
                 <configuration>
                     <shadedArtifactId>${project.artifactId}-${platformId}</shadedArtifactId>
                     <minimizeJar>true</minimizeJar>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
                     <filters>
                         <filter>
                             <artifact>args4j:args4j</artifact>
