@@ -1,5 +1,6 @@
 package org.weight2fit.application.ui.gui;
 
+import org.eclipse.swt.internal.image.PNGFileFormat;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitParams;
@@ -18,6 +19,15 @@ import java.util.logging.Logger;
  */
 public class GuiApplication implements Weight2FitApplication {
     static final Logger LOG = Logger.getLogger(GuiApplication.class.getName());
+
+    /*
+     * This block prevents the Maven Shade plugin to remove the specified class(es).
+     * See <a href="https://maven.apache.org/plugins/maven-shade-plugin/shade-mojo.html#minimizeJar">minimizeJar<a> attribute description.
+     */
+    static {
+        @SuppressWarnings("unused")
+        Class<?> isLoadedDynamically = PNGFileFormat.class;
+    }
 
     private final FitParamsSupplier supplier;
     private final FitParamsConsumer consumer;
