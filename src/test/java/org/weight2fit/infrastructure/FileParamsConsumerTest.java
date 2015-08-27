@@ -14,7 +14,6 @@ import java.io.OutputStream;
 import java.util.Date;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.any;
 import static org.mockito.Mockito.*;
 
 /**
@@ -53,6 +52,7 @@ public class FileParamsConsumerTest {
 
     @Test
     public void accept_getFileNameFromFitParams_ok() throws Exception {
+        @SuppressWarnings("deprecation")
         final Date DATE = new Date(2015 - 1900, 8 - 1, 20);
 
         FileSupplier supplier = new EmptyFileSupplier();

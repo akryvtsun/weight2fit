@@ -11,9 +11,9 @@ import org.eclipse.swt.widgets.Text;
  */
 final class FieldVerifiers {
 
-    static VerifyListener DATE = new DateVerifyListener();
-    static VerifyListener DOUBLE = new DoubleVerifyListener();
-    static VerifyListener INTEGER = new IntVerifyListener();
+    static final VerifyListener DATE = new DateVerifyListener();
+    static final VerifyListener DOUBLE = new DoubleVerifyListener();
+    static final VerifyListener INTEGER = new IntVerifyListener();
 
     static class DateVerifyListener implements VerifyListener {
         @Override

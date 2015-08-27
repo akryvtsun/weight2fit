@@ -17,7 +17,6 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNull;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -26,16 +25,17 @@ import static org.mockito.Mockito.*;
 @RunWith(MockitoJUnitRunner.class)
 public class CmdLineParamsSupplierTest {
 
-    public static final Date DATE = new Date(2015 - 1900, 04 - 1, 17);
-    public static final String FILE_NAME = "res.fit";
-    public static final File FILE = new File(FILE_NAME);
-    public static final double DELTA = 0.001;
+    @SuppressWarnings("deprecation")
+    private static final Date DATE = new Date(2015 - 1900, 4 - 1, 17);
+    private static final String FILE_NAME = "res.fit";
+    private static final File FILE = new File(FILE_NAME);
+    private static final double DELTA = 0.001;
 
     @Mock
     UiNotifier notifier;
 
     @Test(expected = NullPointerException.class)
-    public void CmdLineParamsSupplier_emptyArgsSet_NullPointerException() throws Exception {
+    public void CmdLineParamsSupplier_emptyArgsSet_NullPointerException() {
         new CmdLineParamsSupplier(notifier, null);
     }
 
@@ -154,7 +154,7 @@ public class CmdLineParamsSupplierTest {
 
     private static class CmdLine {
 
-        private List<String> arguments = new ArrayList();
+        private List<String> arguments = new ArrayList<String>();
 
         // short parameter
         CmdLine sp(String param, String value) {

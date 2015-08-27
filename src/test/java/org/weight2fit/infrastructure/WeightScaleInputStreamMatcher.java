@@ -14,7 +14,7 @@ import java.util.*;
  */
 public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> {
 
-    private static final Map<Integer, FitFields> mapping = new HashMap();
+    private static final Map<Integer, FitFields> mapping = new HashMap<Integer, FitFields>();
 
     // see static initializer in com.garmin.fit.WeightScaleMesg class
     static {
@@ -31,7 +31,7 @@ public class WeightScaleInputStreamMatcher extends TypeSafeMatcher<InputStream> 
     }
 
     private WeightScaleInputStreamMatcher(FitFields... fields) {
-        this.fields = new HashSet(Arrays.asList(fields));
+        this.fields = new HashSet<FitFields>(Arrays.asList(fields));
     }
 
     @Override

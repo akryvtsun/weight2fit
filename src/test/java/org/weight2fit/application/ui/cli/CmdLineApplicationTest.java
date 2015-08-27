@@ -8,12 +8,10 @@ import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.*;
 
-import java.io.FileNotFoundException;
 import java.util.Date;
 import java.util.logging.Level;
 
 import static org.junit.Assert.assertEquals;
-import static org.mockito.Matchers.anyString;
 import static org.mockito.Mockito.*;
 
 /**
@@ -32,7 +30,7 @@ public class CmdLineApplicationTest {
     private UiNotifier notifier;
 
     @Test
-    public void execute_getFitParams_ok() throws FitException, FileNotFoundException {
+    public void execute_getFitParams_ok() throws FitException {
         final FitParams params = new FitParams();
         params.setValue(FitFields.TIMESTAMP, new Date());
         params.setValue(FitFields.WEIGHT, 85d);
@@ -49,7 +47,8 @@ public class CmdLineApplicationTest {
     }
 
     @Test
-    public void execute_getFitParams_withError() throws FitException, FileNotFoundException {
+    @SuppressWarnings("unchecked")
+    public void execute_getFitParams_withError() throws FitException {
         when(supplier.get()).thenThrow(FitException.class);
 
         CmdLineApplication.LOG.setLevel(Level.OFF); // avoid console exception showing
