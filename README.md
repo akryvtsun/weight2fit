@@ -35,6 +35,8 @@ GUI
 
 <img src="misc/windows.png">
 
+<img src="misc/linux.png">
+
 Building
 --------
 Regardless of your operating system, you must have the following things installed on it and included in your path:
