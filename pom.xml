@@ -123,7 +123,7 @@
             </activation>
             <properties>
                 <swt.artifactId>swt-win32-win32-x86_64</swt.artifactId>
-                <platformId>windows</platformId>
+                <platformId>win64</platformId>
             </properties>
         </profile>
 
@@ -136,7 +136,7 @@
             </activation>
             <properties>
                 <swt.artifactId>swt-gtk-linux-x86_64</swt.artifactId>
-                <platformId>linux</platformId>
+                <platformId>linux64</platformId>
             </properties>
         </profile>
     </profiles>
