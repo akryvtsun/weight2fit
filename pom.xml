@@ -115,7 +115,7 @@
 
     <profiles>
         <profile>
-            <id>windows</id>
+            <id>win64</id>
             <activation>
                 <os>
                     <family>windows</family>
@@ -128,7 +128,7 @@
         </profile>
 
         <profile>
-            <id>linux</id>
+            <id>linux64</id>
             <activation>
                 <os>
                     <name>linux</name>

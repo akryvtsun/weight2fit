@@ -6,7 +6,7 @@ mvn clean test
 if [[ $? == 0 ]] ; then
 
     # create packages only if all tests are ok
-    for platform in windows linux; do
+    for platform in win64 linux64; do
         mvn package -P $platform -DskipTests
     done
 
