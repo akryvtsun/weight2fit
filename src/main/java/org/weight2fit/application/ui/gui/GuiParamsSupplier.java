@@ -103,7 +103,7 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         physiqueRating = createField(group, "Physique &Rating:", null, FieldVerifiers.INTEGER);
         boneMass = createField(group, "B&one Mass:", "kg", FieldVerifiers.DOUBLE);
         metabolicAge = createField(group, "Metabolic &Age:", "years", FieldVerifiers.INTEGER);
-        dci = createField(group, "&DCI:", "C", FieldVerifiers.INTEGER);
+        dci = createField(group, "&DCI:", "C", FieldVerifiers.DOUBLE);
 
         return group;
     }
@@ -206,7 +206,7 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
             obtainIntParam(physiqueRating, FitFields.PHYSIQUE_RATING);
             obtainDoubleParam(boneMass, FitFields.BONE_MASS);
             obtainIntParam(metabolicAge, FitFields.METABOLIC_AGE);
-            obtainIntParam(dci, FitFields.DCI);
+            obtainDoubleParam(dci, FitFields.DCI);
         }
         catch (Exception e) {
             throw new FitException("Error during FitParams creation", e);
