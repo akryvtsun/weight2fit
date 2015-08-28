@@ -137,7 +137,7 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         group.setLayoutData(data);
 
         Button button = new Button(shell, SWT.PUSH);
-        button.setText("&Generate File");
+        button.setText("&Create FIT file");
 
         Image generate = loadImage("generate.png");
         button.setImage(generate);
