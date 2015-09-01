@@ -43,9 +43,7 @@
                 <configuration>
                     <minimizeJar>true</minimizeJar>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
-
                     <finalName>${project.artifactId}-${platformId}-${project.version}</finalName>
-                    <outputDirectory>${project.build.directory}/distros</outputDirectory>
                     <filters>
                         <filter>
                             <artifact>args4j:args4j</artifact>
@@ -59,7 +57,6 @@
                         <transformer implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
                             <manifestEntries>
                                 <Main-Class>org.weight2fit.application.Launcher</Main-Class>
-
                                 <Title>${project.artifactId}</Title>
                                 <Version>${project.version}</Version>
                                 <Platform>${platformId}</Platform>
@@ -117,6 +114,7 @@
         <profile>
             <id>win64</id>
             <activation>
+                <!-- OS name: "windows 7", version: "6.1", arch: "amd64", family: "windows" -->
                 <os>
                     <family>windows</family>
                 </os>
