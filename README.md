@@ -37,6 +37,8 @@ GUI
 
 <img src="misc/linux.png" align="center" style="box-shadow: 10px 10px 5px #888888; border-style: solid">
 
+<img align="right" style="margin-left: 15px" width="280" height="400" src="misc/linux.png">
+
 Building
 --------
 Regardless of your operating system, you must have the following things installed on it and included in your path:
