@@ -1,4 +1,6 @@
-<img align="right" src="src/main/resources/logo.png" >&nbsp;weight2fit
+<img src="src/main/resources/logo.png" >
+
+weight2fit
 ==========
 
 **weight2fit** is an application for generating Flexible and Interoperable Data Transfer (FIT) files for Windows and Linux.
