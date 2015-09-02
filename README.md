@@ -35,7 +35,7 @@ GUI
 
 <img src="misc/windows.png" >
 
-<img src="misc/linux.png" style="box-shadow: 10px 10px 5px #888888; border-style: solid">
+<img src="misc/linux.png" align="center" style="box-shadow: 10px 10px 5px #888888; border-style: solid">
 
 Building
 --------
