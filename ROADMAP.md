@@ -4,6 +4,7 @@ Roadmap
 ### v2.0 ###
 * TODOs processing
 * add 'Save As' ability???
+* create specific application logo???
 * create Windows, Linux, MacOS executable files
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
