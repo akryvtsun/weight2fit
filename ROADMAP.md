@@ -2,13 +2,14 @@ Roadmap
 =======
 
 ### v1.5 ###
-* avoid unneeded *.jar files generation
 * update README
     * add GUI screen shots
+    * update CLI and GUI description
     * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README
 
 ### v2.0 ###
 * TODOs processing
+* add 'Save As' ability???
 * create Windows, Linux, MacOS executable files
     * remove 'swt' from artifactId in local repo
     * use artifactId from local repo as platformId for file name generation
