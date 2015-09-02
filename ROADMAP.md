@@ -1,12 +1,6 @@
 Roadmap
 =======
 
-### v1.5 ###
-* update README
-    * add GUI screen shots
-    * update CLI and GUI description
-    * add weight [fit logo] (http://www.thisisant.com/consumer/ant-101/activity-icons) to README
-
 ### v2.0 ###
 * TODOs processing
 * add 'Save As' ability???
