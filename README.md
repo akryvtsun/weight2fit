@@ -12,17 +12,17 @@ How to Use
 
 ### GUI
 
-Enter weight measures in corresponding input fields and press button for creating output FIT file.
+Enter weight values in corresponding input fields and press button for creating output FIT file.
 
 <img src="misc/windows.png" >
 
 ### Command Line
 
-To start the program execute from the command line
+To start the program execution from the command line
 ```
 java -jar weight2fit-<platform>-<version>.jar -w (--weight) value [OPTIONAL_PARAMETERS]
 ```
-Here are
+Here are parameters
 ```
  -t (--timestamp) yyyy-MM-dd       : Timestamp of measurement
  -w (--weight) value               : Weight of the body in kg
@@ -37,7 +37,7 @@ Here are
  -o (--out) FILE                   : Output FIT file name
  -h (--help)                       : Shows help info (default: true)
 ```
-If `timestamp` param is missing current date value will be used. If `out` param is missed `timestamp` value 
+If `timestamp` param is missing then current date value will be used. If `out` param is missed `timestamp` value 
 will be used as a name of output file.
 
 The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
