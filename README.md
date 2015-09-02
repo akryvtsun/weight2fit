@@ -1,19 +1,28 @@
 weight2fit
 ==========
-**weight2fit** is a command line tool for generating Flexible and Interoperable Data Transfer (FIT) files.
+**weight2fit** is an application for generating Flexible and Interoperable Data Transfer (FIT) files for Windows and Linux.
 The input data for the program are values from a scale (weight, body fat percentage, bone mass etc.).
 After creation FIT file may be uploaded to sport [Garmin Connect] (https://connect.garmin.com) portal. 
 
 How to Use
 ----------
+
+### GUI
+
+Enter weight measures in corresponding input fields and press button for creating output FIT file.
+
+<img src="misc/windows.png" >
+
+### Command Line
+
 To start the program execute from the command line
 ```
-java -jar weight2fit.jar -w (--weight) value [OPTIONAL_PARAMETERS]
+java -jar weight2fit-<platform>-<version>.jar -w (--weight) value [OPTIONAL_PARAMETERS]
 ```
 Here are
 ```
+ -t (--timestamp) yyyy-MM-dd       : Timestamp of measurement
  -w (--weight) value               : Weight of the body in kg
- -t (--timestamp) yyyy-MM-dd       : Timestamp of measurement 
  -bf (--bodyFat) value             : Fat of the body in %
  -bw (--bodyWater) value           : Water of the body in %
  -vf (--visceralFat) index         : Visceral fat
@@ -23,21 +32,13 @@ Here are
  -dci (--dailyCalorieIntake) value : Daily calorie intake in kcal/day
  -ma (--metabolicAge) value        : Metabolic age in years
  -o (--out) FILE                   : Output FIT file name
+ -h (--help)                       : Shows help info (default: true)
 ```
 If `timestamp` param is missing current date value will be used. If `out` param is missed `timestamp` value 
 will be used as a name of output file.
 
 The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
 on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/health-legends.png).
-
-GUI
----
-
-<img src="misc/windows.png" >
-
-<img src="misc/linux.png" align="center" style="box-shadow: 10px 10px 5px #888888; border-style: solid">
-
-<img align="right" style="margin-left: 15px" width="280" height="400" src="misc/linux.png">
 
 Building
 --------
@@ -50,7 +51,7 @@ Open a system shell and check out the sources into some directory. Then `cd` int
 
 `mvn clean package`
 
-The resulting built artifact will be located under the `target` directory.
+The resulting platform-specific built artifact will be located under the `target` directory.
 
 License
 -------
