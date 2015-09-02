@@ -1,9 +1,9 @@
-<img src="src/main/resources/logo.png" >
+<img src="misc/wgt.jpg" width="70px" height="70px">
 
 weight2fit
 ==========
 
-**weight2fit** is an application for generating Flexible and Interoperable Data Transfer (FIT) files for Windows and Linux.
+**weight2fit** is a multi-platform application for generating Flexible and Interoperable Data Transfer (FIT) files.
 The input data for the program are values from a scale (weight, body fat percentage, bone mass etc.).
 After creation FIT file may be uploaded to sport [Garmin Connect] (https://connect.garmin.com) portal. 
 
