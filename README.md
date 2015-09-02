@@ -33,9 +33,9 @@ on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/hea
 GUI
 ---
 
-<img src="misc/windows.png">
+<img src="misc/windows.png" >
 
-<img src="misc/linux.png">
+<img src="misc/linux.png" style="box-shadow: 10px 10px 5px #888888">
 
 Building
 --------
