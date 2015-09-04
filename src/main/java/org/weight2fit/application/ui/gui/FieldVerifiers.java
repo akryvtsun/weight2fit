@@ -11,22 +11,8 @@ import org.eclipse.swt.widgets.Text;
  */
 final class FieldVerifiers {
 
-    static final VerifyListener DATE = new DateVerifyListener();
     static final VerifyListener DOUBLE = new DoubleVerifyListener();
     static final VerifyListener INTEGER = new IntVerifyListener();
-
-    static class DateVerifyListener implements VerifyListener {
-        @Override
-        public void verifyText(VerifyEvent e) {
-            e.doit = true;
-            for (int i = 0; i < e.text.length(); i++) {
-                char c = e.text.charAt(i);
-                e.doit = Character.isDigit(c) || c == '-';
-                if (!e.doit)
-                    break;
-            }
-        }
-    }
 
     static class DoubleVerifyListener implements VerifyListener {
         @Override

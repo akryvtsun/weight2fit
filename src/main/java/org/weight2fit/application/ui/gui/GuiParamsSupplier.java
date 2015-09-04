@@ -17,7 +17,7 @@ import org.weight2fit.domain.FitFields;
 import org.weight2fit.domain.FitParams;
 import org.weight2fit.domain.FitParamsSupplier;
 
-import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 /**
@@ -26,13 +26,12 @@ import java.util.Date;
  * @author Andriy Kryvtsun
  */
 // TODO use Spinner for integer fields
-// TODO use date/time picker for Timestamp
 class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier {
 
     private final Display display;
     final Shell shell;
 
-    Text timestamp;
+    DateTime timestamp;
     Text weight;
     private Text bodyFat;
     private Text bodyWater;
@@ -90,42 +89,63 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         layout.marginBottom = 5;
         group.setLayout(layout);
 
-        timestamp = createField(group, "&Timestamp:", null, FieldVerifiers.DATE);
-        timestamp.setText(UiUtils.toString(new Date()));
+        timestamp = createDateField(group, "&Timestamp:");
 
-        weight = createField(group, "&Weight:", "kg", FieldVerifiers.DOUBLE);
+        weight = createTextField(group, "&Weight:", "kg", FieldVerifiers.DOUBLE);
         weight.setFocus();
 
-        bodyFat = createField(group, "Body &Fat:", "%", FieldVerifiers.DOUBLE);
-        bodyWater = createField(group, "&Body Water:", "%", FieldVerifiers.DOUBLE);
-        visceralFat = createField(group, "&Visceral Fat:", null, FieldVerifiers.INTEGER);
-        muscleMass = createField(group, "&Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
-        physiqueRating = createField(group, "Physique &Rating:", null, FieldVerifiers.INTEGER);
-        boneMass = createField(group, "B&one Mass:", "kg", FieldVerifiers.DOUBLE);
-        metabolicAge = createField(group, "Metabolic &Age:", "years", FieldVerifiers.INTEGER);
-        dci = createField(group, "&DCI:", "C", FieldVerifiers.DOUBLE);
+        bodyFat = createTextField(group, "Body &Fat:", "%", FieldVerifiers.DOUBLE);
+        bodyWater = createTextField(group, "&Body Water:", "%", FieldVerifiers.DOUBLE);
+        visceralFat = createTextField(group, "&Visceral Fat:", null, FieldVerifiers.INTEGER);
+        muscleMass = createTextField(group, "&Muscle Mass:", "kg", FieldVerifiers.DOUBLE);
+        physiqueRating = createTextField(group, "Physique &Rating:", null, FieldVerifiers.INTEGER);
+        boneMass = createTextField(group, "B&one Mass:", "kg", FieldVerifiers.DOUBLE);
+        metabolicAge = createTextField(group, "Metabolic &Age:", "years", FieldVerifiers.INTEGER);
+        dci = createTextField(group, "&DCI:", "C", FieldVerifiers.DOUBLE);
 
         return group;
     }
 
-    private Text createField(Group group, String titleStr, String unitStr, VerifyListener verifier) {
-        // field label
-        Label title = new Label(group, SWT.RIGHT);
-        title.setText(titleStr);
-        title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    private DateTime createDateField(Group group, String labelStr) {
+        addFieldLabel(group, labelStr);
 
-        // input field
+        Calendar now = Calendar.getInstance();
+        int year = now.get(Calendar.YEAR);
+        int month = now.get(Calendar.MONTH);
+        int day = now.get(Calendar.DAY_OF_MONTH);
+
+        DateTime field = new DateTime(group, SWT.DATE | SWT.DROP_DOWN);
+        field.setDate(year, month, day);
+
+        addFieldUnit(group, null);
+        return field;
+    }
+
+    private Text createTextField(Group group, String labelStr, String unitStr, VerifyListener verifier) {
+        addFieldLabel(group, labelStr);
+        Text field = addTextField(group, verifier);
+        addFieldUnit(group, unitStr);
+        return field;
+    }
+
+    private void addFieldLabel(Group group, String labelStr) {
+        Label title = new Label(group, SWT.RIGHT);
+        title.setText(labelStr);
+        title.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
+    }
+
+    private Text addTextField(Group group, VerifyListener verifier) {
         final Text field = new Text(group, SWT.BORDER | SWT.SINGLE | SWT.RIGHT);
         field.setLayoutData(new GridData(GridData.FILL_HORIZONTAL));
         if (verifier != null)
             field.addVerifyListener(verifier);
+        return field;
+    }
 
-        // field unit
+    private void addFieldUnit(Group group, String unitStr) {
         Label unit = new Label(group, SWT.RIGHT);
         if (unitStr != null)
             unit.setText(unitStr);
-
-        return field;
     }
 
     private void createButton(Shell shell, Group group) {
@@ -197,7 +217,7 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         try {
             params = new FitParams();
 
-            obtainDateParam(timestamp, FitFields.TIMESTAMP);
+            obtainTimestampParam(timestamp, FitFields.TIMESTAMP);
             obtainDoubleParam(weight, FitFields.WEIGHT);
             obtainDoubleParam(bodyFat, FitFields.BODY_FAT);
             obtainDoubleParam(bodyWater, FitFields.BODY_WATER);
@@ -213,22 +233,26 @@ class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParams
         }
     }
 
-    private void obtainDateParam(Text txtField, FitFields fitField) throws ParseException {
-        String value = txtField.getText();
-        if (value.length() > 0) {
-            params.setValue(fitField, UiUtils.parse(value));
-        }
+    private void obtainTimestampParam(DateTime field, FitFields fitField) {
+        Date value = getDate(field);
+        params.setValue(fitField, value);
     }
 
-    private void obtainDoubleParam(Text txtField, FitFields fitField) {
-        String value = txtField.getText();
+    private Date getDate(DateTime field) {
+        Calendar cal = Calendar.getInstance();
+        cal.set(field.getYear(), field.getMonth(), field.getDay());
+        return cal.getTime();
+    }
+
+    private void obtainDoubleParam(Text field, FitFields fitField) {
+        String value = field.getText();
         if (value.length() > 0) {
             params.setValue(fitField, Double.parseDouble(value));
         }
     }
 
-    private void obtainIntParam(Text txtField, FitFields fitField) {
-        String value = txtField.getText();
+    private void obtainIntParam(Text field, FitFields fitField) {
+        String value = field.getText();
         if (value.length() > 0) {
             params.setValue(fitField, Integer.parseInt(value));
         }
