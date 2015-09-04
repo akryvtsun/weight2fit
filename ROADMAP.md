@@ -24,7 +24,7 @@ Roadmap
 
 ### v3.0 ###
 * add localization support
-* update FIT SDK
+* update FIT SDK & SWT
 * https://travis-ci.org usage ??? 
 * create web-site ???
     
