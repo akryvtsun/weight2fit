@@ -2,13 +2,13 @@ Roadmap
 =======
 
 ### v2.0 ###
-* TODOs processing
 * create Windows & Linux executable files
 * create MacOS executable file
     * add MacOS SWT into local repo  
 * update README.md screenshots    
 
 ### v2.5 ###
+* TODOs processing
 * review analogs
 * add menu
     * File/Exit
@@ -17,6 +17,7 @@ Roadmap
         * Exit
     * Edit/Preferences
         * add fields set config support
+            * use Spinner for integer fields
         * add info in lbs and kgs
     * Help/About
         * link to FIT params explanation 

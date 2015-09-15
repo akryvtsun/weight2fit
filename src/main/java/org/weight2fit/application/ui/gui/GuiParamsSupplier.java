@@ -25,7 +25,6 @@ import java.util.Date;
  *
  * @author Andriy Kryvtsun
  */
-// TODO use Spinner for integer fields
 class GuiParamsSupplier extends AbstractUiFitParamsSupplier implements FitParamsSupplier {
 
     private final Display display;
