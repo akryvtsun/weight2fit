@@ -1,9 +1,9 @@
 <img src="misc/wgt.jpg" width="70px" height="70px">
 
 weight2fit
+==========
 [![Build Status](https://travis-ci.org/englishman/weight2fit.svg)](https://travis-ci.org/englishman/weight2fit)
 [![Coverage Status](https://coveralls.io/repos/englishman/weight2fit/badge.svg?branch=master)](https://coveralls.io/r/englishman/weight2fit?branch=master)
-==========
 
 **weight2fit** is a multi-platform application for generating Flexible and Interoperable Data Transfer (FIT) files.
 The input data for the program are values from a scale (weight, body fat percentage, bone mass etc.).
