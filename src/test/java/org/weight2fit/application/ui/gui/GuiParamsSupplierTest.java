@@ -18,7 +18,6 @@ import static org.mockito.Mockito.*;
 /**
  * @author Andriy Kryvtsun
  */
-@Ignore("problems with launch in Travis CI")
 public class GuiParamsSupplierTest {
 
     @Test
