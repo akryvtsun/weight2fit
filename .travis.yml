@@ -11,7 +11,7 @@ after_success:
   - mvn jacoco:report coveralls:report
 
 jdk:
-  - oraclejdk6
+  - oraclejdk7
 
 branches:
   only:
