@@ -4,10 +4,11 @@ weight2fit
 ==========
 [![Build Status](https://travis-ci.org/englishman/weight2fit.svg)](https://travis-ci.org/englishman/weight2fit)
 [![Coverage Status](https://coveralls.io/repos/englishman/weight2fit/badge.svg?branch=master)](https://coveralls.io/r/englishman/weight2fit?branch=master)
+[![Hits-of-Code](https://hitsofcode.com/github/akryvtsun/weight2fit)](https://hitsofcode.com/view/github/akryvtsun/weight2fit)
 
 **weight2fit** is a multi-platform application for generating Flexible and Interoperable Data Transfer (FIT) files.
 The input data for the program are values from a scale (weight, body fat percentage, bone mass etc.).
-After creation FIT file may be uploaded to sport [Garmin Connect] (https://connect.garmin.com) portal. 
+After creation FIT file may be uploaded to sport [Garmin Connect](https://connect.garmin.com) portal. 
 
 How to Use
 ----------
@@ -42,8 +43,8 @@ Here are parameters
 If `timestamp` param is missing then current date value will be used. If `out` param is missed `timestamp` value 
 will be used as a name of output file.
 
-The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here] (http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
-on [Garmin Connect] (https://connect.garmin.com/api/user/style/health/images/health-legends.png).
+The detailed params description on Tanita site [here](http://www.tanita.com/en/living-healthy) and [here](http://www.tanita.com/data/Manuals/HealthyLifeEducationalBro_.pdf) and 
+on [Garmin Connect](https://connect.garmin.com/api/user/style/health/images/health-legends.png).
 
 Building
 --------
@@ -67,8 +68,8 @@ Similar FIT software
 * [Garmin Forum: Import of Withings wifi scale data now possible...](https://forums.garmin.com/showthread.php?24518-Import-of-Withings-wifi-scale-data-now-possible)
 * [scale2fit](http://jmfloreszazo.com/scale2fi)
 * [github/fit-weight-scale](https://github.com/marchibbins/fit-weight-scale)
-* [Fit File Tools] (http://www.fitfiletools.com)
-* [Fit File Repair Tool] (http://fitfilerepairtool.info/)
+* [Fit File Tools](http://www.fitfiletools.com)
+* [Fit File Repair Tool](http://fitfilerepairtool.info/)
 
 Useful Links
 ------------
