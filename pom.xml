@@ -142,12 +142,6 @@
     <profiles>
         <profile>
             <id>win64</id>
-            <activation>
-                <!-- OS name: "windows 7", version: "6.1", arch: "amd64", family: "windows" -->
-                <os>
-                    <family>windows</family>
-                </os>
-            </activation>
             <properties>
                 <swt.artifactId>win32.win32.x86_64</swt.artifactId>
                 <platformId>win64</platformId>
@@ -156,12 +150,6 @@
 
         <profile>
             <id>linux64</id>
-            <activation>
-                <!-- OS name: "linux", version: "3.13.0-62-generic", arch: "amd64", family: "unix" -->
-                <os>
-                    <name>linux</name>
-                </os>
-            </activation>
             <properties>
                 <swt.artifactId>gtk.linux.x86_64</swt.artifactId>
                 <platformId>linux64</platformId>
@@ -170,13 +158,6 @@
 
         <profile>
             <id>macArm64</id>
-            <activation>
-                <!-- OS name: "linux", version: "3.13.0-62-generic", arch: "aarch64", family: "unix" -->
-                <os>
-                    <family>mac</family>
-                    <arch>aarch64</arch>
-                </os>
-            </activation>
             <properties>
                 <swt.artifactId>cocoa.macosx.aarch64</swt.artifactId>
                 <platformId>macosx_aarch64</platformId>
@@ -185,12 +166,6 @@
 
         <profile>
             <id>macX86</id>
-            <activation>
-                <os>
-                    <family>mac</family>
-                    <arch>x86_64</arch>
-                </os>
-            </activation>
             <properties>
                 <swt.artifactId>cocoa.macosx.x86_64</swt.artifactId>
                 <platformId>macosx_x86_64</platformId>
