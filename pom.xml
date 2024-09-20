@@ -10,18 +10,11 @@
     <url>http://maven.apache.org</url>
 
     <properties>
-        <java.version>1.6</java.version>
+        <java.version>17</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.jacoco.plugin.version>0.7.5.201505241946</maven.jacoco.plugin.version>
         <maven.coveralls.plugin.version>4.1.0</maven.coveralls.plugin.version>
     </properties>
-
-    <repositories>
-        <repository>
-            <id>in-project-repo</id>
-            <url>file://${project.basedir}/lib</url>
-        </repository>
-    </repositories>
 
     <scm>
         <developerConnection>scm:git:git@github.com:englishman/weight2fit.git</developerConnection>
@@ -107,8 +100,8 @@
     <dependencies>
         <dependency>
             <groupId>com.garmin</groupId>
-            <artifactId>fit-sdk</artifactId>
-            <version>14.20</version>
+            <artifactId>fit</artifactId>
+            <version>21.141.0</version>
         </dependency>
 
         <dependency>
@@ -118,9 +111,9 @@
         </dependency>
 
         <dependency>
-            <groupId>org.eclipse.swt</groupId>
-            <artifactId>${swt.artifactId}</artifactId>
-            <version>4.4.2</version>
+            <groupId>org.eclipse.platform</groupId>
+            <artifactId>org.eclipse.swt.${swt.artifactId}</artifactId>
+            <version>3.127.0</version>
         </dependency>
 
         <dependency>
@@ -164,6 +157,20 @@
             <properties>
                 <swt.artifactId>swt-gtk-linux-x86_64</swt.artifactId>
                 <platformId>linux64</platformId>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>macArm64</id>
+            <activation>
+                <!-- OS name: "windows 7", version: "6.1", arch: "amd64", family: "windows" -->
+                <os>
+                    <family>Mac OS</family>
+                </os>
+            </activation>
+            <properties>
+                <swt.artifactId>cocoa.macosx.aarch64</swt.artifactId>
+                <platformId>macosx.aarch64</platformId>
             </properties>
         </profile>
     </profiles>
