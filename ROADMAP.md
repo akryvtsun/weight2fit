@@ -2,9 +2,7 @@ Roadmap
 =======
 
 ### v2.0 ###
-* create Windows & Linux executable files
-* create MacOS executable file
-    * add MacOS SWT into local repo  
+* create Linux, macOS & Windows executable files
 * update README.md screenshots    
 
 ### v2.5 ###
@@ -25,12 +23,9 @@ Roadmap
 
 ### v3.0 ###
 * add localization support
-* update FIT SDK & SWT
-* https://travis-ci.org usage ??? 
 * create web-site ???
     
 ### v??? ###
-* remove 'swt' from artifactId in local repo ???
 * use artifactId from local repo as platformId for file name generation ???
 * plugins support
     * add Garmin Connect net uploading
