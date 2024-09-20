@@ -36,8 +36,8 @@ public class WeightScaleArrayBuilderTest {
             .percentFat(55)
             .build();
 
-        assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
-        assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
+        assertTrue(new Decode().isFileFit(new ByteArrayInputStream(buffer)));
+        assertTrue(new Decode().checkFileIntegrity(new ByteArrayInputStream(buffer)));
         assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT, FitFields.BODY_FAT));
     }
 }

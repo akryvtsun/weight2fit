@@ -44,8 +44,8 @@ public class OutputStreamParamsConsumerTest {
         consumer.accept(params);
         byte[] buffer = os.toByteArray();
 
-        assertTrue(Decode.isFit(new ByteArrayInputStream(buffer)));
-        assertTrue(Decode.checkIntegrity(new ByteArrayInputStream(buffer)));
+        assertTrue(new Decode().isFileFit(new ByteArrayInputStream(buffer)));
+        assertTrue(new Decode().checkFileIntegrity(new ByteArrayInputStream(buffer)));
         assertThat(new ByteArrayInputStream(buffer), hasFields(FitFields.TIMESTAMP, FitFields.WEIGHT, FitFields.METABOLIC_AGE));
     }
 }

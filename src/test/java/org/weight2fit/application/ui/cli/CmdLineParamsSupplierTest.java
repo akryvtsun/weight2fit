@@ -3,7 +3,7 @@ package org.weight2fit.application.ui.cli;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.FitException;
 import org.weight2fit.domain.FitFields;
@@ -141,12 +141,12 @@ public class CmdLineParamsSupplierTest {
         assertEquals(85.5, (Double)params.getValue(FitFields.WEIGHT), DELTA);
         assertEquals(40, (Double)params.getValue(FitFields.BODY_FAT), DELTA);
         assertEquals(55, (Double)params.getValue(FitFields.BODY_WATER), DELTA);
-        assertEquals(7, params.getValue(FitFields.VISCERAL_FAT));
+        assertEquals(7, ((Integer)params.getValue(FitFields.VISCERAL_FAT)).intValue());
         assertEquals(20, (Double)params.getValue(FitFields.MUSCLE_MASS), DELTA);
-        assertEquals(7, params.getValue(FitFields.PHYSIQUE_RATING));
+        assertEquals(7, ((Integer)params.getValue(FitFields.PHYSIQUE_RATING)).intValue());
         assertEquals(30, (Double)params.getValue(FitFields.BONE_MASS), DELTA);
         assertEquals(3030, (Double)params.getValue(FitFields.DCI), DELTA);
-        assertEquals(40, params.getValue(FitFields.METABOLIC_AGE));
+        assertEquals(40, ((Integer)params.getValue(FitFields.METABOLIC_AGE)).intValue());
         assertEquals(FILE, supplier.getFile());
 
         verify(notifier, never()).showInfoMessage(anyString());

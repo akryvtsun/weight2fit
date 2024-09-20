@@ -3,7 +3,7 @@ package org.weight2fit.application.ui.gui;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.runners.MockitoJUnitRunner;
+import org.mockito.junit.MockitoJUnitRunner;
 import org.weight2fit.application.Weight2FitApplication;
 import org.weight2fit.application.ui.UiNotifier;
 import org.weight2fit.domain.*;
@@ -49,7 +49,8 @@ public class GuiApplicationTest {
     @Test
     @SuppressWarnings("unchecked")
     public void execute_getFitParams_withError() throws FitException {
-        when(supplier.get()).thenThrow(FitException.class);
+        Throwable someError = new FitException("error", new RuntimeException("cause"));
+        when(supplier.get()).thenThrow(someError);
 
         GuiApplication.LOG.setLevel(Level.OFF); // avoid console exception showing
         Weight2FitApplication application = new GuiApplication(supplier, consumer, notifier);
