@@ -151,7 +151,7 @@
             <activation>
                 <!-- OS name: "linux", version: "3.13.0-62-generic", arch: "amd64", family: "unix" -->
                 <os>
-                    <family>unix</family>
+                    <name>linux</name>
                 </os>
             </activation>
             <properties>
@@ -163,6 +163,7 @@
         <profile>
             <id>macArm64</id>
             <activation>
+                <!-- OS name: "linux", version: "3.13.0-62-generic", arch: "aarch64", family: "unix" -->
                 <os>
                     <family>mac</family>
                     <arch>aarch64</arch>
