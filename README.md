@@ -17,7 +17,9 @@ How to Use
 
 Enter weight values in corresponding input fields and press button for creating output FIT file.
 
-<img src="misc/windows.png" >
+![windows](misc/windows.png)
+
+![macos](misc/macos.png)
 
 ### Command Line
 
